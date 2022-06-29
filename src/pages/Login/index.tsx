@@ -49,7 +49,7 @@ export function Login() {
 
         <button
           type="submit"
-          disabled={email.length === 0}
+          disabled={email.length === 0 || password.length === 0}
           onClick={() => loginEmailESenha()}
         >
           Logar
