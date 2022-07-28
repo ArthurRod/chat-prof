@@ -1,11 +1,12 @@
-import { Login } from "./pages/Login";
+import { AuthAdminProvider } from "./contexts/AuthAdminContext";
+import { RoutesApp } from "./routes";
 
 function App() {
-
   return (
-    <Login />
-  )
-
+    <AuthAdminProvider>
+      < RoutesApp />
+    </AuthAdminProvider>
+  );
 }
 
-export default App
+export default App;
