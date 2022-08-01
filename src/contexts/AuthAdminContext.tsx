@@ -1,28 +1,31 @@
-import { FormEvent, createContext, useState } from "react";
-import { signInWithEmailAndPassword, auth, db } from "../services/firebase";
-import { AdminUser } from "../types/AdminUser";
+import { createContext, useState } from "react";
+import { signInWithEmailAndPassword, auth } from "../services/firebase";
+import { User } from "../types/User";
 import { AuthContextProvider } from "../types/AuthContextProvider";
 import { AuthAdminContextType } from "../types/AuthAdminContextType";
 
 export const AuthAdminContext = createContext({} as AuthAdminContextType);
 
 export function AuthAdminProvider(props: AuthContextProvider) {
-  const [user, setUser] = useState<AdminUser>();
+  const [user, setUser] = useState<User>();
 
-  const logInWithEmailAndPassword = (email: string, password: string) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+  const logInWithEmailAndPassword = async (typedEmail: string, password: string) => {
 
-        console.log(user);
-        //navigate("/home")
+    const result = await signInWithEmailAndPassword(auth, typedEmail, password)
+
+    if (result.user) {
+			const { uid, email } = result.user
+
+			if (!uid || !email) {
+				throw new Error('Missing user information.');
+			}
+
+			setUser({
+        uid: uid,
+        email: email
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        alert(errorMessage);
-      });
+      
+		}
   };
 
   return (

@@ -1,7 +1,6 @@
-import { FormEvent } from "react";
-import { AdminUser } from "./AdminUser";
+import { User } from "./User";
 
 export type AuthAdminContextType = {
-    user: AdminUser | undefined; //se não tiver usuário logado será undefined
-	logInWithEmailAndPassword: (email: string, password: string) => void;
+    user: User | undefined; //se não tiver usuário logado será undefined
+	logInWithEmailAndPassword: (typedEmail: string, password: string) => void;
 }
