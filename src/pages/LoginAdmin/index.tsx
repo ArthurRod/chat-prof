@@ -1,29 +1,29 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAdminAuth } from "../../hooks/useAdminAuth";
+import { useAuth } from "../../hooks/useAuth";
 
 export function LoginAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { user, logInWithEmailAndPassword } = useAdminAuth();
+  const { user, logInWithEmailAndPassword } = useAuth();
   
-
+  
   async function handleAdminLogin(e: FormEvent) {
     e.preventDefault();
 
-		if (!user) {
-			await logInWithEmailAndPassword(email, password)
-		}
+    if (!user) {
+      logInWithEmailAndPassword(email, password);
+    }
 
-		navigate('/admin-home');
-	}
+    navigate("/admin-home");
+  }
 
   return (
     <>
       <p>Login Adm</p>
       <form onSubmit={handleAdminLogin}>
-      <input
+        <input
           type="email"
           id="email"
           name="email"
