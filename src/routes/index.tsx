@@ -7,12 +7,7 @@ import { LoginAdmin } from "../pages/LoginAdmin";
 import { NotFound } from "../pages/NotFound";
 import { AdminHome } from "../pages/AdminHome";
 import { AuthProvider } from "../contexts/AuthContext";
-
-const Private = ({ Item }: any) => {
-  const signed = false;
-
-  return signed ? <Item /> : <LoginAdmin />;
-};
+import { Private } from "./Private";
 
 export function RoutesApp() {
   return (
@@ -22,8 +17,8 @@ export function RoutesApp() {
           <Route path="/" element={<PaginaInicial />} />
           <Route path="cadastro-escola" element={<CadastroEscola />} />
           <Route path="login-admin" element={<LoginAdmin />} />
-          <Route path="admin-home" element={<AdminHome />} />
-          <Route path="home" element={<Private Item={<Home />} />} />
+          <Route path="admin-home" element={<Private><AdminHome /></Private>} />
+          <Route path="home" element={<Home />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
