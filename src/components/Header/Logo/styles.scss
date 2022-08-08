@@ -1,0 +1,17 @@
+@import "../../../styles/global-colors.scss";
+
+/** Header Logo SCSS **/
+.logo {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+
+  .logo-image {
+    width: 2rem;
+  }
+
+  .logo-text {
+    color: $white;
+    font-size: 2rem;
+  }
+}

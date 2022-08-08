@@ -11,4 +11,8 @@
         justify-content: space-between;
         align-items: center;
     }
+
+    @import "./Logo/styles.scss";
+
+    @import "./Settings/styles.scss";
 }
