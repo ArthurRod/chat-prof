@@ -5,9 +5,10 @@ import { CadastroEscola } from "../pages/CadastroEscola";
 import { Home } from "../pages/Home";
 import { LoginAdmin } from "../pages/LoginAdmin";
 import { NotFound } from "../pages/NotFound";
-import { AdminHome } from "../pages/AdminHome";
 import { AuthProvider } from "../contexts/AuthContext";
-import { Private } from "./Private";
+import { PrivateAdmin } from "./PrivateAdmin";
+import { AdminHomeScholl } from "../pages/AdminHomeScholl";
+import { AdminHomeTeacher } from "../pages/AdminHomeTeacher";
 
 export function RoutesApp() {
   return (
@@ -17,7 +18,8 @@ export function RoutesApp() {
           <Route path="/" element={<PaginaInicial />} />
           <Route path="cadastro-escola" element={<CadastroEscola />} />
           <Route path="login-admin" element={<LoginAdmin />} />
-          <Route path="admin-home" element={<Private><AdminHome /></Private>} />
+          <Route path="admin-home/scholl" element={<PrivateAdmin type="scholl"><AdminHomeScholl /></PrivateAdmin>} />
+          <Route path="admin-home/teacher" element={<PrivateAdmin type="teacher"><AdminHomeTeacher /></PrivateAdmin>} />
           <Route path="home" element={<Home />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -2,8 +2,16 @@ import { createContext, useEffect, useState } from "react";
 import { signInWithEmailAndPassword, auth } from "../services/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { User } from "../types/User";
-import { AuthContextProvider } from "../types/AuthContextProvider";
-import { AuthContextType } from "../types/AuthContextType";
+import { ReactNode } from "react";
+
+type AuthContextType = {
+  user: User | undefined; //se não tiver usuário logado será undefined
+  logInWithEmailAndPassword: (email: string, password: string) => void;
+}
+
+type AuthContextProvider = {
+  children: ReactNode;
+}
 
 export const AuthContext = createContext({} as AuthContextType);
 
@@ -14,15 +22,15 @@ export function AuthProvider(props: AuthContextProvider) {
 
     persistUser();
 
-	}, [])
+  }, [])
 
   const persistUser = async () => {
 
     onAuthStateChanged(auth, (user) => {
 
-      if(user) {
+      if (user) {
         const { uid, email } = user
-        
+
         if (!uid || !email) {
           throw new Error('Missing user information.');
         }
@@ -32,9 +40,7 @@ export function AuthProvider(props: AuthContextProvider) {
           email: email
         })
       }
-      
     })
-
   }
 
   const logInWithEmailAndPassword = async (email: string, password: string) => {
@@ -42,18 +48,17 @@ export function AuthProvider(props: AuthContextProvider) {
     const result = await signInWithEmailAndPassword(auth, email, password)
 
     if (result.user) {
-			const { uid, email } = result.user
+      const { uid, email } = result.user
 
-			if (!uid || !email) {
-				throw new Error('Missing user information.');
-			}
+      if (!uid || !email) {
+        throw new Error('Missing user information.');
+      }
 
-			setUser({
+      setUser({
         uid: uid,
         email: email
       })
-      
-		}
+    }
   };
 
   return (

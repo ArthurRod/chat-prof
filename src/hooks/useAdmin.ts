@@ -12,7 +12,7 @@ export function useAdmin() {
     
     getAdminData()
 
-  }, [user]);
+  }, [user, adminUser]);
 
   const getAdminData = async () => {
     const userId = user?.uid!;
@@ -37,5 +37,5 @@ export function useAdmin() {
     }
   }
 
-  return { adminUser };
+  return { adminUser, setAdminUser };
 }

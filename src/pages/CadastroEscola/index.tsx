@@ -1,21 +1,25 @@
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { auth, db } from "../../services/firebase";
 import { setDoc, doc } from "firebase/firestore";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router";
 
 export function CadastroEscola() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleCreateTableScholl = async (uid: string) => {
+
     await setDoc(doc(db, "escolas", uid), {
       type: "scholl",
       email: email,
       name: name,
       phone: phone,
     });
+    
   };
 
   const createScholl = (e: FormEvent) => {
@@ -27,9 +31,9 @@ export function CadastroEscola() {
 
         handleCreateTableScholl(uid);
 
-        alert("Escola cadastrada!");
+        alert("Escola cadastrada com sucesso!");
 
-        console.log(data.user);
+        navigate("/admin-home/scholl");
       })
       .catch((error) => {
         const errorCode = error.code;

@@ -1,22 +1,39 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAdmin } from "../../hooks/useAdmin";
 import { useAuth } from "../../hooks/useAuth";
 
 export function LoginAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { adminUser } = useAdmin();
+
   const { user, logInWithEmailAndPassword } = useAuth();
-  
-  
+
+
+
   async function handleAdminLogin(e: FormEvent) {
     e.preventDefault();
 
     if (!user) {
       logInWithEmailAndPassword(email, password);
+
+      redirectAdminUser();
+    }
+  }
+
+  async function redirectAdminUser() {
+
+    if (adminUser) {
+      if (adminUser.type === 'scholl') {
+        navigate("/admin-home/scholl");
+      } else {
+        console.log(adminUser.type)
+        navigate("/admin-home/teacher");
+      }
     }
 
-    navigate("/admin-home");
   }
 
   return (
