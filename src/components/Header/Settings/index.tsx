@@ -15,13 +15,13 @@ export function Settings() {
     return (
         <div className="settings">
             <button
-                className="settings-button"
+                className="button"
                 onClick={() => {
                     handleOpenSettings();
                 }}
             >
                 <GearSix
-                    className="settings-button-icon"
+                    className="button-icon"
                     size={32}
                     color="#ffffff"
                 />

@@ -12,7 +12,7 @@ export function useAdmin() {
     
     getAdminData()
 
-  }, [user, adminUser]);
+  }, [user]);
 
   const getAdminData = async () => {
     const userId = user?.uid!;

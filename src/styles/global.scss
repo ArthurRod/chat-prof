@@ -4,6 +4,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -18,9 +19,36 @@ body {
 textarea:focus,
 input:focus,
 select:focus {
-  box-shadow: 0 0 0 0;
-  border: 0 none;
   outline: 0;
+}
+
+input {
+  padding: 0 10px;
+  border: 1px solid $blue;
+}
+
+input::placeholder {
+  color: #666;
+}
+
+button.btn, input {
+  height: 35px;
+  border-radius: 3px;
+}
+
+button.btn {
+  border-width: 1px;
+  border: 1px solid $blue;
+  cursor: pointer;
+  background-color: transparent;
+  transition: background-color .5s;
+  font-size: 1rem;
+  padding: 5px 25px;
+  color: $fonte-principal;
+}
+
+button.btn:hover {
+  background-color: $blue;
 }
 
 .container {

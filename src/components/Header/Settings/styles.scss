@@ -2,13 +2,13 @@
 
 /** Header Settings SCSS **/
 .settings {
-  .settings-button {
+  .button {
     background-color: transparent;
     border: none;
     cursor: pointer;
 
     &:hover {
-      .settings-button-icon {
+      .button-icon {
         transform: rotate(120deg);
         transition: transform 0.5s ease-in-out;
         -webkit-transition: transform 0.5s ease-in-out;
@@ -17,36 +17,5 @@
     }
   }
 
-  .settings-content {
-    position: fixed;
-    right: -110%;
-    top: 0;
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-
-    &.open {
-      right: 0;
-
-      .content {
-        opacity: 1;
-      }
-    }
-
-    .close-mask {
-      width: 50%;
-      backdrop-filter: blur(2px);
-      cursor: pointer;
-    }
-
-    .content {
-      display: flex;
-      opacity: 0;
-      flex-direction: column;
-      background-color: $white;
-      width: 50%;
-      transition: opacity 0.5s;
-      box-shadow: 0px 3px 10px #ccc;
-    }
-  }
+  @import "./SettingsContent/styles.scss";
 }

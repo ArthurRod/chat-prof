@@ -1,0 +1,90 @@
+@import "../../../../styles/global-colors.scss";
+
+/** Header Settings Content SCSS **/
+.settings-content {
+  position: fixed;
+  right: -110%;
+  top: 0;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+
+  &.open {
+    right: 0;
+
+    .content {
+      opacity: 1;
+    }
+  }
+
+  .close-mask {
+    width: 50%;
+    backdrop-filter: blur(2px);
+    cursor: pointer;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    width: 50%;
+    box-shadow: 0px 3px 10px #ccc;
+    opacity: 0;
+    transition: opacity 0.5s;
+
+    .settings-header,
+    .settings-main,
+    .settings-footer {
+      padding: 1.25rem 1rem;
+      width: 100%;
+    }
+
+    .settings-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $blue;
+
+      .title {
+        color: $white;
+        font-size: 2rem;
+      }
+    }
+
+    .settings-main {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      gap: 10px;
+
+      form {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          margin-bottom: 5px;
+        }
+
+        input {
+          max-width: 350px;
+          margin-bottom: 10px;
+        }
+
+        .btn.alterate-user {
+          margin-top: 10px;
+          max-width: 200px;
+        }
+      }
+    }
+
+    .settings-footer {
+      .btn.sign-out {
+        &:hover {
+          border-color: #fff;
+          background-color: #ff4040;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

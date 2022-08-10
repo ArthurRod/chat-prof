@@ -11,11 +11,10 @@ export function LoginAdmin() {
 
   const { user, logInWithEmailAndPassword } = useAuth();
 
-
-
   async function handleAdminLogin(e: FormEvent) {
     e.preventDefault();
 
+    console.log("asdf")
     if (!user) {
       logInWithEmailAndPassword(email, password);
 

@@ -1,24 +1,25 @@
-import { doc, updateDoc } from "firebase/firestore";
 import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router";
+import { doc, updateDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
+import { db, auth } from "../../../../services/firebase";
+
 import { useAdmin } from "../../../../hooks/useAdmin";
 import { useAuth } from "../../../../hooks/useAuth";
-import { db, auth } from "../../../../services/firebase";
-import { useNavigate } from "react-router";
 
 export function SettingsContent() {
-    const { adminUser, setAdminUser } = useAdmin();
     const { user } = useAuth();
+    const { adminUser, setAdminUser } = useAdmin();
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const navigate = useNavigate();
 
-    const handleUpdateScholl = (e: FormEvent) => {
+    function handleUpdateScholl(e: FormEvent) {
         e.preventDefault();
 
         if (user) {
-            
-            if(name.length > 0 || phone.length > 0) {
+
+            if (name.length > 0 || phone.length > 0) {
 
                 updateTableScholl(user.uid);
 
@@ -26,6 +27,8 @@ export function SettingsContent() {
                     name: name,
                     phone: phone,
                 });
+
+                alert("Usuário alterado com sucesso!")
 
             } else {
 
@@ -35,12 +38,12 @@ export function SettingsContent() {
         }
     };
 
-    const updateTableScholl = async (uid: string) => {
+    async function updateTableScholl(uid: string) {
         await updateDoc(doc(db, "escolas", uid), {
 
             name: name.length > 0 ? name : adminUser?.name,
             phone: phone.length > 0 ? phone : adminUser?.phone
-        
+
         });
     };
 
@@ -51,7 +54,7 @@ export function SettingsContent() {
             if (settingsContent.classList.contains("open"))
                 settingsContent.classList.remove("open")
         }
-    }
+    };
 
     function handleSignOut() {
 
@@ -73,31 +76,41 @@ export function SettingsContent() {
             <div className="close-mask" onClick={handleCloseSettings}></div>
 
             <div className="content">
+                <header className="settings-header">
+                    <h3 className="title">Configurações de perfil</h3>
+                </header>
 
-                <form onSubmit={handleUpdateScholl}>
-                    <input
-                        type="text"
-                        id="nome"
-                        name="nome"
-                        placeholder="Digite um novo nome"
-                        onChange={(event) => setName(event.target.value)}
-                        value={name}
-                    />
-                    <input
-                        type="text"
-                        id="telefone"
-                        name="telefone"
-                        placeholder="Digite um novo telefone"
-                        onChange={(event) => setPhone(event.target.value)}
-                        value={phone}
-                    />
+                <main className="settings-main">
+                    <h4 className="main-title">Alterar dados do usuário</h4>
+                    <form onSubmit={handleUpdateScholl}>
+                        <label htmlFor="nome">Nome</label>
+                        <input
+                            type="text"
+                            id="nome"
+                            name="nome"
+                            placeholder="Digite um novo nome"
+                            onChange={(event) => setName(event.target.value)}
+                            value={name}
+                        />
+                        <label htmlFor="telefone">Telefone</label>
+                        <input
+                            type="text"
+                            id="telefone"
+                            name="telefone"
+                            placeholder="Digite um novo telefone"
+                            onChange={(event) => setPhone(event.target.value)}
+                            value={phone}
+                        />
 
-                    <button type="submit">Alterar</button>
-                </form>
+                        <button type="submit" className="btn alterate-user">Alterar</button>
+                    </form>
+                </main>
 
-                <button onClick={handleSignOut}>
-                    Sair
-                </button>
+                <footer className="settings-footer">
+                    <button className="btn sign-out" onClick={handleSignOut}>
+                        Sair
+                    </button>
+                </footer>
             </div>
         </div>
     )
