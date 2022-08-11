@@ -14,25 +14,20 @@ export function LoginAdmin() {
   async function handleAdminLogin(e: FormEvent) {
     e.preventDefault();
 
-    console.log("asdf")
-    if (!user) {
-      logInWithEmailAndPassword(email, password);
+    logInWithEmailAndPassword(email, password);
 
-      redirectAdminUser();
-    }
+    redirectAdminUser();
   }
 
   async function redirectAdminUser() {
-
     if (adminUser) {
-      if (adminUser.type === 'scholl') {
+      if (adminUser.type === "scholl") {
         navigate("/admin-home/scholl");
       } else {
-        console.log(adminUser.type)
+        console.log(adminUser.type);
         navigate("/admin-home/teacher");
       }
     }
-
   }
 
   return (

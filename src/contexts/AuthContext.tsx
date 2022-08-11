@@ -58,6 +58,9 @@ export function AuthProvider(props: AuthContextProvider) {
         uid: uid,
         email: email
       })
+
+    } else {
+      alert("O usuário não cadastrado")
     }
   };
 

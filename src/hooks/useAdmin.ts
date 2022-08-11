@@ -5,20 +5,17 @@ import { db } from "../services/firebase";
 import { AdminUser } from "../types/AdminUser";
 
 export function useAdmin() {
+  console.log("Executou useAdmin")
   const { user } = useAuth();
   const [adminUser, setAdminUser] = useState<AdminUser>();
 
   useEffect(() => {
-    
-    getAdminData()
-
+    getAdminData();
   }, [user]);
 
   const getAdminData = async () => {
-    const userId = user?.uid!;
-
-    if(userId) {
-      const docRef = doc(db, "escolas", userId);
+    if (user) {
+      const docRef = doc(db, "escolas", user.uid!);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -32,10 +29,10 @@ export function useAdmin() {
         });
 
       } else {
-        console.log("Não foi encontrado um documento!");
+        console.log("Usuário não encontrado!");
       }
     }
-  }
+  };
 
-  return { adminUser, setAdminUser };
+  return { adminUser, setAdminUser }
 }
