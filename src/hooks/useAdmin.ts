@@ -5,7 +5,6 @@ import { db } from "../services/firebase";
 import { AdminUser } from "../types/AdminUser";
 
 export function useAdmin() {
-  console.log("Executou useAdmin")
   const { user } = useAuth();
   const [adminUser, setAdminUser] = useState<AdminUser>();
 
@@ -15,7 +14,7 @@ export function useAdmin() {
 
   const getAdminData = async () => {
     if (user) {
-      const docRef = doc(db, "escolas", user.uid!);
+      const docRef = doc(db, "escolas", user.uid.toString());
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {

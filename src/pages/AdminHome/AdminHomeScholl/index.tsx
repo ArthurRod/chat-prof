@@ -1,5 +1,6 @@
-import { Header } from "../../components/Header";
-import { useAdmin } from "../../hooks/useAdmin";
+import { AdminInfos } from "../../../components/AdminInfos";
+import { Header } from "../../../components/Header";
+import { useAdmin } from "../../../hooks/useAdmin";
 
 export function AdminHomeScholl() {
   const { adminUser } = useAdmin();
@@ -14,8 +15,10 @@ export function AdminHomeScholl() {
       <main className="main">
         <div className="container">
           <div className="content">
-            <h3>Escola: </h3><span>{adminUser.name}</span>
-            <h3>Telefone: </h3><span>{adminUser.phone}</span>
+            <AdminInfos adminUserName={adminUser.name} adminUserPhone={adminUser.phone} />
+            <section className="scholl-teachers">
+
+            </section>
           </div>
         </div>
       </main>

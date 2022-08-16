@@ -11,17 +11,6 @@ export function CadastroEscola() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleCreateTableScholl = async (uid: string) => {
-
-    await setDoc(doc(db, "escolas", uid), {
-      type: "scholl",
-      email: email,
-      name: name,
-      phone: phone,
-    });
-    
-  };
-
   const createScholl = (e: FormEvent) => {
     e.preventDefault();
 
@@ -33,7 +22,7 @@ export function CadastroEscola() {
 
         alert("Escola cadastrada com sucesso!");
 
-        navigate("/admin-home/scholl");
+        navigate("/admin-home");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -41,6 +30,17 @@ export function CadastroEscola() {
 
         alert(errorMessage);
       });
+  };
+
+  const handleCreateTableScholl = async (uid: string) => {
+
+    await setDoc(doc(db, "escolas", uid), {
+      type: "scholl",
+      email: email,
+      name: name,
+      phone: phone,
+    });
+
   };
 
   return (

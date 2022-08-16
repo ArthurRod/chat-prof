@@ -1,6 +1,6 @@
 import { Logo } from "./Logo";
 import { Settings } from "./Settings";
-import "./styles.scss";
+import "../../styles/header.scss";
 
 export function Header() {
     return (

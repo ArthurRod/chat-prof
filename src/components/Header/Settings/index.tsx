@@ -1,6 +1,5 @@
 import { GearSix } from "phosphor-react";
 import { SettingsContent } from "./SettingsContent";
-import "./styles.scss";
 
 export function Settings() {
 

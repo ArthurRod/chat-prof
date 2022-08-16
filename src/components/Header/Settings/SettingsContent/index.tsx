@@ -32,7 +32,7 @@ export function SettingsContent() {
 
             } else {
 
-                alert("Preencha pelo menos um dos campos");
+                alert("Preencha pelo menos um dos campos!");
 
             }
         }

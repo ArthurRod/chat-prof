@@ -1,33 +1,26 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAdmin } from "../../hooks/useAdmin";
 import { useAuth } from "../../hooks/useAuth";
 
 export function LoginAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { logInWithEmailAndPassword } = useAuth();
+
   const navigate = useNavigate();
-  const { adminUser } = useAdmin();
 
-  const { user, logInWithEmailAndPassword } = useAuth();
-
-  async function handleAdminLogin(e: FormEvent) {
+  function handleAdminLogin(e: FormEvent) {
     e.preventDefault();
 
-    logInWithEmailAndPassword(email, password);
+    logInWithEmailAndPassword(email, password).then(() => {
 
-    redirectAdminUser();
-  }
+      navigate("/admin-home");
 
-  async function redirectAdminUser() {
-    if (adminUser) {
-      if (adminUser.type === "scholl") {
-        navigate("/admin-home/scholl");
-      } else {
-        console.log(adminUser.type);
-        navigate("/admin-home/teacher");
-      }
-    }
+    }).catch((error) => {
+
+      console.log(error);
+
+    });
   }
 
   return (

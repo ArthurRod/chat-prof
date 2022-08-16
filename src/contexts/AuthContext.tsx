@@ -5,8 +5,8 @@ import { User } from "../types/User";
 import { ReactNode } from "react";
 
 type AuthContextType = {
-  user: User | undefined; //se não tiver usuário logado será undefined
-  logInWithEmailAndPassword: (email: string, password: string) => void;
+  user: User | undefined;
+  logInWithEmailAndPassword: (email: string, password: string) => Promise<void>;
 }
 
 type AuthContextProvider = {
@@ -18,7 +18,7 @@ export const AuthContext = createContext({} as AuthContextType);
 export function AuthProvider(props: AuthContextProvider) {
   const [user, setUser] = useState<User>();
 
-  useEffect(() => {   //Hook para manter o login(estado) ao atualizar a página
+  useEffect(() => {
 
     persistUser();
 
@@ -48,19 +48,16 @@ export function AuthProvider(props: AuthContextProvider) {
     const result = await signInWithEmailAndPassword(auth, email, password)
 
     if (result.user) {
-      const { uid, email } = result.user
+      const { uid, email } = result.user;
 
       if (!uid || !email) {
-        throw new Error('Missing user information.');
+        throw new Error('Missing information from Account.');
       }
 
       setUser({
         uid: uid,
         email: email
       })
-
-    } else {
-      alert("O usuário não cadastrado")
     }
   };
 
