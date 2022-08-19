@@ -1,3 +1,5 @@
+import "../../styles/admin-infos.scss";
+
 interface AdminInfosProps {
     adminUserName: string;
     adminUserPhone: string;
