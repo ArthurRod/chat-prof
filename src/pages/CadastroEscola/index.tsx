@@ -18,7 +18,7 @@ export function CadastroEscola() {
       .then((data) => {
         const uid = data.user.uid;
 
-        handleCreateTableScholl(uid);
+        createDocScholl(uid);
 
         alert("Escola cadastrada com sucesso!");
 
@@ -32,15 +32,17 @@ export function CadastroEscola() {
       });
   };
 
-  const handleCreateTableScholl = async (uid: string) => {
+  const createDocScholl = async (uid: string) => {
 
     await setDoc(doc(db, "escolas", uid), {
-      type: "scholl",
       email: email,
       name: name,
-      phone: phone,
+      phone: phone
     });
 
+    await setDoc(doc(db, "escolas", uid, "admin-users", name), {
+      type: "scholl"
+    });
   };
 
   return (
