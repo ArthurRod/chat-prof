@@ -18,11 +18,13 @@ export function CadastroEscola() {
       .then((data) => {
         const uid = data.user.uid;
 
-        createDocScholl(uid);
-
-        alert("Escola cadastrada com sucesso!");
-
-        navigate("/admin-home");
+        createDocScholl(uid).then(() => {
+          alert("Escola cadastrada com sucesso!");
+          navigate("/admin-home");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -33,15 +35,15 @@ export function CadastroEscola() {
   };
 
   const createDocScholl = async (uid: string) => {
-
+    
     await setDoc(doc(db, "escolas", uid), {
       email: email,
       name: name,
-      phone: phone
+      phone: phone,
     });
 
-    await setDoc(doc(db, "escolas", uid, "admin-users", name), {
-      type: "scholl"
+    await setDoc(doc(db, "escolas", uid, "admin-users", email), {
+      type: "scholl",
     });
   };
 

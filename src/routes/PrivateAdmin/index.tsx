@@ -1,10 +1,10 @@
-import { useAdmin } from "../../hooks/useAdmin";
+import { useAdminType } from "../../hooks/useAdminType";
 import { LoginAdmin } from "../../pages/LoginAdmin";
 
 export function PrivateAdmin({ children }: { children: JSX.Element }) {
-  const { adminUser } = useAdmin();
+  const { adminType } = useAdminType();
 
-  if (!adminUser) {
+  if (!adminType) {
     return <LoginAdmin />
   }
 

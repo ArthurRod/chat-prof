@@ -4,9 +4,9 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { AdminUser } from "../types/AdminUser";
 
-export function useAdmin() {
+export function useScholl() {
   const { user } = useAuth();
-  const [adminUser, setAdminUser] = useState<AdminUser>();
+  const [scholl, setScholl] = useState<AdminUser | null>(null);
 
   useEffect(() => {
     getAdminData();
@@ -20,11 +20,10 @@ export function useAdmin() {
       if (docSnap.exists()) {
         const userData = docSnap.data();
 
-        setAdminUser({
+        setScholl({
           name: userData.name,
           email: userData.email,
-          phone: userData.phone,
-          type: userData.type,
+          phone: userData.phone
         });
 
       } else {
@@ -33,5 +32,5 @@ export function useAdmin() {
     }
   };
 
-  return { adminUser, setAdminUser }
+  return { scholl, setScholl }
 }
