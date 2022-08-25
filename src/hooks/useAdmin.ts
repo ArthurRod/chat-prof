@@ -3,38 +3,39 @@ import { useAuth } from "./useAuth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 
-type AdminUserType = {
-    type: string;
-}
+type AdminType = {
+  isAdmin: boolean;
+  type: string;
+};
 
-export function useAdminType() {
+export function useAdmin() {
   const { user } = useAuth();
-  const [adminType, setAdminType] = useState<AdminUserType | null>(null);
+  const [admin, setAdmin] = useState<AdminType | null>(null);
 
   useEffect(() => {
-    getAdminData();
+    getAdmin();
   }, [user]);
 
-  const getAdminData = async () => {
+  const getAdmin = async () => {
     if (user) {
       let userId = user.uid;
-      let userEmail = user.email;
 
-      const docRef = doc(db, "escolas", userId, "admin-users", userEmail);
+      const docRef = doc(db, "admin-users", userId);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         const userData = docSnap.data();
 
-        setAdminType({
+        setAdmin({
+          isAdmin: userData.isAdmin,
           type: userData.type
         });
 
       } else {
-        console.log("Usuário não encontrado!");
+        console.log("Usuário admin não encontrado!");
       }
     }
   };
 
-  return { adminType }
+  return { admin };
 }

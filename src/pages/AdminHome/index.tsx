@@ -1,21 +1,25 @@
-import { useAdminType } from "../../hooks/useAdminType";
+import { useAdmin } from "../../hooks/useAdmin";
 import { LoginAdmin } from "../LoginAdmin";
 import { AdminHomeScholl } from "./AdminHomeScholl";
 import { AdminHomeTeacher } from "./AdminHomeTeacher";
 
 export function AdminHome() {
-    const { adminType } = useAdminType();
+  const { admin } = useAdmin();
 
-    if (!adminType) {
-        return <span>Loading...</span>
-    }
+  if (!admin) {
+    return <span>Loading...</span>;
+  }
 
-    switch (adminType.type) {
-        case 'scholl':
-            return <AdminHomeScholl />
-        case 'teacher':
-            return <AdminHomeTeacher />
-        default:
-            return <LoginAdmin />
+  if (admin.isAdmin) {
+    switch (admin.type) {
+      case "scholl":
+        return <AdminHomeScholl />;
+      case "teacher":
+        return <AdminHomeTeacher />;
+      default:
+        return <LoginAdmin />;
     }
+  } else {
+    return <LoginAdmin />;
+  }
 }

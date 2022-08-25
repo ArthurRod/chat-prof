@@ -9,28 +9,28 @@ export function useScholl() {
   const [scholl, setScholl] = useState<AdminUser | null>(null);
 
   useEffect(() => {
-    getAdminData();
+    getSchollData();
   }, [user]);
 
-  const getAdminData = async () => {
+  const getSchollData = async () => {
     if (user) {
-      const docRef = doc(db, "escolas", user.uid.toString());
+      let docRef = doc(db, "escolas", user.uid.toString());
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         const userData = docSnap.data();
 
         setScholl({
+          schollId: user.uid,
           name: userData.name,
           email: userData.email,
-          phone: userData.phone
+          phone: userData.phone,
         });
-
       } else {
-        console.log("Usuário não encontrado!");
+        console.log("Dados da escola não encontrados!");
       }
     }
   };
 
-  return { scholl, setScholl }
+  return { scholl, setScholl };
 }
