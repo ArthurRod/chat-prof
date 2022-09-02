@@ -7,6 +7,7 @@ import { AdminUser } from "../types/AdminUser";
 export function useScholl() {
   const { user } = useAuth();
   const [scholl, setScholl] = useState<AdminUser | null>(null);
+  
 
   useEffect(() => {
     getSchollData();
@@ -26,6 +27,7 @@ export function useScholl() {
           email: userData.email,
           phone: userData.phone,
         });
+
       } else {
         console.log("Dados da escola não encontrados!");
       }

@@ -1,13 +1,17 @@
 import { AdminInfos } from "../../../components/AdminInfos";
 import { Header } from "../../../components/Header";
 import { useScholl } from "../../../hooks/useScholl";
+import { useSchollTeachers } from "../../../hooks/useSchollTeachers";
 
 export function AdminHomeScholl() {
   const { scholl } = useScholl();
+  const { schollTeachers } = useSchollTeachers();
 
   if (!scholl) {
     return <span>Loading...</span>
   }
+
+  console.log(schollTeachers)
 
   return (
     <>

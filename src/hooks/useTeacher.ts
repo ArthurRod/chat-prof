@@ -10,20 +10,14 @@ export function useTeacher() {
   const [schollId, setSchollId] = useState<string>("");
 
   useEffect(() => {
-    const getTeacher = async () => {
-      getSchollId()
-        .then(() => {
-          getTeacherData();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
 
-    getTeacher();
-  }, [user]);
+    getSchollId();
+    getTeacherData();
+
+  }, [schollId]);
 
   const getSchollId = async () => {
+    
     if (user) {
       const docRef = doc(db, "teachers", user.uid.toString());
       const docSnap = await getDoc(docRef);
@@ -32,6 +26,7 @@ export function useTeacher() {
         const userData = docSnap.data();
         
         setSchollId(userData.schollId);
+
       } else {
         console.log("Dados da escola não encontrados!");
       }
@@ -39,9 +34,8 @@ export function useTeacher() {
   };
 
   const getTeacherData = async () => {
-    console.log(schollId); //Quando recarrega não tenho essa informação
 
-    if (user) {
+    if (schollId && user) {
       const docRef = doc(
         db,
         "escolas",

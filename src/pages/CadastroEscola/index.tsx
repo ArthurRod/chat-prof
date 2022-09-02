@@ -42,7 +42,7 @@ export function CadastroEscola() {
       phone: phone,
     });
 
-    await setDoc(doc(db, "escolas", uid, "admin-users", email), {
+    await setDoc(doc(db, "admin-users", uid), {
       type: "scholl",
     });
   };
