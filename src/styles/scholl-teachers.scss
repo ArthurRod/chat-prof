@@ -1,0 +1,46 @@
+@import "global-colors.scss";
+
+/** SchollTeachers SCSS **/
+.scholl-teachers,
+.scholl-no-teachers {
+  display: flex;
+  padding: 15px;
+  border-radius: 2px;
+  border: 1px solid #3b4751;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+.scholl-teachers {
+  span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+  }
+  .name {
+    width: 25%;
+  }
+  .email {
+    width: 45%;
+  }
+  .phone {
+    width: 30%;
+  }
+  .table-header,
+  .teacher {
+    display: flex;
+    gap: 10px;
+  }
+  .table-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+  }
+  .teacher {
+    padding-top: 10px;
+  }
+  .teacher:not(:last-child) {
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+  }
+}
