@@ -1,32 +1,39 @@
 import { GearSix } from "phosphor-react";
+import { useState } from "react";
+import { FormUpdateScholl } from "./FormUpdateScholl";
 import { SettingsContent } from "./SettingsContent";
 
 export function Settings() {
+  const [isMenuOpened, setIsMenuOpened] = useState(false);
 
-    function handleOpenSettings() {
-        let settingsContent = document.querySelector(".settings-content");
+  async function handleOpenSettings() {
+    await setIsMenuOpened(true);
 
-        if (settingsContent) {
-            settingsContent.classList.add("open")
-        }
+    let settingsContent = document.querySelector(".settings-content");
+
+    if (settingsContent) {
+      settingsContent.classList.add("open");
     }
+  }
 
-    return (
-        <div className="settings">
-            <button
-                className="button"
-                onClick={() => {
-                    handleOpenSettings();
-                }}
-            >
-                <GearSix
-                    className="button-icon"
-                    size={32}
-                    color="#ffffff"
-                />
-            </button>
-            
-            <SettingsContent />
-        </div>
-    )
+  return (
+    <div className="settings">
+      <button
+        className="button"
+        onClick={() => {
+          handleOpenSettings();
+        }}
+      >
+        <GearSix className="button-icon" size={32} color="#ffffff" />
+      </button>
+
+      {isMenuOpened ? (
+          
+        <SettingsContent onClose={() => setIsMenuOpened(false)}>
+            <FormUpdateScholl />
+        </SettingsContent>
+
+      ) : null}
+    </div>
+  );
 }

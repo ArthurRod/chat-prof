@@ -7,7 +7,6 @@ import { AdminUser } from "../types/AdminUser";
 export function useScholl() {
   const { user } = useAuth();
   const [scholl, setScholl] = useState<AdminUser | null>(null);
-  
 
   useEffect(() => {
     getSchollData();

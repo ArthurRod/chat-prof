@@ -8,6 +8,8 @@ import { NotFound } from "../pages/NotFound";
 import { AuthProvider } from "../contexts/AuthContext";
 import { PrivateAdmin } from "./PrivateAdmin";
 import { AdminHome } from "../pages/AdminHome";
+import { AdminHomeScholl } from "../pages/AdminHome/AdminHomeScholl";
+import { AdminHomeTeacher } from "../pages/AdminHome/AdminHomeTeacher";
 
 export function RoutesApp() {
   return (
@@ -17,7 +19,7 @@ export function RoutesApp() {
           <Route path="/" element={<PaginaInicial />} />
           <Route path="cadastro-escola" element={<CadastroEscola />} />
           <Route path="login-admin" element={<LoginAdmin />} />
-          <Route path="admin-home" element={<PrivateAdmin><AdminHome /></PrivateAdmin>} />
+          <Route path="admin-home" element={<PrivateAdmin><AdminHome /></PrivateAdmin>}/>
           <Route path="home" element={<Home />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
