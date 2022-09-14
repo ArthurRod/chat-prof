@@ -15,7 +15,7 @@ export function Settings() {
       if (settingsContent) {
         settingsContent.classList.add("open");
       }
-    }, 100);
+    }, 1);
   }
 
   return (
