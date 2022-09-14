@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../../../services/firebase";
-import { useScholl } from "../../../../hooks/useScholl";
-import { useAuth } from "../../../../hooks/useAuth";
+import { db } from "../../../services/firebase";
+import { useScholl } from "../../../hooks/useScholl";
+import { useAuth } from "../../../hooks/useAuth";
 
 export function FormUpdateScholl() {
   const { user } = useAuth();
@@ -39,8 +39,8 @@ export function FormUpdateScholl() {
   }
 
   return (
-    <main className="settings-main">
-      <h4 className="main-title">Alterar os dados da escola</h4>
+    <main className="main">
+      <h4 className="title">Alterar os dados da escola</h4>
       <form onSubmit={handleUpdateScholl}>
         <label htmlFor="nome">Nome</label>
         <input

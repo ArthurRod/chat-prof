@@ -11,6 +11,7 @@ export function AdminHome() {
   }
 
   if (admin.isAdmin) {
+
     switch (admin.type) {
       case "scholl":
         return <AdminHomeScholl />;
@@ -19,7 +20,10 @@ export function AdminHome() {
       default:
         return <LoginAdmin />;
     }
+
   } else {
+
     return <LoginAdmin />;
+    
   }
 }

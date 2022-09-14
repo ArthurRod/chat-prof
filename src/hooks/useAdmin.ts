@@ -13,7 +13,9 @@ export function useAdmin() {
   const [admin, setAdmin] = useState<AdminType | null>(null);
 
   useEffect(() => {
+
     getAdmin();
+    
   }, [user]);
 
   const getAdmin = async () => {
@@ -28,11 +30,13 @@ export function useAdmin() {
 
         setAdmin({
           isAdmin: userData.isAdmin,
-          type: userData.type
+          type: userData.type,
         });
 
       } else {
+
         console.log("Usuário admin não encontrado!");
+
       }
     }
   };

@@ -28,7 +28,9 @@ export function useScholl() {
         });
 
       } else {
+
         console.log("Dados da escola não encontrados!");
+        
       }
     }
   };

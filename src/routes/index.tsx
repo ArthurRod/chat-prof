@@ -8,8 +8,6 @@ import { NotFound } from "../pages/NotFound";
 import { AuthProvider } from "../contexts/AuthContext";
 import { PrivateAdmin } from "./PrivateAdmin";
 import { AdminHome } from "../pages/AdminHome";
-import { AdminHomeScholl } from "../pages/AdminHome/AdminHomeScholl";
-import { AdminHomeTeacher } from "../pages/AdminHome/AdminHomeTeacher";
 
 export function RoutesApp() {
   return (

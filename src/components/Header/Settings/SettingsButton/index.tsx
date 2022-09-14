@@ -1,19 +1,18 @@
 import { GearSix } from "phosphor-react";
 
 type SettingsButtonProps = {
-    setIsMenuOpened: (isMenuOpened: boolean) => void;
-}
+  setIsMenuOpen: (isMenuOpen: boolean) => void;
+};
 
-export function SettingsButton({setIsMenuOpened}: SettingsButtonProps) {
-
+export function SettingsButton({ setIsMenuOpen }: SettingsButtonProps) {
   async function handleOpenSettings() {
-    await setIsMenuOpened(true);
+    await setIsMenuOpen(true);
 
-    let settingsContent = document.querySelector(".settings-content");
+    let settingsModal = document.querySelector(".settings-modal");
 
     setTimeout(() => {
-      if (settingsContent) {
-        settingsContent.classList.add("open");
+      if (settingsModal) {
+        settingsModal.classList.add("open");
       }
     }, 1);
   }

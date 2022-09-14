@@ -2,25 +2,18 @@ import { ReactNode } from "react";
 import { useNavigate } from "react-router";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../../services/firebase";
+import { CloseMask } from "../../../CloseMask";
 
 type SettingsContentProps = {
   children: ReactNode;
-  setIsMenuOpened: (isMenuOpened: boolean) => void;
+  setIsMenuOpen: (isMenuOpen: boolean) => void;
 };
 
-export function SettingsContent({ setIsMenuOpened, children }: SettingsContentProps) {
+export function SettingsContent({
+  setIsMenuOpen,
+  children,
+}: SettingsContentProps) {
   const navigate = useNavigate();
-
-  async function handleCloseSettings() {
-    await setIsMenuOpened(false);
-
-    let settingsContent = document.querySelector(".settings-content");
-
-    if (settingsContent) {
-      if (settingsContent.classList.contains("open"))
-        settingsContent.classList.remove("open");
-    }
-  }
 
   function handleSignOut() {
     signOut(auth)
@@ -33,17 +26,17 @@ export function SettingsContent({ setIsMenuOpened, children }: SettingsContentPr
   }
 
   return (
-    <div className="settings-content">
-      <div className="close-mask" onClick={handleCloseSettings}></div>
+    <div className="settings-modal">
+      <CloseMask target={".settings-modal"} setIsModalState={setIsMenuOpen} />
 
       <div className="content">
-        <header className="settings-header">
+        <header className="header">
           <h3 className="title">Configurações de perfil</h3>
         </header>
 
         {children}
 
-        <footer className="settings-footer">
+        <footer className="footer">
           <button className="btn sign-out" onClick={handleSignOut}>
             Sair
           </button>

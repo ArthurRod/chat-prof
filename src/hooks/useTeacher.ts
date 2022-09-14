@@ -9,13 +9,10 @@ export function useTeacher() {
   const [teacher, setTeacher] = useState<AdminUser | null>(null);
 
   useEffect(() => {
-
     getTeacherData();
-
   }, []);
 
   const getTeacherData = async () => {
-    
     if (user) {
       const docRef = doc(db, "teachers", user.uid.toString());
       const docSnap = await getDoc(docRef);
@@ -31,7 +28,9 @@ export function useTeacher() {
         });
 
       } else {
-        console.log("Não foi possível encontrar o ID da escola");
+
+        console.log("Não foi possível encontrar os dados do professor");
+        
       }
     }
   };

@@ -1,3 +1,5 @@
+import { AddData } from "../../../components/AddData";
+import { FormCreateTeacher } from "../../../components/AddData/FormCreateTeacher";
 import { AdminInfos } from "../../../components/AdminInfos";
 import { Header } from "../../../components/Header";
 import { SchollTeachers } from "../../../components/SchollTeachers";
@@ -22,6 +24,11 @@ export function AdminHomeScholl() {
                 adminUserPhone={scholl.phone}
               />
               <SchollTeachers />
+
+              <AddData modalTypeTitle={"Professor"}>
+                <FormCreateTeacher />
+              </AddData>
+
             </>
           </div>
         </div>
