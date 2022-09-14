@@ -11,9 +11,11 @@ export function Settings() {
 
     let settingsContent = document.querySelector(".settings-content");
 
-    if (settingsContent) {
-      settingsContent.classList.add("open");
-    }
+    setTimeout(() => {
+      if (settingsContent) {
+        settingsContent.classList.add("open");
+      }
+    }, 100);
   }
 
   return (
@@ -28,11 +30,9 @@ export function Settings() {
       </button>
 
       {isMenuOpened ? (
-          
         <SettingsContent onClose={() => setIsMenuOpened(false)}>
-            <FormUpdateScholl />
+          <FormUpdateScholl />
         </SettingsContent>
-
       ) : null}
     </div>
   );
