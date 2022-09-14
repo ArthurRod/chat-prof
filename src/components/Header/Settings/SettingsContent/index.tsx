@@ -5,14 +5,14 @@ import { auth } from "../../../../services/firebase";
 
 type SettingsContentProps = {
   children: ReactNode;
-  onClose: () => void;
+  setIsMenuOpened: (isMenuOpened: boolean) => void;
 };
 
-export function SettingsContent({ onClose, children }: SettingsContentProps) {
+export function SettingsContent({ setIsMenuOpened, children }: SettingsContentProps) {
   const navigate = useNavigate();
 
   async function handleCloseSettings() {
-    await onClose();
+    await setIsMenuOpened(false);
 
     let settingsContent = document.querySelector(".settings-content");
 
