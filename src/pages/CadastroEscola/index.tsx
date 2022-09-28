@@ -19,7 +19,12 @@ export function CadastroEscola() {
         const uid = data.user.uid;
 
         createDocScholl(uid).then(() => {
+
+          sessionStorage.setItem('email', email);
+          sessionStorage.setItem('pass', password);
+
           alert("Escola cadastrada com sucesso!");
+          
           navigate("/admin-home");
         })
         .catch((error) => {

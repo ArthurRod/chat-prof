@@ -18,6 +18,10 @@ export function SettingsContent({
   function handleSignOut() {
     signOut(auth)
       .then(() => {
+
+        sessionStorage.setItem('email', "");
+        sessionStorage.setItem('pass', "");
+
         navigate("/");
       })
       .catch((error) => {
