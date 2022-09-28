@@ -18,6 +18,8 @@ export const AuthContext = createContext({} as AuthContextType);
 export function AuthProvider(props: AuthContextProvider) {
   const [user, setUser] = useState<User>();
 
+  console.log(user)
+
   useEffect(() => {
 
     persistUser();

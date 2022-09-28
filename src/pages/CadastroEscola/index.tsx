@@ -44,6 +44,7 @@ export function CadastroEscola() {
 
     await setDoc(doc(db, "admin-users", uid), {
       type: "scholl",
+      isAdmin: true
     });
   };
 

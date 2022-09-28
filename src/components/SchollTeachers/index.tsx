@@ -6,12 +6,18 @@ export function SchollTeachers() {
 
   return (
     <>
-      {schollTeachers ? (
+      {schollTeachers.length > 0 ? (
         <section className="scholl-teachers">
           <header className="table-header">
-            <span className="name"><b>Nome</b></span>
-            <span className="email"><b>E-mail</b></span>
-            <span className="phone"><b>Telefone</b></span>
+            <span className="name">
+              <b>Nome</b>
+            </span>
+            <span className="email">
+              <b>E-mail</b>
+            </span>
+            <span className="phone">
+              <b>Telefone</b>
+            </span>
           </header>
           {schollTeachers.map((key: any) => (
             <div key={key.name} className="teacher">
@@ -23,7 +29,10 @@ export function SchollTeachers() {
         </section>
       ) : (
         <section className="scholl-no-teachers">
-          Não existem professores cadastrados
+          <p>
+            Não existem professores cadastrados nesta escola... Para cadastrar
+            novos professores clique no botão adicionar abaixo
+          </p>
         </section>
       )}
     </>

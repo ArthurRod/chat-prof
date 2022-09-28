@@ -14,6 +14,9 @@ export function LoginAdmin() {
 
     logInWithEmailAndPassword(email, password).then(() => {
 
+      sessionStorage.setItem('email', email);
+      sessionStorage.setItem('pass', password);
+
       navigate("/admin-home");
 
     }).catch((error) => {

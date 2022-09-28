@@ -26,7 +26,7 @@ export function AdminHomeScholl() {
               <SchollTeachers />
 
               <AddData modalTypeTitle={"Professor"}>
-                <FormCreateTeacher />
+                <FormCreateTeacher schollId={scholl.schollId} />
               </AddData>
 
             </>
