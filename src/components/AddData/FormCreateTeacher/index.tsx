@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { useAuth } from '../../../hooks/useAuth'
+import { useAuth } from "../../../hooks/useAuth";
 
 type FormCreateTeacherProps = {
   schollId: string | undefined;
@@ -21,14 +21,16 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
     createUserWithEmailAndPassword(auth, email, password)
       .then((data) => {
         const uid = data.user.uid;
-        const email = sessionStorage.getItem('email');
-        const pass = sessionStorage.getItem('pass');
+        const email = sessionStorage.getItem("email");
+        const pass = sessionStorage.getItem("pass");
 
         createDocTeacher(uid)
-          .then(() => {
-            
-            logInWithEmailAndPassword(email!, pass!)
-            
+          .then(async() => {
+
+            if (email && pass) {
+              await logInWithEmailAndPassword(email, pass);
+            }
+
             alert("Professor cadastrado com sucesso!");
           })
           .catch((error) => {
@@ -93,7 +95,7 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
           value={password}
         />
 
-        <button type="submit">Cadastrar</button>
+        <button type="submit" className="btn">Cadastrar</button>
       </form>
     </main>
   );

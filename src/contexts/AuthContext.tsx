@@ -7,59 +7,73 @@ import { ReactNode } from "react";
 type AuthContextType = {
   user: User | undefined;
   logInWithEmailAndPassword: (email: string, password: string) => Promise<void>;
-}
+};
 
 type AuthContextProvider = {
   children: ReactNode;
-}
+};
 
 export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider(props: AuthContextProvider) {
   const [user, setUser] = useState<User>();
 
-  console.log(user)
-
   useEffect(() => {
-
     persistUser();
-
-  }, [])
+  }, []);
 
   const persistUser = async () => {
+    let uid = sessionStorage.getItem("uid");
+    let email = sessionStorage.getItem("email");
 
-    onAuthStateChanged(auth, (user) => {
+    if (uid && email) {
 
-      if (user) {
-        const { uid, email } = user
+      setUser({
+        uid: uid,
+        email: email,
+      });
 
-        if (!uid || !email) {
-          throw new Error('Missing user information.');
+    } else {
+
+      onAuthStateChanged(auth, (user) => {
+        
+        if (user) {
+          const { uid, email } = user;
+
+          if (!uid || !email) {
+            throw new Error("Missing user information.");
+          }
+
+          setUser({
+            uid: uid,
+            email: email,
+          });
         }
-
-        setUser({
-          uid: uid,
-          email: email
-        })
-      }
-    })
-  }
+      });
+      
+    }
+  };
 
   const logInWithEmailAndPassword = async (email: string, password: string) => {
-
-    const result = await signInWithEmailAndPassword(auth, email, password)
+    const result = await signInWithEmailAndPassword(auth, email, password);
 
     if (result.user) {
       const { uid, email } = result.user;
 
+      if(uid && email) {
+        sessionStorage.setItem('uid', uid);
+        sessionStorage.setItem('email', email);
+        sessionStorage.setItem('pass', password);
+      }
+
       if (!uid || !email) {
-        throw new Error('Missing information from Account.');
+        throw new Error("Missing information from Account.");
       }
 
       setUser({
         uid: uid,
-        email: email
-      })
+        email: email,
+      });
     }
   };
 

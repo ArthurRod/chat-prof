@@ -12,10 +12,7 @@ export function LoginAdmin() {
   function handleAdminLogin(e: FormEvent) {
     e.preventDefault();
 
-    logInWithEmailAndPassword(email, password).then(() => {
-
-      sessionStorage.setItem('email', email);
-      sessionStorage.setItem('pass', password);
+    logInWithEmailAndPassword(email, password).then((data) => {
 
       navigate("/admin-home");
 

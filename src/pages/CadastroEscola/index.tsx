@@ -20,6 +20,7 @@ export function CadastroEscola() {
 
         createDocScholl(uid).then(() => {
 
+          sessionStorage.setItem('uid', uid);
           sessionStorage.setItem('email', email);
           sessionStorage.setItem('pass', password);
 

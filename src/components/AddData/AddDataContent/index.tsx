@@ -23,8 +23,7 @@ export function AddDataContent({
         </header>
 
         {children}
-
-        <footer className="footer"></footer>
+        
       </div>
 
     </div>
