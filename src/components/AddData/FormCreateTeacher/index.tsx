@@ -29,6 +29,8 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
 
             if (email && pass) {
               await logInWithEmailAndPassword(email, pass);
+
+              clearInputs();
             }
 
             alert("Professor cadastrado com sucesso!");
@@ -47,6 +49,7 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
 
   const createDocTeacher = async (uid: string) => {
     await setDoc(doc(db, "teachers", uid), {
+      uid: uid,
       email: email,
       name: name,
       phone: phone,
@@ -57,6 +60,17 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
       type: "teacher",
       isAdmin: true,
     });
+  };
+
+  const clearInputs = () => {
+    let inputs = document.querySelectorAll("input")
+  
+    if(inputs) {
+      inputs.forEach((item) => {
+        console.log(item.value)
+        item.value = "";
+      })
+    }
   };
 
   return (

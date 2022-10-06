@@ -27,6 +27,7 @@ export function useSchollTeachers() {
         if (docData.schollId === user.uid) {
 
           teachersArray.push({
+            uid: docData.uid,
             name: docData.name,
             phone: docData.phone,
             email: docData.email

@@ -1,4 +1,5 @@
 import { useSchollTeachers } from "../../hooks/useSchollTeachers";
+import { Link } from "react-router-dom";
 import "../../styles/scholl-teachers.scss";
 
 export function SchollTeachers() {
@@ -20,10 +21,16 @@ export function SchollTeachers() {
             </span>
           </header>
           {schollTeachers.map((key: any) => (
-            <div key={key.name} className="teacher">
-              <span className="name">{key.name}</span>
-              <span className="email">{key.email}</span>
-              <span className="phone">{key.phone}</span>
+            <div key={key.uid} className="teacher">
+              <Link
+                className="teacher-link"
+                target="_self"
+                to={`./edit/${key.uid}`}
+              >
+                  <span className="name">{key.name}</span>
+                  <span className="email">{key.email}</span>
+                  <span className="phone">{key.phone}</span>
+              </Link>
             </div>
           ))}
         </section>

@@ -28,7 +28,7 @@
     width: 30%;
   }
   .table-header,
-  .teacher {
+  .teacher .teacher-link {
     display: flex;
     gap: 10px;
   }
@@ -38,9 +38,22 @@
   }
   .teacher {
     padding-top: 10px;
-  }
-  .teacher:not(:last-child) {
-    padding-bottom: 10px;
-    border-bottom: 1px solid;
+
+    &:not(:last-child) {
+      padding-bottom: 10px;
+      border-bottom: 1px solid;
+    }
+
+    .teacher-link {
+      text-decoration: none;
+      color: $fonte-principal;
+      border-radius: 2px;
+      transition: .5s;
+
+      &:hover, &:focus {
+        background-color: $blue;
+        padding: 10px 2px;
+      }
+    }
   }
 }
