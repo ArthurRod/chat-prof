@@ -8,7 +8,8 @@
   border-radius: 2px;
   border: 1px solid #3b4751;
   flex-direction: column;
-  max-width: 600px;
+  max-width: 800px;
+  width: 800px;
   margin: 30px auto;
 }
 
@@ -19,13 +20,13 @@
     display: inline-block;
   }
   .name {
-    width: 25%;
+    width: 50%;
   }
   .email {
-    width: 45%;
+    width: 30%;
   }
   .phone {
-    width: 30%;
+    width: 20%;
   }
   .table-header,
   .teacher .teacher-link {

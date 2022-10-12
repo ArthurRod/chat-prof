@@ -29,11 +29,11 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
 
             if (email && pass) {
               await logInWithEmailAndPassword(email, pass);
-
-              clearInputs();
             }
 
             alert("Professor cadastrado com sucesso!");
+
+            clearInputs();
           })
           .catch((error) => {
             console.log(error);
@@ -66,11 +66,15 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
     let inputs = document.querySelectorAll("input")
   
     if(inputs) {
-      inputs.forEach((item) => {
-        console.log(item.value)
-        item.value = "";
-      })
+
+      inputs.forEach((item) => item.value = "")
+
     }
+
+    setName("")
+    setPhone("")
+    setEmail("")
+    setPassword("")
   };
 
   return (

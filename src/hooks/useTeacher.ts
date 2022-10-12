@@ -21,6 +21,7 @@ export function useTeacher() {
         const userData = docSnap.data();
 
         setTeacher({
+          uid: user.uid,
           schollId: userData.schollId,
           name: userData.name,
           email: userData.email,

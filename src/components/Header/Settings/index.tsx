@@ -8,16 +8,12 @@ export function Settings() {
   const { admin } = useAdmin();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  if (!admin) {
-    return <span>Loading...</span>;
-  }
-
   return (
     <div className="settings">
 
       <SettingsButton setIsMenuOpen={setIsMenuOpen} />
 
-      {isMenuOpen ? (
+      {isMenuOpen && admin ? (
 
         <SettingsContent setIsMenuOpen={setIsMenuOpen}>
 

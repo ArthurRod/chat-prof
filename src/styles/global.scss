@@ -41,8 +41,7 @@ button.btn, input {
   border-radius: 3px;
 }
 
-button.btn {
-  border-width: 1px;
+button.btn, a.btn.back {
   border: 1px solid $blue;
   cursor: pointer;
   background-color: transparent;
@@ -50,10 +49,18 @@ button.btn {
   font-size: 1rem;
   padding: 5px 25px;
   color: $fonte-principal;
+  border-radius: 2px;
 }
 
-button.btn:hover {
+button.btn:hover, a.btn.back:hover {
   background-color: $blue;
+}
+
+a.btn.back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
 }
 
 .container {
