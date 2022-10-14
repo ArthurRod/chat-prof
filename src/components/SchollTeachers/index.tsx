@@ -1,6 +1,7 @@
 import { useSchollTeachers } from "../../hooks/useSchollTeachers";
 import { Link } from "react-router-dom";
 import "../../styles/scholl-teachers.scss";
+import { DeleteTeacher } from "../Modal/DeleteTeacher";
 
 export function SchollTeachers() {
   const { schollTeachers } = useSchollTeachers();
@@ -19,6 +20,7 @@ export function SchollTeachers() {
             <span className="phone">
               <b>Telefone</b>
             </span>
+            <span className="delete"></span>
           </header>
           {schollTeachers.map((key: any) => (
             <div key={key.uid} className="teacher">
@@ -27,10 +29,11 @@ export function SchollTeachers() {
                 target="_self"
                 to={`./edit/${key.uid}`}
               >
-                  <span className="name">{key.name}</span>
-                  <span className="email">{key.email}</span>
-                  <span className="phone">{key.phone}</span>
+                <span className="name">{key.name}</span>
+                <span className="email">{key.email}</span>
+                <span className="phone">{key.phone}</span>
               </Link>
+              <DeleteTeacher teacherName={key.name} />
             </div>
           ))}
         </section>
