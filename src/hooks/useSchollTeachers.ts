@@ -3,11 +3,11 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../services/firebase";
 
 import { useAuth } from "./useAuth";
-import { AdminUser } from "../types/AdminUser";
+import { AdminUserTeacher } from "../types/AdminUserTeacher";
 
 export function useSchollTeachers() {
   const { user } = useAuth();
-  const [schollTeachers, setSchollTeachers] = useState<AdminUser[]>([]);
+  const [schollTeachers, setSchollTeachers] = useState<AdminUserTeacher[]>([]);
 
   useEffect(() => {
     getSchollTeachers();
@@ -18,7 +18,7 @@ export function useSchollTeachers() {
       let collectionRef = collection(db, "teachers");
       const querySnapshot = await getDocs(collectionRef);
 
-      let teachersArray: AdminUser[] = [];
+      let teachersArray: AdminUserTeacher[] = [];
 
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
@@ -40,5 +40,5 @@ export function useSchollTeachers() {
     }
   };
 
-  return { schollTeachers };
+  return { schollTeachers, setSchollTeachers };
 }

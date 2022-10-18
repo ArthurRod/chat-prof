@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useAuth } from "./useAuth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
-import { AdminUser } from "../types/AdminUser";
+import { AdminUserTeacher } from "../types/AdminUserTeacher";
 
 export function useTeacher() {
   const { user } = useAuth();
-  const [teacher, setTeacher] = useState<AdminUser | null>(null);
+  const [teacher, setTeacher] = useState<AdminUserTeacher | null>(null);
 
   useEffect(() => {
     getTeacherData();

@@ -2,9 +2,13 @@ import { useSchollTeachers } from "../../hooks/useSchollTeachers";
 import { Link } from "react-router-dom";
 import "../../styles/scholl-teachers.scss";
 import { DeleteTeacher } from "../Modal/DeleteTeacher";
+import { useEffect } from "react";
 
 export function SchollTeachers() {
-  const { schollTeachers } = useSchollTeachers();
+  const { schollTeachers, setSchollTeachers } = useSchollTeachers();
+
+  useEffect(() => {
+  }, [schollTeachers]);
 
   return (
     <>
@@ -33,7 +37,7 @@ export function SchollTeachers() {
                 <span className="email">{key.email}</span>
                 <span className="phone">{key.phone}</span>
               </Link>
-              <DeleteTeacher teacherName={key.name} />
+              <DeleteTeacher setSchollTeachers={setSchollTeachers} teacherId={key.uid} teacherName={key.name} />
             </div>
           ))}
         </section>

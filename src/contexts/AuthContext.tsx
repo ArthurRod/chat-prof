@@ -26,7 +26,7 @@ export function AuthProvider(props: AuthContextProvider) {
     let uid = sessionStorage.getItem("uid");
     let email = sessionStorage.getItem("email");
 
-    if (uid && email) {
+    if (uid && uid.length > 0 && email && email.length > 0) {
 
       setUser({
         uid: uid,

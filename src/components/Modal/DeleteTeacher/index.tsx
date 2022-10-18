@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { AdminUserTeacher } from "../../../types/AdminUserTeacher";
 import { DeleteButton } from "./DeleteButton";
 import { DeleteModal } from "./DeleteModal";
 
 type DeleteTeacherProps = {
-    teacherName: string
+    teacherName: string,
+    teacherId: string,
+    setSchollTeachers: (teachersArray: AdminUserTeacher[]) => void
 }
 
-export function DeleteTeacher({teacherName}: DeleteTeacherProps) {
+export function DeleteTeacher({teacherName, teacherId, setSchollTeachers}: DeleteTeacherProps) {
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
 
   return (
@@ -15,7 +18,7 @@ export function DeleteTeacher({teacherName}: DeleteTeacherProps) {
       <DeleteButton setIsAddFormOpen={setIsAddFormOpen} />
 
       {isAddFormOpen ? (
-        <DeleteModal teacherName={teacherName} setIsModalState={setIsAddFormOpen} />
+        <DeleteModal setSchollTeachers={setSchollTeachers} teacherId={teacherId} teacherName={teacherName} setIsModalState={setIsAddFormOpen} />
       ) : null}
 
     </div>

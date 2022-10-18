@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useAuth } from "./useAuth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
-import { AdminUser } from "../types/AdminUser";
+import { AdminUserScholl } from "../types/AdminUserScholl";
 
 export function useScholl() {
   const { user } = useAuth();
-  const [scholl, setScholl] = useState<AdminUser | null>(null);
+  const [scholl, setScholl] = useState<AdminUserScholl | null>(null);
 
   useEffect(() => {
     getSchollData();
