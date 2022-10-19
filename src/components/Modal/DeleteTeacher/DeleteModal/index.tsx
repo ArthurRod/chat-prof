@@ -1,35 +1,27 @@
 import { doc, deleteDoc } from "firebase/firestore";
-import { useSchollTeachers } from "../../../../hooks/useSchollTeachers";
 import { db } from "../../../../services/firebase";
-import { AdminUserTeacher } from "../../../../types/AdminUserTeacher";
 
 type DeleteModalProps = {
   setIsModalState: (isModalState: boolean) => void;
   teacherName: string;
   teacherId: string;
-  setSchollTeachers: (teachersArray: AdminUserTeacher[]) => void
+  setIsModified: (isModified: Boolean) => void;
 };
 
 export function DeleteModal({
   setIsModalState,
   teacherName,
   teacherId,
-  setSchollTeachers
+  setIsModified
 }: DeleteModalProps) {
-  const { schollTeachers } = useSchollTeachers();
 
   function handleDeleteTeacher() {
-
-    /** 
-     * TODO Tentar refazer o array de professores e retorna-lo para o parent 
-     * fazendo ele ser renderizado novamente
-    **/
 
     deleteTeacher().then(async() => {
 
       handleCloseSettings();
 
-      setSchollTeachers(schollTeachers);
+      setIsModified(true);
 
     }).catch((error) => {
 

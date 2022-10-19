@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../services/firebase";
-
 import { useAuth } from "./useAuth";
 import { AdminUserTeacher } from "../types/AdminUserTeacher";
 
 export function useSchollTeachers() {
   const { user } = useAuth();
   const [schollTeachers, setSchollTeachers] = useState<AdminUserTeacher[]>([]);
+  const [isModified, setIsModified] = useState<Boolean>(false);
 
   useEffect(() => {
     getSchollTeachers();
-  }, [user]);
+  }, [user, isModified]);
 
   const getSchollTeachers = async () => {
     if (user) {
@@ -21,7 +21,7 @@ export function useSchollTeachers() {
       let teachersArray: AdminUserTeacher[] = [];
 
       querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
+        
         let docData = doc.data();      
 
         if (docData.schollId === user.uid) {
@@ -37,8 +37,9 @@ export function useSchollTeachers() {
       });
 
       setSchollTeachers(teachersArray);
+      setIsModified(false)
     }
   };
 
-  return { schollTeachers, setSchollTeachers };
+  return { schollTeachers, setSchollTeachers, setIsModified };
 }
