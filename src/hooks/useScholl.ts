@@ -24,7 +24,7 @@ export function useScholl() {
           schollId: user.uid,
           name: userData.name,
           email: userData.email,
-          phone: userData.phone,
+          phone: userData.phone
         });
 
       } else {

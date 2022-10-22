@@ -61,9 +61,11 @@ export function AuthProvider(props: AuthContextProvider) {
       const { uid, email } = result.user;
 
       if(uid && email) {
+
         sessionStorage.setItem('uid', uid);
         sessionStorage.setItem('email', email);
         sessionStorage.setItem('pass', password);
+        
       }
 
       if (!uid || !email) {

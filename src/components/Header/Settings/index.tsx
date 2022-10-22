@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { SettingsButton } from "./SettingsButton";
 import { SettingsContent } from "./SettingsContent";
-import { useAdmin } from "../../../hooks/useAdmin";
+import { useAdminType } from "../../../hooks/useAdminType";
 import { FormUpdateScholl } from "../FormUpdateScholl";
 
 export function Settings() {
-  const { admin } = useAdmin();
+  const { adminType } = useAdminType();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -13,11 +13,11 @@ export function Settings() {
 
       <SettingsButton setIsMenuOpen={setIsMenuOpen} />
 
-      {isMenuOpen && admin ? (
+      {isMenuOpen && adminType ? (
 
         <SettingsContent setIsMenuOpen={setIsMenuOpen}>
 
-          {admin.type === "scholl" ? <FormUpdateScholl /> : null}
+          {adminType.type === "scholl" ? <FormUpdateScholl /> : null}
           
         </SettingsContent>
 

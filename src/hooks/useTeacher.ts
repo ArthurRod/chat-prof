@@ -25,7 +25,7 @@ export function useTeacher() {
           schollId: userData.schollId,
           name: userData.name,
           email: userData.email,
-          phone: userData.phone,
+          phone: userData.phone
         });
 
       } else {

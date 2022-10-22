@@ -7,8 +7,9 @@ import { LoginAdmin } from "../pages/LoginAdmin";
 import { NotFound } from "../pages/NotFound";
 import { AuthProvider } from "../contexts/AuthContext";
 import { PrivateAdmin } from "./PrivateAdmin";
-import { AdminHome } from "../pages/AdminHome";
 import { TeacherEdit } from "../pages/TeacherEdit";
+import { AdminHomeScholl } from "../pages/AdminHome/Scholl";
+import { AdminHomeTeacher } from "../pages/AdminHome/Teacher";
 
 export function RoutesApp() {
   return (
@@ -18,8 +19,11 @@ export function RoutesApp() {
           <Route path="/" element={<PaginaInicial />} />
           <Route path="cadastro-escola" element={<CadastroEscola />} />
           <Route path="login-admin" element={<LoginAdmin />} />
-          <Route path="admin-home" element={<PrivateAdmin><AdminHome /></PrivateAdmin>} />
-          <Route path="admin-home/edit/:id" element={<TeacherEdit />} />
+          <Route path="admin-home">
+            <Route path="scholl" element={<PrivateAdmin><AdminHomeScholl /></PrivateAdmin>}/>
+            <Route path="scholl/edit/:id" element={<TeacherEdit />} />
+            <Route path="teacher" element={<PrivateAdmin><AdminHomeTeacher /></PrivateAdmin>} />
+          </Route>
           <Route path="home" element={<Home />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

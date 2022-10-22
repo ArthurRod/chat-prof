@@ -53,7 +53,7 @@ export function TeacherEdit() {
 
         setTimeout(() => {
           sucesso.style.display = "none"
-          navigate('/admin-home')
+          navigate(-1)
         }, 2000);
       }
 
@@ -129,7 +129,7 @@ export function TeacherEdit() {
 
                 <footer>
                   <button type="submit" className="btn">Alterar</button>
-                  <a href="/admin-home" className="btn back">Voltar</a>
+                  <a href="/admin-home/scholl" className="btn back">Voltar</a>
                 </footer>
                 
               </form>
