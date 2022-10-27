@@ -14,46 +14,28 @@ export function useAdminType() {
   const [adminType, setAdminType] = useState<AdminType | null>(null);
 
   useEffect(() => {
+
     if (user) {
       getAdminType(user);
     }
+    
   }, [user]);
 
   const getAdminType = async (user: User) => {
-    let adminTypeItem = sessionStorage.getItem("adminType");
-    let isAdminItem = sessionStorage.getItem("isAdmin");
+    const userId = user.uid;
+    const docRef = doc(db, "admin-users", userId);
+    const docSnap = await getDoc(docRef);
 
-    if (
-      adminTypeItem &&
-      adminTypeItem.length > 0 &&
-      isAdminItem &&
-      isAdminItem.length > 0
-    ) {
-      let isAdminItemBool = isAdminItem!.toLowerCase() === "true";
+    if (docSnap.exists()) {
+      const userData = docSnap.data();
 
       setAdminType({
-        isAdmin: isAdminItemBool,
-        type: adminTypeItem,
+        isAdmin: userData.isAdmin,
+        type: userData.type,
       });
-      
+
     } else {
-      let userId = user.uid;
-      const docRef = doc(db, "admin-users", userId);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const userData = docSnap.data();
-
-        setAdminType({
-          isAdmin: userData.isAdmin,
-          type: userData.type,
-        });
-
-        sessionStorage.setItem("isAdmin", userData.isAdmin);
-        sessionStorage.setItem("adminType", userData.type);
-      } else {
-        console.log("Usuário admin não encontrado!");
-      }
+      console.log("Usuário admin não encontrado!");
     }
 
     return adminType;

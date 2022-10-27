@@ -18,17 +18,14 @@ export function SettingsContent({
   function handleSignOut() {
     signOut(auth)
       .then(() => {
-        
-        sessionStorage.setItem("uid", "");
-        sessionStorage.setItem("email", "");
-        sessionStorage.setItem("pass", "");
-        sessionStorage.setItem("isAdmin", "");
-        sessionStorage.setItem("adminType", "");
 
         navigate("/");
+        
       })
       .catch((error) => {
+
         console.log("Ocorreu um erro ao sair: " + error);
+
       });
   }
 
@@ -38,7 +35,7 @@ export function SettingsContent({
 
       <div className="content">
         <header className="header">
-          <h3 className="title">Configurações de perfil</h3>
+          <h3 className="title">Configurações</h3>
         </header>
 
         {children}

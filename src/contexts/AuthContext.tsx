@@ -24,13 +24,11 @@ export function AuthProvider(props: AuthContextProvider) {
 
   const persistUser = async () => {
     let uid = sessionStorage.getItem("uid");
-    let email = sessionStorage.getItem("email");
 
-    if (uid && uid.length > 0 && email && email.length > 0) {
+    if (uid && uid.length > 0) {
 
       setUser({
-        uid: uid,
-        email: email,
+        uid: uid
       });
 
     } else {
@@ -45,8 +43,7 @@ export function AuthProvider(props: AuthContextProvider) {
           }
 
           setUser({
-            uid: uid,
-            email: email,
+            uid: uid
           });
         }
       });
@@ -73,8 +70,7 @@ export function AuthProvider(props: AuthContextProvider) {
       }
 
       setUser({
-        uid: uid,
-        email: email,
+        uid: uid
       });
     }
   };

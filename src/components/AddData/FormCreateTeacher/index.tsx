@@ -50,8 +50,8 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
   const createDocTeacher = async (uid: string) => {
     await setDoc(doc(db, "teachers", uid), {
       uid: uid,
-      email: email,
       name: name,
+      email: email,
       phone: phone,
       schollId: schollId,
     });

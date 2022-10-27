@@ -1,13 +1,11 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAdminType } from "../../hooks/useAdminType";
 import { useAuth } from "../../hooks/useAuth";
 
 export function LoginAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { user, logInWithEmailAndPassword } = useAuth();
-  const { getAdminType } = useAdminType();
+  const { logInWithEmailAndPassword } = useAuth();
 
   const navigate = useNavigate();
 
@@ -16,17 +14,9 @@ export function LoginAdmin() {
 
     logInWithEmailAndPassword(email, password)
       .then(async (data) => {
-        if (user) {
-          let result = await getAdminType(user);
 
-          if (result && result.type === "scholl") {
-            navigate("/admin-home/scholl");
-          } else if (result && result.type === "teacher") {
-            navigate("/admin-home/teacher");
-          } else {
-            navigate("/login-admin");
-          }
-        }
+        navigate("/admin-home");
+
       })
       .catch((error) => {
         console.log(error);
