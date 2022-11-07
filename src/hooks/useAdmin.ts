@@ -1,9 +1,9 @@
-import { doc, getDoc } from '@firebase/firestore';
-import { useEffect, useState } from 'react';
-import { db } from '../services/firebase';
-import { AdminUser } from '../types/AdminUser';
-import { useAdminType } from './useAdminType';
-import { useAuth } from './useAuth';
+import { doc, getDoc } from "@firebase/firestore";
+import { useEffect, useState } from "react";
+import { db } from "../services/firebase";
+import { AdminUser } from "../types/AdminUser";
+import { useAdminType } from "./useAdminType";
+import { useAuth } from "./useAuth";
 
 export function useAdmin() {
   const { user } = useAuth();
@@ -11,40 +11,52 @@ export function useAdmin() {
   const [adminUser, setAdminUser] = useState<AdminUser>();
 
   useEffect(() => {
-
     if (user) {
       getAdminData();
     }
-
   }, [adminType]);
 
   const getAdminData = async () => {
     if (user && adminType) {
-
       let docRef = doc(db, "escolas", user.uid.toString());
 
       if (adminType.type === "teacher") {
-
         docRef = doc(db, "teachers", user.uid.toString());
 
-      }
+        let docSnap = await getDoc(docRef);
 
-      let docSnap = await getDoc(docRef);
-      
-      if (docSnap.exists()) {
-        const userData = docSnap.data();
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
 
-        setAdminUser({
-          name: userData.name,
-          phone: userData.phone,
-          email: userData.email,
-          schollId: user.uid
-        });
+          setAdminUser({
+            name: userData.name,
+            phone: userData.phone,
+            email: userData.email,
+            schollId: userData.schollId
+          });
+        } else {
 
+          console.log("Dados não encontrados!");
+
+        }
       } else {
-
-        console.log("Dados não encontrados!");
         
+        let docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+
+          setAdminUser({
+            uid: user.uid,
+            name: userData.name,
+            phone: userData.phone,
+            email: userData.email
+          });
+        } else {
+
+          console.log("Dados não encontrados!");
+
+        }
       }
     }
   };

@@ -15,6 +15,8 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  console.log(schollId)
+
   const createTeacher = (e: FormEvent) => {
     e.preventDefault();
 
