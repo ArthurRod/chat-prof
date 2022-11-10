@@ -5,7 +5,6 @@ import { db } from "../services/firebase";
 import { User } from "../types/User";
 
 type AdminType = {
-  isAdmin: boolean;
   type: string;
 };
 
@@ -30,7 +29,6 @@ export function useAdminType() {
       const userData = docSnap.data();
 
       setAdminType({
-        isAdmin: userData.isAdmin,
         type: userData.type,
       });
 

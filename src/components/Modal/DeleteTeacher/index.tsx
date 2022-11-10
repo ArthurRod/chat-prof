@@ -5,13 +5,11 @@ import { DeleteModal } from "./DeleteModal";
 type DeleteTeacherProps = {
   teacherName: string;
   teacherId: string;
-  setIsModified: (isModified: Boolean) => void;
 };
 
 export function DeleteTeacher({
   teacherName,
-  teacherId,
-  setIsModified,
+  teacherId
 }: DeleteTeacherProps) {
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
 
@@ -21,7 +19,6 @@ export function DeleteTeacher({
 
       {isAddFormOpen ? (
         <DeleteModal
-          setIsModified={setIsModified}
           teacherId={teacherId}
           teacherName={teacherName}
           setIsModalState={setIsAddFormOpen}

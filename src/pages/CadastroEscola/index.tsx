@@ -49,8 +49,7 @@ export function CadastroEscola() {
     });
 
     await setDoc(doc(db, "admin-users", uid), {
-      type: "scholl",
-      isAdmin: true
+      type: "scholl"
     });
   };
 
@@ -86,6 +85,7 @@ export function CadastroEscola() {
           type="password"
           id="password"
           name="password"
+          autoComplete="on"
           placeholder="Digite a senha"
           onChange={(event) => setPassword(event.target.value)}
           value={password}

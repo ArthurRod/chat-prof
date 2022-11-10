@@ -1,25 +1,20 @@
-import { FormEvent, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../../services/firebase";
+import { FormEvent, useState } from "react";
+import { db } from "../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { useAuth } from "../../../hooks/useAuth";
 
 type FormCreateStudentProps = {
   schollId: string | undefined;
 };
 
 export function FormCreateStudent({ schollId }: FormCreateStudentProps) {
-  const { user } = useAuth();
   const [name, setName] = useState("");
   const [fathersPhone, setFathersPhone] = useState("");
 
   const createStudent = (e: FormEvent) => {
     e.preventDefault();
 
-    const userId = user?.uid.toString();
-
-    if (userId) {
-      createDocStudent(userId)
+    if (schollId) {
+      createDocStudent(schollId)
         .then(() => {
           alert("Aluno cadastrado com sucesso!");
 
@@ -31,10 +26,10 @@ export function FormCreateStudent({ schollId }: FormCreateStudentProps) {
     }
   };
 
-  const createDocStudent = async (uid: string) => {
+  const createDocStudent = async (schollId: string) => {
     let id = Math.floor(Date.now() * Math.random()).toString(36)
 
-    await setDoc(doc(db, "teachers", uid, "students", name), {
+    await setDoc(doc(db, "students", id), {
       id: id,
       name: name,
       fathersPhone: fathersPhone,

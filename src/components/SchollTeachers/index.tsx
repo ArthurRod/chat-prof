@@ -1,10 +1,41 @@
-import { useSchollTeachers } from "../../hooks/useSchollTeachers";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../../styles/scholl-teachers.scss";
+import { collection, onSnapshot, query, where } from "@firebase/firestore";
+import { db } from "../../services/firebase";
+
 import { DeleteTeacher } from "../Modal/DeleteTeacher";
+import { useAuth } from "../../hooks/useAuth";
+import { AdminUser } from "../../types/AdminUser";
+
+import "../../styles/scholl-teachers.scss";
 
 export function SchollTeachers() {
-  const { schollTeachers, setIsModified } = useSchollTeachers();
+  const { user } = useAuth();
+  const [schollTeachers, setSchollTeachers] = useState<AdminUser[]>([]);
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "teachers"),
+      where("schollId", "==", user?.uid)
+    );
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let teachersArray: AdminUser[] = [];
+
+      querySnapshot.forEach((doc) => {
+        teachersArray.push({
+          uid: doc.data().uid,
+          name: doc.data().name,
+          phone: doc.data().phone,
+          email: doc.data().email,
+        });
+      });
+
+      setSchollTeachers(teachersArray);
+    });
+
+    return () => unsubscribe();
+  }, [user]);
 
   return (
     <>
@@ -22,6 +53,7 @@ export function SchollTeachers() {
             </span>
             <span className="delete"></span>
           </header>
+
           {schollTeachers.map((key: any) => (
             <div key={key.uid} className="teacher">
               <Link
@@ -33,11 +65,7 @@ export function SchollTeachers() {
                 <span className="email">{key.email}</span>
                 <span className="phone">{key.phone}</span>
               </Link>
-              <DeleteTeacher
-                setIsModified={setIsModified}
-                teacherId={key.uid}
-                teacherName={key.name}
-              />
+              <DeleteTeacher teacherId={key.uid} teacherName={key.name} />
             </div>
           ))}
         </section>

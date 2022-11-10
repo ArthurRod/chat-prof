@@ -19,11 +19,13 @@ export function AuthProvider(props: AuthContextProvider) {
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
+
     persistUser();
+    
   }, []);
 
   const persistUser = async () => {
-    let uid = sessionStorage.getItem("uid");
+    const uid = sessionStorage.getItem("uid");
 
     if (uid && uid.length > 0) {
 

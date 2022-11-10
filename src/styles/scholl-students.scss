@@ -1,0 +1,117 @@
+@import "global-colors.scss";
+
+/** SchollStudents SCSS **/
+.scholl-students,
+.scholl-no-students {
+  display: flex;
+  padding: 15px;
+  border-radius: 2px;
+  border: 1px solid #3b4751;
+  flex-direction: column;
+  max-width: 800px;
+  width: 800px;
+  margin: 30px auto;
+}
+
+.scholl-students {
+  span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .name {
+    width: 45%;
+  }
+
+  .email {
+    width: 30%;
+  }
+
+  .phone {
+    width: 20%;
+  }
+
+  .delete {
+    width: 50px;
+  }
+
+  .table-header,
+  .student .student-link {
+    display: flex;
+    gap: 10px;
+  }
+
+  .table-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+  }
+
+  .student {
+    display: flex;
+    padding-top: 10px;
+
+    &:not(:last-child) {
+      padding-bottom: 10px;
+      border-bottom: 1px solid;
+    }
+
+    .student-link {
+      align-items: center;
+      width: calc(100% - 36px);
+      text-decoration: none;
+      color: $fonte-principal;
+      border-radius: 2px;
+      transition: 0.5s;
+
+      &:hover,
+      &:focus {
+        background-color: $blue;
+        padding: 0 10px;
+      }
+    }
+  }
+
+  .delete-student {
+    .add-button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .delete-student-modal {
+      position: fixed;
+      display: flex;
+      bottom: -110vw;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      padding: 15px;
+      transition: 0.4s;
+
+      &.open {
+        bottom: 0;
+      }
+
+      .content {
+        display: flex;
+        background-color: $white;
+        gap: 20px;
+        flex-direction: column;
+        max-width: 800px;
+        padding: 15px;
+        border-radius: 2px;
+        box-shadow: 0px 3px 10px #ccc;
+
+        footer {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+        }
+      }
+    }
+  }
+}

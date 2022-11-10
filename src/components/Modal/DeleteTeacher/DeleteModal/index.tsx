@@ -5,14 +5,12 @@ type DeleteModalProps = {
   setIsModalState: (isModalState: boolean) => void;
   teacherName: string;
   teacherId: string;
-  setIsModified: (isModified: Boolean) => void;
 };
 
 export function DeleteModal({
   setIsModalState,
   teacherName,
-  teacherId,
-  setIsModified
+  teacherId
 }: DeleteModalProps) {
 
   function handleDeleteTeacher() {
@@ -20,8 +18,6 @@ export function DeleteModal({
     deleteTeacher().then(async() => {
 
       handleCloseSettings();
-
-      setIsModified(true);
 
     }).catch((error) => {
 

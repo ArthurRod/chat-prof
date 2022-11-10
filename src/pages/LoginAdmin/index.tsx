@@ -39,6 +39,7 @@ export function LoginAdmin() {
           type="password"
           id="password"
           name="password"
+          autoComplete="on"
           placeholder="Digite a senha"
           onChange={(event) => setPassword(event.target.value)}
           value={password}

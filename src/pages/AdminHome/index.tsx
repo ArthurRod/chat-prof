@@ -1,10 +1,10 @@
 import { AddData } from "../../components/AddData";
-import { FormCreateStudent } from "../../components/AddData/FormCreateStudent";
-import { FormCreateTeacher } from "../../components/AddData/FormCreateTeacher";
+import { FormCreateStudent } from "../../components/FormCreateStudent";
+import { FormCreateTeacher } from "../../components/FormCreateTeacher";
 import { AdminInfos } from "../../components/AdminInfos";
 import { Header } from "../../components/Header";
 import { SchollTeachers } from "../../components/SchollTeachers";
-import { TeacherStudents } from "../../components/TeacherStudents";
+import { SchollStudents } from "../../components/SchollStudents";
 import { useAdmin } from "../../hooks/useAdmin";
 import { useAdminType } from "../../hooks/useAdminType";
 import { useAuth } from "../../hooks/useAuth";
@@ -31,12 +31,22 @@ export function AdminHome() {
                 adminUserPhone={adminUser.phone}
               />
 
-              {adminType.type === "scholl" ? <SchollTeachers /> : <TeacherStudents />}
+              {adminType.type === "scholl" ? (
+                <SchollTeachers />
+              ) : (
+                <SchollStudents schollId={adminUser.schollId} />
+              )}
 
-              <AddData modalTypeTitle={adminType.type === "scholl" ? "Professor" : "Aluno"}>
-
-                {adminType.type === "scholl" ? <FormCreateTeacher schollId={user.uid} /> : <FormCreateStudent schollId={adminUser.schollId}/>}
-                
+              <AddData
+                modalTypeTitle={
+                  adminType.type === "scholl" ? "Professor" : "Aluno"
+                }
+              >
+                {adminType.type === "scholl" ? (
+                  <FormCreateTeacher schollId={user.uid} />
+                ) : (
+                  <FormCreateStudent schollId={adminUser.schollId} />
+                )}
               </AddData>
             </>
           </div>

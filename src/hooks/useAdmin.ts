@@ -11,9 +11,9 @@ export function useAdmin() {
   const [adminUser, setAdminUser] = useState<AdminUser>();
 
   useEffect(() => {
-    if (user) {
+
       getAdminData();
-    }
+
   }, [adminType]);
 
   const getAdminData = async () => {
@@ -34,6 +34,7 @@ export function useAdmin() {
             email: userData.email,
             schollId: userData.schollId
           });
+          
         } else {
 
           console.log("Dados não encontrados!");

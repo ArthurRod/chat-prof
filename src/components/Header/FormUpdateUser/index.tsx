@@ -1,14 +1,14 @@
 import { FormEvent, useEffect, useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../../../services/firebase";
-import { useAdmin } from "../../../../hooks/useAdmin";
-import { useAuth } from "../../../../hooks/useAuth";
+import { db } from "../../../services/firebase";
+import { useAdmin } from "../../../hooks/useAdmin";
+import { useAuth } from "../../../hooks/useAuth";
 
-type FormUpdateProps = {
+type FormUpdateUserProps = {
   adminType: string;
 };
 
-export function FormUpdate({ adminType }: FormUpdateProps) {
+export function FormUpdateUser({ adminType }: FormUpdateUserProps) {
   const { user } = useAuth();
   const { adminUser } = useAdmin();
   const [name, setName] = useState("");
@@ -27,11 +27,8 @@ export function FormUpdate({ adminType }: FormUpdateProps) {
     if (user) {
       if (name.length !== 0 && phone.length !== 0) {
         updateUserTable(user.uid);
-
         alert("Usuário alterado com sucesso!");
       } else {
-        console.log(name.length, phone.length);
-
         alert("Preencha os campos!");
       }
     }

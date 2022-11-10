@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../../services/firebase";
+import { auth, db } from "../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 
 type FormCreateTeacherProps = {
   schollId: string | undefined;
@@ -14,8 +14,6 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  console.log(schollId)
 
   const createTeacher = (e: FormEvent) => {
     e.preventDefault();
@@ -59,8 +57,7 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
     });
 
     await setDoc(doc(db, "admin-users", uid), {
-      type: "teacher",
-      isAdmin: true,
+      type: "teacher"
     });
   };
 
@@ -111,6 +108,7 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
           id="password"
           name="password"
           placeholder="Digite a senha de acesso"
+          autoComplete="on"
           onChange={(event) => setPassword(event.target.value)}
           value={password}
         />
