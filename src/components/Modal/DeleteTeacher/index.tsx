@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { DeleteButton } from "./DeleteButton";
-import { DeleteModal } from "./DeleteModal";
+import { DeleteTeacherButton } from "./DeleteTeacherButton";
+import { DeleteTeacherModal } from "./DeleteTeacherModal";
 
 type DeleteTeacherProps = {
   teacherName: string;
@@ -15,10 +15,10 @@ export function DeleteTeacher({
 
   return (
     <div className="delete-teacher">
-      <DeleteButton setIsAddFormOpen={setIsAddFormOpen} />
+      <DeleteTeacherButton setIsAddFormOpen={setIsAddFormOpen} />
 
       {isAddFormOpen ? (
-        <DeleteModal
+        <DeleteTeacherModal
           teacherId={teacherId}
           teacherName={teacherName}
           setIsModalState={setIsAddFormOpen}

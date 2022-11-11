@@ -24,12 +24,8 @@
     width: 45%;
   }
 
-  .email {
-    width: 30%;
-  }
-
-  .phone {
-    width: 20%;
+  .fathers-phone {
+    width: 50%;
   }
 
   .delete {
@@ -73,7 +69,7 @@
   }
 
   .delete-student {
-    .add-button {
+    .delete-button {
       background-color: transparent;
       border: none;
       cursor: pointer;

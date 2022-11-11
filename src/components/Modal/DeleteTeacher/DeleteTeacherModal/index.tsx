@@ -1,17 +1,17 @@
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../../../services/firebase";
 
-type DeleteModalProps = {
+type DeleteTeacherModalProps = {
   setIsModalState: (isModalState: boolean) => void;
   teacherName: string;
   teacherId: string;
 };
 
-export function DeleteModal({
+export function DeleteTeacherModal({
   setIsModalState,
   teacherName,
   teacherId
-}: DeleteModalProps) {
+}: DeleteTeacherModalProps) {
 
   function handleDeleteTeacher() {
 

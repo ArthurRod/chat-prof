@@ -6,6 +6,7 @@ import { db } from "../../services/firebase";
 import { Student } from "../../types/Student";
 
 import "../../styles/scholl-students.scss";
+import { DeleteStudent } from "../Modal/DeleteStudent";
 
 type SchollStudentsProps = {
   schollId: string | undefined;
@@ -64,6 +65,7 @@ export function SchollStudents({ schollId }: SchollStudentsProps) {
                 <span className="name">{key.name}</span>
                 <span className="fathers-phone">{key.fathersPhone}</span>
               </Link>
+              <DeleteStudent studentId={key.id} studentName={key.name} />
             </div>
           ))}
         </section>
