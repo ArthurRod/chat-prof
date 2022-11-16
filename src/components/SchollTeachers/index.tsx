@@ -7,7 +7,7 @@ import { DeleteTeacher } from "../Modal/DeleteTeacher";
 import { useAuth } from "../../hooks/useAuth";
 import { AdminUser } from "../../types/AdminUser";
 
-import "../../styles/scholl-teachers.scss";
+import "../../styles/scholl-teachers-students.scss";
 
 export function SchollTeachers() {
   const { user } = useAuth();
@@ -40,7 +40,7 @@ export function SchollTeachers() {
   return (
     <>
       {schollTeachers.length > 0 ? (
-        <section className="scholl-teachers">
+        <section className="scholl-teachers-students">
           <header className="table-header">
             <span className="name">
               <b>Nome</b>
@@ -55,11 +55,11 @@ export function SchollTeachers() {
           </header>
 
           {schollTeachers.map((key: any) => (
-            <div key={key.uid} className="teacher">
+            <div key={key.uid} className="row">
               <Link
-                className="teacher-link"
+                className="row-link"
                 target="_self"
-                to={`./edit/${key.uid}`}
+                to={`/edit/teacher/${key.uid}`}
               >
                 <span className="name">{key.name}</span>
                 <span className="email">{key.email}</span>
@@ -70,7 +70,7 @@ export function SchollTeachers() {
           ))}
         </section>
       ) : (
-        <section className="scholl-no-teachers">
+        <section className="scholl-no-list">
           <p>
             Não existem professores cadastrados nesta escola... Para cadastrar
             novos professores clique no botão adicionar abaixo

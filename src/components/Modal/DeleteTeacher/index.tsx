@@ -14,7 +14,7 @@ export function DeleteTeacher({
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
 
   return (
-    <div className="delete-teacher">
+    <div className="delete">
       <DeleteTeacherButton setIsAddFormOpen={setIsAddFormOpen} />
 
       {isAddFormOpen ? (

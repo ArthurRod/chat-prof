@@ -14,7 +14,7 @@ export function DeleteStudent({
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
 
   return (
-    <div className="delete-student">
+    <div className="delete">
       <DeleteStudentButton setIsAddFormOpen={setIsAddFormOpen} />
 
       {isAddFormOpen ? (

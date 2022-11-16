@@ -9,6 +9,7 @@ import { AuthProvider } from "../contexts/AuthContext";
 import { PrivateAdmin } from "./PrivateAdmin";
 import { TeacherEdit } from "../pages/TeacherEdit";
 import { AdminHome } from "../pages/AdminHome";
+import { StudentEdit } from "../pages/StudentEdit";
 
 export function RoutesApp() {
   return (
@@ -19,7 +20,8 @@ export function RoutesApp() {
           <Route path="cadastro-escola" element={<CadastroEscola />} />
           <Route path="login-admin" element={<LoginAdmin />} />
           <Route path="admin-home" element={<PrivateAdmin><AdminHome /></PrivateAdmin>}/>
-          <Route path="admin-home/edit/:id" element={<TeacherEdit />} />
+          <Route path="/edit/teacher/:id" element={<TeacherEdit />} />
+          <Route path="/edit/student/:id" element={<StudentEdit />} />
           <Route path="home" element={<Home />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

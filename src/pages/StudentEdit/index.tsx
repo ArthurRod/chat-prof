@@ -1,41 +1,40 @@
 import { doc, getDoc, setDoc } from "@firebase/firestore";
 import { FormEvent, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { db } from "../../services/firebase";
 import "../../styles/edit.scss"
 
 import { Header } from "../../components/Header";
 
-export function TeacherEdit() {
-  const navigate = useNavigate();
+export function StudentEdit() {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [fathersPhone, setFathersPhone] = useState("");
   let { id } = useParams();
 
   useEffect(() => {
-    getTeacherData();
+    getStudentData();
   }, []);
 
-  const getTeacherData = async () => {
+  const getStudentData = async () => {
     if (id) {
-      const docRef = doc(db, "teachers", id);
+      const docRef = doc(db, "students", id);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         const userData = docSnap.data();
 
         setName(userData.name)
-        setPhone(userData.phone)
+        setFathersPhone(userData.fathersPhone)
 
       } else {
 
-        console.log("Não foi possível encontrar os dados do professor");
+        console.log("Não foi possível encontrar os dados do aluno");
         
       }
     }
   };
 
-  const updateTeacher = async (e: FormEvent) => {
+  const updateStudent = async (e: FormEvent) => {
     e.preventDefault();
 
     let isEmpty = isEmptyInputs();
@@ -44,16 +43,15 @@ export function TeacherEdit() {
     if(!isEmpty) {
 
       if (id) {
-        await setDoc(doc(db, "teachers", id), {
+        await setDoc(doc(db, "students", id), {
           name: name,
-          phone: phone,
+          fathersPhone: fathersPhone,
         }, { merge: true });
 
         sucesso.style.display = "flex"
 
         setTimeout(() => {
           sucesso.style.display = "none"
-          navigate(-1)
         }, 2000);
       }
 
@@ -104,8 +102,8 @@ export function TeacherEdit() {
         <div className="container">
           <div className="content">
             <>
-              <h3 className="title">Editar professor</h3>
-              <form onSubmit={updateTeacher}>
+              <h3 className="title">Editar aluno</h3>
+              <form onSubmit={updateStudent}>
                 <input
                   type="text"
                   id="nome"
@@ -119,13 +117,13 @@ export function TeacherEdit() {
                   id="telefone"
                   name="telefone"
                   placeholder="Digite um novo telefone"
-                  onChange={(event) => assignData(event, setPhone)}
-                  value={phone}
+                  onChange={(event) => assignData(event, setFathersPhone)}
+                  value={fathersPhone}
                 />
 
                 <span className="erro" style={{display : 'none'}}>Preencha corretamente os dados</span>
 
-                <span className="sucesso" style={{display : 'none'}}>Os dados do professor foram alterados com sucesso</span>
+                <span className="sucesso" style={{display : 'none'}}>Os dados do aluno foram alterados com sucesso</span>
 
                 <footer>
                   <button type="submit" className="btn">Alterar</button>

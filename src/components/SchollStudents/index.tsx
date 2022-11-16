@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import "../../styles/scholl-teachers.scss";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, where } from "@firebase/firestore";
 import { db } from "../../services/firebase";
 import { Student } from "../../types/Student";
 
-import "../../styles/scholl-students.scss";
+import "../../styles/scholl-teachers-students.scss";
 import { DeleteStudent } from "../Modal/DeleteStudent";
 
 type SchollStudentsProps = {
@@ -42,7 +41,7 @@ export function SchollStudents({ schollId }: SchollStudentsProps) {
   return (
     <>
       {schollStudents.length > 0 ? (
-        <section className="scholl-students">
+        <section className="scholl-teachers-students">
           <header className="table-header">
             <span className="name">
               <b>Nome</b>
@@ -56,11 +55,11 @@ export function SchollStudents({ schollId }: SchollStudentsProps) {
           </header>
 
           {schollStudents.map((key: any) => (
-            <div key={key.id} className="student">
+            <div key={key.id} className="row">
               <Link
-                className="student-link"
+                className="row-link"
                 target="_self"
-                to={`./edit/${key.id}`}
+                to={`/edit/student/${key.id}`}
               >
                 <span className="name">{key.name}</span>
                 <span className="fathers-phone">{key.fathersPhone}</span>
@@ -70,7 +69,7 @@ export function SchollStudents({ schollId }: SchollStudentsProps) {
           ))}
         </section>
       ) : (
-        <section className="scholl-no-students">
+        <section className="scholl-no-list">
           <p>
             Não existem alunos cadastrados... Para cadastrar novos alunos clique
             no botão adicionar abaixo

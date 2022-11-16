@@ -1,8 +1,8 @@
 @import "global-colors.scss";
 
 /** SchollStudents SCSS **/
-.scholl-students,
-.scholl-no-students {
+.scholl-teachers-students,
+.scholl-no-list {
   display: flex;
   padding: 15px;
   border-radius: 2px;
@@ -13,7 +13,7 @@
   margin: 30px auto;
 }
 
-.scholl-students {
+.scholl-teachers-students {
   span {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -24,27 +24,37 @@
     width: 45%;
   }
 
+  .email {
+    width: 30%;
+  }
+
+  .phone {
+    width: 20%;
+  }
+
   .fathers-phone {
     width: 50%;
   }
 
-  .delete {
-    width: 50px;
-  }
-
   .table-header,
-  .student .student-link {
+  .row,
+  .row-link {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 10px;
   }
 
   .table-header {
     padding-bottom: 10px;
     border-bottom: 1px solid;
+
+    .delete {
+      width: 32px;
+    }
   }
 
-  .student {
-    display: flex;
+  .row {
     padding-top: 10px;
 
     &:not(:last-child) {
@@ -52,9 +62,9 @@
       border-bottom: 1px solid;
     }
 
-    .student-link {
-      align-items: center;
+    .row-link {
       width: calc(100% - 36px);
+      height: 35px;
       text-decoration: none;
       color: $fonte-principal;
       border-radius: 2px;
@@ -68,14 +78,15 @@
     }
   }
 
-  .delete-student {
+  .delete {
     .delete-button {
       background-color: transparent;
       border: none;
       cursor: pointer;
     }
 
-    .delete-student-modal {
+    .delete-student-modal,
+    .delete-teacher-modal {
       position: fixed;
       display: flex;
       bottom: -110vw;
