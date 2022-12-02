@@ -38,7 +38,7 @@ export function FormUpdateUser({ adminType }: FormUpdateUserProps) {
     if (adminUser && adminType) {
       if (adminType === "scholl") {
         await setDoc(
-          doc(db, "escolas", uid),
+          doc(db, "scholls", uid),
           {
             name: name,
             phone: phone,

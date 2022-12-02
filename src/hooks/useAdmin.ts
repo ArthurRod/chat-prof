@@ -18,7 +18,7 @@ export function useAdmin() {
 
   const getAdminData = async () => {
     if (user && adminType) {
-      let docRef = doc(db, "escolas", user.uid.toString());
+      let docRef = doc(db, "scholls", user.uid.toString());
 
       if (adminType.type === "teacher") {
         docRef = doc(db, "teachers", user.uid.toString());

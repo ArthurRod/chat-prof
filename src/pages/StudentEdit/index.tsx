@@ -5,11 +5,12 @@ import { db } from "../../services/firebase";
 import "../../styles/edit.scss"
 
 import { Header } from "../../components/Header";
+import { StudentGrades } from '../../components/StudentGrades/index';
 
 export function StudentEdit() {
+  const { id } = useParams();
   const [name, setName] = useState("");
   const [fathersPhone, setFathersPhone] = useState("");
-  let { id } = useParams();
 
   useEffect(() => {
     getStudentData();
@@ -101,7 +102,7 @@ export function StudentEdit() {
       <main className="main edit">
         <div className="container">
           <div className="content">
-            <>
+            <div className="student-data">
               <h3 className="title">Editar aluno</h3>
               <form onSubmit={updateStudent}>
                 <input
@@ -131,7 +132,8 @@ export function StudentEdit() {
                 </footer>
                 
               </form>
-            </>
+            </div>
+            <StudentGrades />
           </div>
         </div>
       </main>

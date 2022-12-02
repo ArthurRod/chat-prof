@@ -42,7 +42,7 @@ export function CadastroEscola() {
 
   const createDocScholl = async (uid: string) => {
     
-    await setDoc(doc(db, "escolas", uid), {
+    await setDoc(doc(db, "scholls", uid), {
       email: email,
       name: name,
       phone: phone,
