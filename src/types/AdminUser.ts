@@ -3,6 +3,6 @@ export type AdminUser = {
     email: string;
     phone: string;
     uid?: string;
-    schollId?: string;
+    schoolId?: string;
     schoolSubject?: string;
 }

@@ -7,16 +7,16 @@ import { DeleteTeacher } from "../Modal/DeleteTeacher";
 import { useAuth } from "../../hooks/useAuth";
 import { AdminUser } from "../../types/AdminUser";
 
-import "../../styles/scholl-teachers-students.scss";
+import "../../styles/school-teachers-students.scss";
 
-export function SchollTeachers() {
+export function SchoolTeachers() {
   const { user } = useAuth();
-  const [schollTeachers, setSchollTeachers] = useState<AdminUser[]>([]);
+  const [schoolTeachers, setSchoolTeachers] = useState<AdminUser[]>([]);
 
   useEffect(() => {
     const q = query(
       collection(db, "teachers"),
-      where("schollId", "==", user?.uid)
+      where("schoolId", "==", user?.uid)
     );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -31,7 +31,7 @@ export function SchollTeachers() {
         });
       });
 
-      setSchollTeachers(teachersArray);
+      setSchoolTeachers(teachersArray);
     });
 
     return () => unsubscribe();
@@ -39,8 +39,8 @@ export function SchollTeachers() {
 
   return (
     <>
-      {schollTeachers.length > 0 ? (
-        <section className="scholl-teachers-students">
+      {schoolTeachers.length > 0 ? (
+        <section className="school-teachers-students">
           <header className="table-header">
             <span className="name">
               <b>Nome</b>
@@ -54,7 +54,7 @@ export function SchollTeachers() {
             <span className="delete"></span>
           </header>
 
-          {schollTeachers.map((key: any) => (
+          {schoolTeachers.map((key: any) => (
             <div key={key.uid} className="row">
               <Link
                 className="row-link"
@@ -70,7 +70,7 @@ export function SchollTeachers() {
           ))}
         </section>
       ) : (
-        <section className="scholl-no-list">
+        <section className="school-no-list">
           <p>
             Não existem professores cadastrados nesta escola... Para cadastrar
             novos professores clique no botão adicionar abaixo

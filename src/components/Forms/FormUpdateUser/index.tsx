@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../services/firebase";
+
 import { useAdmin } from "../../../hooks/useAdmin";
 import { useAuth } from "../../../hooks/useAuth";
 
@@ -36,9 +37,9 @@ export function FormUpdateUser({ adminType }: FormUpdateUserProps) {
 
   async function updateUserTable(uid: string) {
     if (adminUser && adminType) {
-      if (adminType === "scholl") {
+      if (adminType === "school") {
         await setDoc(
-          doc(db, "scholls", uid),
+          doc(db, "schools", uid),
           {
             name: name,
             phone: phone,

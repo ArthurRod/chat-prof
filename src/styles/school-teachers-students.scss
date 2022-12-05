@@ -1,8 +1,8 @@
 @import "global-colors.scss";
 
-/** SchollStudents SCSS **/
-.scholl-teachers-students,
-.scholl-no-list {
+/** SchoolStudents SCSS **/
+.school-teachers-students,
+.school-no-list {
   display: flex;
   padding: 15px;
   border-radius: 2px;
@@ -13,7 +13,7 @@
   margin: 30px auto;
 }
 
-.scholl-teachers-students {
+.school-teachers-students {
   span {
     text-overflow: ellipsis;
     overflow: hidden;

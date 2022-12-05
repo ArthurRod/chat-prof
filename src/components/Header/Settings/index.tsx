@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SettingsButton } from "./SettingsButton";
 import { SettingsContent } from "./SettingsContent";
 import { useAdminType } from "../../../hooks/useAdminType";
-import { FormUpdateUser } from "../FormUpdateUser";
+import { FormUpdateUser } from "../../Forms/FormUpdateUser";
 
 export function Settings() {
   const { adminType } = useAdminType();

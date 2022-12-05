@@ -18,7 +18,7 @@ export function useAdmin() {
 
   const getAdminData = async () => {
     if (user && adminType) {
-      let docRef = doc(db, "scholls", user.uid.toString());
+      let docRef = doc(db, "schools", user.uid.toString());
 
       if (adminType.type === "teacher") {
         docRef = doc(db, "teachers", user.uid.toString());
@@ -32,7 +32,8 @@ export function useAdmin() {
             name: userData.name,
             phone: userData.phone,
             email: userData.email,
-            schollId: userData.schollId
+            schoolId: userData.schoolId,
+            schoolSubject: userData.schoolSubject
           });
           
         } else {

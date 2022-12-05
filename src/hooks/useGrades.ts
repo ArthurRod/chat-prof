@@ -26,7 +26,7 @@ export function useGrades(id: string | undefined) {
         gradesArray.push({
           id: doc.data().id,
           period: doc.data().period,
-          schollGrade: doc.data().schollGrade,
+          schoolGrade: doc.data().schoolGrade,
           schoolSubject: doc.data().schoolSubject,
           teacherName: doc.data().teacherName
         });

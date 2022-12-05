@@ -11,14 +11,14 @@ export function CadastroEscola() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const createScholl = (e: FormEvent) => {
+  const createSchool = (e: FormEvent) => {
     e.preventDefault();
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((data) => {
         const uid = data.user.uid;
 
-        createDocScholl(uid).then(() => {
+        createSchoolDoc(uid).then(() => {
 
           sessionStorage.setItem('uid', uid);
           sessionStorage.setItem('email', email);
@@ -40,23 +40,23 @@ export function CadastroEscola() {
       });
   };
 
-  const createDocScholl = async (uid: string) => {
+  const createSchoolDoc = async (uid: string) => {
     
-    await setDoc(doc(db, "scholls", uid), {
+    await setDoc(doc(db, "schools", uid), {
       email: email,
       name: name,
       phone: phone,
     });
 
     await setDoc(doc(db, "admin-users", uid), {
-      type: "scholl"
+      type: "school"
     });
   };
 
   return (
     <>
       <p>Cadastro Escola</p>
-      <form onSubmit={createScholl}>
+      <form onSubmit={createSchool}>
         <input
           type="text"
           id="nome"

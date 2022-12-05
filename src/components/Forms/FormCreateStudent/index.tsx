@@ -1,24 +1,29 @@
 import { FormEvent, useState } from "react";
-import { db } from "../../services/firebase";
+import { db } from "../../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
+import { clearInputs } from '../../../helpers/formUpdateFunctions';
+
 type FormCreateStudentProps = {
-  schollId: string | undefined;
+  schoolId: string | undefined;
 };
 
-export function FormCreateStudent({ schollId }: FormCreateStudentProps) {
+export function FormCreateStudent({ schoolId }: FormCreateStudentProps) {
   const [name, setName] = useState("");
   const [fathersPhone, setFathersPhone] = useState("");
 
   const createStudent = (e: FormEvent) => {
     e.preventDefault();
 
-    if (schollId) {
-      createDocStudent(schollId)
+    if (schoolId) {
+      createDocStudent(schoolId)
         .then(() => {
           alert("Aluno cadastrado com sucesso!");
 
           clearInputs();
+          setName("");
+          setFathersPhone("");
+
         })
         .catch((error) => {
           console.log(error);
@@ -26,26 +31,15 @@ export function FormCreateStudent({ schollId }: FormCreateStudentProps) {
     }
   };
 
-  const createDocStudent = async (schollId: string) => {
+  const createDocStudent = async (schoolId: string) => {
     let id = Math.floor(Date.now() * Math.random()).toString(36)
 
     await setDoc(doc(db, "students", id), {
       id: id,
       name: name,
       fathersPhone: fathersPhone,
-      schollId: schollId,
+      schoolId: schoolId,
     });
-  };
-
-  const clearInputs = () => {
-    let inputs = document.querySelectorAll("input");
-
-    if (inputs) {
-      inputs.forEach((item) => (item.value = ""));
-    }
-
-    setName("");
-    setFathersPhone("");
   };
 
   return (

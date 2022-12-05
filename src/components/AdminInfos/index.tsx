@@ -14,7 +14,7 @@ export function AdminInfos({
   return (
     <section className="admin-infos">
       <div className="name">
-        <strong>{adminUserType === "scholl" ? <>Escola: </> : <>Professor: </>}</strong>
+        <strong>{adminUserType === "school" ? <>Escola: </> : <>Professor: </>}</strong>
         <span>{adminUserName}</span>
       </div>
       <div className="phone">

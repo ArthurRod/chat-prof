@@ -3,8 +3,8 @@ import { FormCreateStudent } from "../../components/FormCreateStudent";
 import { FormCreateTeacher } from "../../components/FormCreateTeacher";
 import { AdminInfos } from "../../components/AdminInfos";
 import { Header } from "../../components/Header";
-import { SchollTeachers } from "../../components/SchollTeachers";
-import { SchollStudents } from "../../components/SchollStudents";
+import { SchoolTeachers } from "../../components/SchoolTeachers";
+import { SchoolStudents } from "../../components/SchoolStudents";
 import { useAdmin } from "../../hooks/useAdmin";
 import { useAdminType } from "../../hooks/useAdminType";
 import { useAuth } from "../../hooks/useAuth";
@@ -31,21 +31,21 @@ export function AdminHome() {
                 adminUserPhone={adminUser.phone}
               />
 
-              {adminType.type === "scholl" ? (
-                <SchollTeachers />
+              {adminType.type === "school" ? (
+                <SchoolTeachers />
               ) : (
-                <SchollStudents schollId={adminUser.schollId} />
+                <SchoolStudents schoolId={adminUser.schoolId} />
               )}
 
               <AddData
                 modalTypeTitle={
-                  adminType.type === "scholl" ? "Professor" : "Aluno"
+                  adminType.type === "school" ? "Professor" : "Aluno"
                 }
               >
-                {adminType.type === "scholl" ? (
-                  <FormCreateTeacher schollId={user.uid} />
+                {adminType.type === "school" ? (
+                  <FormCreateTeacher schoolId={user.uid} />
                 ) : (
-                  <FormCreateStudent schollId={adminUser.schollId} />
+                  <FormCreateStudent schoolId={adminUser.schoolId} />
                 )}
               </AddData>
             </>

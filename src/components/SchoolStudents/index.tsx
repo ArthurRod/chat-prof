@@ -4,20 +4,20 @@ import { collection, onSnapshot, query, where } from "@firebase/firestore";
 import { db } from "../../services/firebase";
 import { Student } from "../../types/Student";
 
-import "../../styles/scholl-teachers-students.scss";
+import "../../styles/school-teachers-students.scss";
 import { DeleteStudent } from "../Modal/DeleteStudent";
 
-type SchollStudentsProps = {
-  schollId: string | undefined;
+type SchoolStudentsProps = {
+  schoolId: string | undefined;
 };
 
-export function SchollStudents({ schollId }: SchollStudentsProps) {
-  const [schollStudents, setSchollStudents] = useState<Student[]>([]);
+export function SchoolStudents({ schoolId }: SchoolStudentsProps) {
+  const [schoolStudents, setSchoolStudents] = useState<Student[]>([]);
 
   useEffect(() => {
     const q = query(
       collection(db, "students"),
-      where("schollId", "==", schollId)
+      where("schoolId", "==", schoolId)
     );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -28,11 +28,11 @@ export function SchollStudents({ schollId }: SchollStudentsProps) {
           id: doc.data().id,
           name: doc.data().name,
           fathersPhone: doc.data().fathersPhone,
-          schollId: doc.data().schollId,
+          schoolId: doc.data().schoolId,
         });
       });
 
-      setSchollStudents(studentsArray);
+      setSchoolStudents(studentsArray);
     });
 
     return () => unsubscribe();
@@ -40,8 +40,8 @@ export function SchollStudents({ schollId }: SchollStudentsProps) {
 
   return (
     <>
-      {schollStudents.length > 0 ? (
-        <section className="scholl-teachers-students">
+      {schoolStudents.length > 0 ? (
+        <section className="school-teachers-students">
           <header className="table-header">
             <span className="name">
               <b>Nome</b>
@@ -54,7 +54,7 @@ export function SchollStudents({ schollId }: SchollStudentsProps) {
             <span className="delete"></span>
           </header>
 
-          {schollStudents.map((key: any) => (
+          {schoolStudents.map((key: any) => (
             <div key={key.id} className="row">
               <Link
                 className="row-link"
@@ -69,7 +69,7 @@ export function SchollStudents({ schollId }: SchollStudentsProps) {
           ))}
         </section>
       ) : (
-        <section className="scholl-no-list">
+        <section className="school-no-list">
           <p>
             Não existem alunos cadastrados... Para cadastrar novos alunos clique
             no botão adicionar abaixo

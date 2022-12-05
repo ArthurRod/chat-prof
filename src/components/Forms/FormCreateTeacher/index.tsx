@@ -1,19 +1,22 @@
 import { FormEvent, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../services/firebase";
+import { auth, db } from "../../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { useAuth } from "../../hooks/useAuth";
+
+import { useAuth } from "../../../hooks/useAuth";
+import { clearInputs } from '../../../helpers/formUpdateFunctions';
 
 type FormCreateTeacherProps = {
-  schollId: string | undefined;
+  schoolId: string | undefined;
 };
 
-export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
+export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
   const { logInWithEmailAndPassword } = useAuth();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [schoolSubject, setSchoolSubject] = useState("");
 
   const createTeacher = (e: FormEvent) => {
     e.preventDefault();
@@ -34,6 +37,12 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
             alert("Professor cadastrado com sucesso!");
 
             clearInputs();
+            setName("")
+            setPhone("")
+            setEmail("")
+            setPassword("")
+            setSchoolSubject("")
+
           })
           .catch((error) => {
             console.log(error);
@@ -53,27 +62,13 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
       name: name,
       email: email,
       phone: phone,
-      schollId: schollId,
+      schoolId: schoolId,
+      schoolSubject: schoolSubject
     });
 
     await setDoc(doc(db, "admin-users", uid), {
       type: "teacher"
     });
-  };
-
-  const clearInputs = () => {
-    let inputs = document.querySelectorAll("input")
-  
-    if(inputs) {
-
-      inputs.forEach((item) => item.value = "")
-
-    }
-
-    setName("")
-    setPhone("")
-    setEmail("")
-    setPassword("")
   };
 
   return (
@@ -86,6 +81,14 @@ export function FormCreateTeacher({ schollId }: FormCreateTeacherProps) {
           placeholder="Digite o nome do professor"
           onChange={(event) => setName(event.target.value)}
           value={name}
+        />
+        <input
+          type="text"
+          id="school-subject"
+          name="school-subject"
+          placeholder="Digite a matéria"
+          onChange={(event) => setSchoolSubject(event.target.value)}
+          value={schoolSubject}
         />
         <input
           type="text"
