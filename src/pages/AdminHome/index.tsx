@@ -1,6 +1,6 @@
 import { AddData } from "../../components/AddData";
-import { FormCreateStudent } from "../../components/FormCreateStudent";
-import { FormCreateTeacher } from "../../components/FormCreateTeacher";
+import { FormCreateStudent } from "../../components/Forms/FormCreateStudent";
+import { FormCreateTeacher } from "../../components/Forms/FormCreateTeacher";
 import { AdminInfos } from "../../components/AdminInfos";
 import { Header } from "../../components/Header";
 import { SchoolTeachers } from "../../components/SchoolTeachers";
