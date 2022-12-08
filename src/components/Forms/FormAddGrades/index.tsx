@@ -68,7 +68,7 @@ export function FormAddGrades() {
           <option value="4º Bimestre">4º Bimestre</option>
         </select>
 
-        <label htmlFor="nota-aluno">Digite a nota do aluno</label>
+        <label htmlFor="nota-aluno">Nota do aluno</label>
         <input
           type="number"
           id="nota-aluno"

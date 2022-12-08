@@ -1,5 +1,6 @@
-import { FormAddGrades } from "../../components/Forms/FormAddGrades/index";
 import { useState } from "react";
+import { FormAddGrades } from "../../components/Forms/FormAddGrades/index";
+import "../../styles/add-grades-observations.scss";
 
 interface AddGradesObservationsProps {
     setModalTypeTitle: (modalTypeTitle: string) => void;
@@ -15,7 +16,7 @@ export function AddGradesObservations({setModalTypeTitle}: AddGradesObservations
 
   return (
     <section className="add-grades-observations">
-      <nav>
+      <nav className="menu-select-form">
         <ul>
           <li>
             <a
@@ -37,7 +38,7 @@ export function AddGradesObservations({setModalTypeTitle}: AddGradesObservations
           </li>
         </ul>
       </nav>
-      <div className="content">
+      <div className={itemSelected === "grade" ? "grade" : "observation"}>
         {itemSelected === "grade" ? <FormAddGrades /> : ""}
       </div>
     </section>

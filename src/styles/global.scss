@@ -27,7 +27,7 @@ select:focus {
   outline: 0;
 }
 
-input {
+input, select {
   padding: 0 10px;
   border: 1px solid $blue;
 }
@@ -36,7 +36,7 @@ input::placeholder {
   color: #666;
 }
 
-button.btn, input {
+button.btn, input, select {
   height: 35px;
   border-radius: 3px;
 }

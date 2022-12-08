@@ -4,12 +4,14 @@ interface AdminInfosProps {
   adminUserName: string;
   adminUserPhone: string;
   adminUserType: string;
+  schoolSubject?: string;
 }
 
 export function AdminInfos({
   adminUserName,
   adminUserPhone,
   adminUserType,
+  schoolSubject
 }: AdminInfosProps) {
   return (
     <section className="admin-infos">
@@ -21,6 +23,13 @@ export function AdminInfos({
         <strong>Telefone: </strong>
         <span>{adminUserPhone}</span>
       </div>
+      {
+        schoolSubject && 
+          <div className="subject">
+            <strong>Matéria: </strong>
+            <span>{schoolSubject}</span>
+          </div>
+      }
     </section>
   );
 }

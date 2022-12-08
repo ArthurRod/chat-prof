@@ -29,6 +29,7 @@ export function AdminHome() {
                 adminUserType={adminType.type}
                 adminUserName={adminUser.name}
                 adminUserPhone={adminUser.phone}
+                schoolSubject={adminUser.schoolSubject}
               />
 
               {adminType.type === "school" ? (

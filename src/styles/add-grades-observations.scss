@@ -1,0 +1,55 @@
+@import "./global-colors.scss";
+
+/** Add Grades Observation SCSS **/
+.add-grades-observations {
+    .menu-select-form {
+        padding-top: 1.25rem;
+        
+        ul {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+
+            li {
+                &::marker {
+                    font-size: 0px;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: $fonte-principal;
+                    transition: 0.5s;
+
+                    &:hover,
+                    &.active {
+                        color: $blue;
+                    }
+                }
+            }
+        }
+    }
+
+    .grade {
+        .main {
+            #grades-form {
+                align-items: flex-start;
+                gap: 0;
+
+                label {
+                    margin-bottom: 5px;
+                }
+
+                select {
+                    cursor: pointer;
+                    margin-bottom: 10px;
+                }
+
+                button {
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+}
+
+
