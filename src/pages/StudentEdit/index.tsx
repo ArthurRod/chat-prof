@@ -5,6 +5,7 @@ import { AddData } from "../../components/AddData/index";
 import "../../styles/edit.scss";
 import { AddGradesObservations } from '../../components/AddGradesObservations/index';
 import { useState } from 'react';
+import { StudentObservations } from '../../components/StudentObservations/index';
 
 export function StudentEdit() {
   const [modalTypeTitle, setModalTypeTitle] = useState("nota");
@@ -17,6 +18,7 @@ export function StudentEdit() {
           <div className="content">
             <StudentMainEdit />
             <StudentGrades />
+            <StudentObservations />
             <AddData modalTypeTitle={modalTypeTitle}>
               <AddGradesObservations setModalTypeTitle={setModalTypeTitle} />
             </AddData>
