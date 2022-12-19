@@ -33,7 +33,9 @@ export function FormAddGrades() {
         .then(() => {
           alert("Nota cadastrada com sucesso!");
 
-          clearInputs();
+          const targets =  document.querySelectorAll("#grades-form input") as NodeListOf<HTMLInputElement>
+
+          clearInputs(targets);
         })
         .catch((error) => {
           console.log(error);

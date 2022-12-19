@@ -35,8 +35,8 @@ export function assignData(event: any, alterarDado: (parametro: string) => void)
 
 };
 
-export function clearInputs(){
-    let inputs = document.querySelectorAll("input");
+export function clearInputs(targets?: NodeListOf<HTMLInputElement>){
+    let inputs = !targets ? document.querySelectorAll("input") as NodeListOf<HTMLInputElement> : targets;
 
     if (inputs) {
         inputs.forEach((item) => (item.value = ""));

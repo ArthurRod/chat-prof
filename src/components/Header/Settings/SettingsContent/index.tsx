@@ -41,7 +41,7 @@ export function SettingsContent({
         {children}
 
         <footer className="footer">
-          <button className="btn sign-out" onClick={handleSignOut}>
+          <button className="btn back sign-out" onClick={handleSignOut}>
             Sair
           </button>
         </footer>

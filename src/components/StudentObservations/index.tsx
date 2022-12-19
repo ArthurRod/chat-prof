@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Observation } from "../../types/Observation";
 import { useEffect } from 'react';
 
+import '../../styles/student-observations.scss'
+
 export function StudentObservations() {
   const { id } = useParams();
   const { observations } = useObservations(id);
@@ -36,6 +38,7 @@ export function StudentObservations() {
 
   return (
     <section className="student-observations">
+        <h3 className="title">Observações</h3>
         {orderObservations && orderObservations.length > 0 ? 
             orderObservations.map((key: any, index: any) => (
                 <div key={index} className="observation">

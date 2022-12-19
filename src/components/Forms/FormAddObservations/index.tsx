@@ -43,7 +43,11 @@ export function FormAddObservations() {
         .then(() => {
           alert("Observação inserida com sucesso!");
 
-          clearInputs();
+          const inputTargets =  document.querySelectorAll("#observation-form input") as NodeListOf<HTMLInputElement>
+          const textAreaTargets =  document.querySelectorAll("#observation-form textarea") as NodeListOf<HTMLInputElement>
+
+          clearInputs(inputTargets);
+          clearInputs(textAreaTargets);
         })
         .catch((error) => {
           console.log(error);
