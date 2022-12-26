@@ -1,20 +1,18 @@
 import { Trash } from "phosphor-react";
 
-type DeleteStudentModalProps = {
+type DeleteGradeButtonProps = {
   setIsAddFormOpen: (isAddFormOpen: boolean) => void;
 };
 
-export function DeleteStudentButton({
-  setIsAddFormOpen,
-}: DeleteStudentModalProps) {
+export function DeleteGradeButton({ setIsAddFormOpen }: DeleteGradeButtonProps) {
   async function handleOpenSettings() {
     await setIsAddFormOpen(true);
 
-    let deleteStudentModal = document.querySelector(".delete-modal.student");
+    let deleteGradeModal = document.querySelector(".delete-modal.grade");
 
     setTimeout(() => {
-      if (deleteStudentModal) {
-        deleteStudentModal.classList.add("open");
+      if (deleteGradeModal) {
+        deleteGradeModal.classList.add("open");
       }
     }, 1);
   }

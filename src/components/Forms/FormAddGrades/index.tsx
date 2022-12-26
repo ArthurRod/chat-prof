@@ -33,7 +33,9 @@ export function FormAddGrades() {
         .then(() => {
           alert("Nota cadastrada com sucesso!");
 
-          const targets =  document.querySelectorAll("#grades-form input") as NodeListOf<HTMLInputElement>
+          const targets = document.querySelectorAll(
+            "#grades-form input"
+          ) as NodeListOf<HTMLInputElement>;
 
           clearInputs(targets);
         })
@@ -47,7 +49,8 @@ export function FormAddGrades() {
     const randomId = Math.floor(Date.now() * Math.random()).toString(36);
 
     await setDoc(doc(db, "grades", randomId), {
-      id: id,
+      id: randomId,
+      studentId: id,
       period: period,
       schoolGrade: schoolGrade,
       schoolSubject: schoolSubject,
@@ -78,6 +81,7 @@ export function FormAddGrades() {
           placeholder="Digite a nota do aluno"
           onChange={(event) => setSchoolGrade(event.target.value)}
           value={schoolGrade}
+          required
         />
 
         <button type="submit" className="btn">

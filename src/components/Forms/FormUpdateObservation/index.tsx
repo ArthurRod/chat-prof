@@ -6,7 +6,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { clearInputs } from "../../../helpers/formUpdateFunctions";
 import { useAdmin } from "../../../hooks/useAdmin";
 
-export function FormAddObservations() {
+export function FormUpdateObservation() {
   const { adminUser } = useAdmin();
   const { id } = useParams();
   const [observation, setObservation] = useState("");
@@ -77,7 +77,7 @@ export function FormAddObservations() {
 
   return (
     <main className="main">
-      <form id="observation-form" onSubmit={addObservation}>
+      <form id="update-observation-form" onSubmit={addObservation}>
         <label htmlFor="subject-observation">Qual o assunto?</label>
         <input
           type="text"

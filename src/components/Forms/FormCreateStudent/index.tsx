@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { db } from "../../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
-import { clearInputs } from '../../../helpers/formUpdateFunctions';
+import { clearInputs } from "../../../helpers/formUpdateFunctions";
 
 type FormCreateStudentProps = {
   schoolId: string | undefined;
@@ -23,7 +23,6 @@ export function FormCreateStudent({ schoolId }: FormCreateStudentProps) {
           clearInputs();
           setName("");
           setFathersPhone("");
-
         })
         .catch((error) => {
           console.log(error);
@@ -32,7 +31,7 @@ export function FormCreateStudent({ schoolId }: FormCreateStudentProps) {
   };
 
   const createDocStudent = async (schoolId: string) => {
-    let id = Math.floor(Date.now() * Math.random()).toString(36)
+    let id = Math.floor(Date.now() * Math.random()).toString(36);
 
     await setDoc(doc(db, "students", id), {
       id: id,
@@ -52,6 +51,7 @@ export function FormCreateStudent({ schoolId }: FormCreateStudentProps) {
           placeholder="Digite o nome do aluno"
           onChange={(event) => setName(event.target.value)}
           value={name}
+          required
         />
         <input
           type="text"
@@ -60,9 +60,14 @@ export function FormCreateStudent({ schoolId }: FormCreateStudentProps) {
           placeholder="Digite o telefone do pai ou responsável"
           onChange={(event) => setFathersPhone(event.target.value)}
           value={fathersPhone}
+          required
         />
 
-        <button type="submit" className="btn">
+        <button
+          disabled={name.length === 0 || fathersPhone.length === 0}
+          type="submit"
+          className="btn"
+        >
           Cadastrar
         </button>
       </form>

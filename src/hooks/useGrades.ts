@@ -15,7 +15,7 @@ export function useGrades(id: string | undefined) {
   function getGrades() {
     const q = query(
       collection(db, "grades"),
-      where("id", "==", id)
+      where("studentId", "==", id)
     );
 
     onSnapshot(q, (querySnapshot) => {
@@ -24,7 +24,8 @@ export function useGrades(id: string | undefined) {
       querySnapshot.forEach((doc) => {
 
         gradesArray.push({
-          id: doc.data().id,
+          id: doc.id,
+          studentId: doc.data().studentId,
           period: doc.data().period,
           schoolGrade: doc.data().schoolGrade,
           schoolSubject: doc.data().schoolSubject,

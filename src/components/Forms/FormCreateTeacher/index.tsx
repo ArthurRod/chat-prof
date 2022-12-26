@@ -4,7 +4,7 @@ import { auth, db } from "../../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 import { useAuth } from "../../../hooks/useAuth";
-import { clearInputs } from '../../../helpers/formUpdateFunctions';
+import { clearInputs } from "../../../helpers/formUpdateFunctions";
 
 type FormCreateTeacherProps = {
   schoolId: string | undefined;
@@ -28,8 +28,7 @@ export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
         const pass = sessionStorage.getItem("pass");
 
         createDocTeacher(uid)
-          .then(async() => {
-
+          .then(async () => {
             if (email && pass) {
               await logInWithEmailAndPassword(email, pass);
             }
@@ -37,12 +36,11 @@ export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
             alert("Professor cadastrado com sucesso!");
 
             clearInputs();
-            setName("")
-            setPhone("")
-            setEmail("")
-            setPassword("")
-            setSchoolSubject("")
-
+            setName("");
+            setPhone("");
+            setEmail("");
+            setPassword("");
+            setSchoolSubject("");
           })
           .catch((error) => {
             console.log(error);
@@ -63,11 +61,11 @@ export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
       email: email,
       phone: phone,
       schoolId: schoolId,
-      schoolSubject: schoolSubject
+      schoolSubject: schoolSubject,
     });
 
     await setDoc(doc(db, "admin-users", uid), {
-      type: "teacher"
+      type: "teacher",
     });
   };
 
@@ -81,6 +79,7 @@ export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
           placeholder="Digite o nome do professor"
           onChange={(event) => setName(event.target.value)}
           value={name}
+          required
         />
         <input
           type="text"
@@ -89,6 +88,7 @@ export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
           placeholder="Digite a matéria"
           onChange={(event) => setSchoolSubject(event.target.value)}
           value={schoolSubject}
+          required
         />
         <input
           type="text"
@@ -97,6 +97,7 @@ export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
           placeholder="Digite o telefone do professor"
           onChange={(event) => setPhone(event.target.value)}
           value={phone}
+          required
         />
         <input
           type="email"
@@ -105,6 +106,7 @@ export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
           placeholder="Digite o e-mail de acesso"
           onChange={(event) => setEmail(event.target.value)}
           value={email}
+          required
         />
         <input
           type="password"
@@ -114,9 +116,12 @@ export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
           autoComplete="on"
           onChange={(event) => setPassword(event.target.value)}
           value={password}
+          required
         />
 
-        <button type="submit" className="btn">Cadastrar</button>
+        <button type="submit" className="btn">
+          Cadastrar
+        </button>
       </form>
     </main>
   );

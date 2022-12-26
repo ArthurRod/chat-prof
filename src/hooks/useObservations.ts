@@ -15,7 +15,7 @@ export function useObservations(id: string | undefined) {
   function getObservations() {
     const q = query(
       collection(db, "observations"),
-      where("id", "==", id)
+      where("studentId", "==", id)
     );
 
     onSnapshot(q, (querySnapshot) => {
@@ -25,6 +25,7 @@ export function useObservations(id: string | undefined) {
 
         observationsArray.push({
           id: doc.data().id,
+          studentId: doc.data().studentId,
           observation: doc.data().observation,
           observationDate: doc.data().observationDate,
           schoolSubject: doc.data().schoolSubject,

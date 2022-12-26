@@ -2,6 +2,8 @@ import { useState } from "react";
 import { DeleteTeacherButton } from "./DeleteTeacherButton";
 import { DeleteTeacherModal } from "./DeleteTeacherModal";
 
+import "../../../styles/delete.scss";
+
 type DeleteTeacherProps = {
   teacherName: string;
   teacherId: string;

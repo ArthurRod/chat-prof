@@ -8,7 +8,7 @@ type CloseMaskProps = {
 export function CloseMask({ target, setIsModalState }: CloseMaskProps) {
   
   async function handleCloseSettings() {
-    await setIsModalState(false);
+    setIsModalState(false);
 
     let modal = document.querySelector(`${target}`);
 

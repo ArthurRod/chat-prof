@@ -71,6 +71,7 @@ export function FormUpdateUser({ adminType }: FormUpdateUserProps) {
           placeholder="Digite um novo nome"
           onChange={(event) => setName(event.target.value)}
           value={name}
+          required
         />
         <label htmlFor="telefone">Telefone</label>
         <input
@@ -80,6 +81,7 @@ export function FormUpdateUser({ adminType }: FormUpdateUserProps) {
           placeholder="Digite um novo telefone"
           onChange={(event) => setPhone(event.target.value)}
           value={phone}
+          required
         />
 
         <button type="submit" className="btn alterate-user">

@@ -7,7 +7,9 @@
   box-sizing: border-box;
 }
 
-body {
+body,
+select,
+textarea {
   font-family: "Roboto", sans-serif;
   color: $fonte-principal;
   background-color: $white;
@@ -38,10 +40,14 @@ input::placeholder {
 
 button.btn, input, select {
   height: 35px;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
-button.btn {
+button.btn,
+a.btn.back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid $blue;
   cursor: pointer;
   background-color: transparent;
@@ -49,34 +55,32 @@ button.btn {
   font-size: 1rem;
   padding: 5px 25px;
   color: $fonte-principal;
-  border-radius: 2px;
+  text-transform: uppercase;
+  border-radius: 5px;
+}
+
+button.btn:disabled {
+  border: 1px solid $fonte-principal;
+  cursor: pointer;
+  background-color: #f4f4f4;
+  opacity: 0.5;
 }
 
 button.btn.back,
 a.btn.back {
   border: 1px solid $red;
-  cursor: pointer;
-  background-color: transparent;
-  transition: background-color .5s;
-  font-size: 1rem;
-  padding: 5px 25px;
-  color: $fonte-principal;
-  border-radius: 2px;
 }
 
-button.btn:hover {
+button.btn:hover:not(button.btn:disabled) {
   background-color: $blue;
 }
 
 button.btn.back:hover,
 a.btn.back:hover {
-  background-color: $red;
+  background-color: $red !important;
 }
 
 a.btn.back {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-decoration: none;
 }
 

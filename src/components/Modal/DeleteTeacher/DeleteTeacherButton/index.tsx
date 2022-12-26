@@ -8,7 +8,7 @@ export function DeleteTeacherButton({ setIsAddFormOpen }: DeleteTeacherButtonPro
   async function handleOpenSettings() {
     await setIsAddFormOpen(true);
 
-    let deleteTeacherModal = document.querySelector(".delete-teacher-modal");
+    let deleteTeacherModal = document.querySelector(".delete-modal.teacher");
 
     setTimeout(() => {
       if (deleteTeacherModal) {

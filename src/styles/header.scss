@@ -51,7 +51,7 @@
       height: 100vh;
       width: 100vw;
       z-index: 2;
-      transition: 0.4s;
+      transition: 0.5s;
 
       &.open {
         right: 0;
@@ -87,7 +87,8 @@
           display: flex;
           flex-direction: column;
           height: 100%;
-          gap: 35px;
+          gap: 10px;
+          margin: 0;
 
           form {
             display: flex;

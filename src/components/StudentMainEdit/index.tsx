@@ -68,6 +68,7 @@ export function StudentMainEdit() {
             placeholder="Digite um novo nome"
             onChange={(event) => assignData(event, setName)}
             value={name}
+            required
           />
           <input
             type="text"
@@ -76,6 +77,7 @@ export function StudentMainEdit() {
             placeholder="Digite um novo telefone"
             onChange={(event) => assignData(event, setFathersPhone)}
             value={fathersPhone}
+            required
           />
 
           <span className="erro" style={{ display: "none" }}>

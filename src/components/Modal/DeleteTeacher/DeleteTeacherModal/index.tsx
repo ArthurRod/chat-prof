@@ -41,7 +41,7 @@ export function DeleteTeacherModal({
   async function handleCloseSettings() {
     await setIsModalState(false);
 
-    let modal = document.querySelector(".delete-teacher-modal");
+    let modal = document.querySelector(".delete-modal.teacher");
 
     if (modal) {
       if (modal.classList.contains("open")) modal.classList.remove("open");
@@ -49,7 +49,7 @@ export function DeleteTeacherModal({
   }
 
   return (
-    <div className="delete-teacher-modal">
+    <div className="delete-modal teacher">
       <div className="content">
         <p className="warning">
           Ao realizar esta ação os dados do professor {teacherName} serão

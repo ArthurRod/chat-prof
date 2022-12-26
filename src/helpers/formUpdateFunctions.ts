@@ -6,7 +6,7 @@ export function isEmptyInputs() {
     inputs.forEach(element => {
         if (element.value.length === 0) {
 
-            element.style.backgroundColor = "#FF4040"
+            element.style.backgroundColor = "rgba(255, 0, 0, 0.4)"
 
             erro.style.display = "flex"
 

@@ -29,9 +29,12 @@
         }
     }
 
-    .grade {
+    .grade,
+    .observation {
+
         .main {
-            #grades-form {
+            #grades-form,
+            #observation-form {
                 align-items: flex-start;
                 gap: 0;
 
@@ -42,6 +45,15 @@
                 select {
                     cursor: pointer;
                     margin-bottom: 10px;
+                }
+
+                #observation-aluno {
+                    width: 100%;
+                    height: 200px;
+                    margin-top: 20px;
+                    border-radius: 5px;
+                    padding: 5px;
+                    border-color: $blue;
                 }
 
                 button {
