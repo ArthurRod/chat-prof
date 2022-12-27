@@ -85,8 +85,13 @@ export function FormAddObservations() {
           name="subject-observation"
           onChange={(event) => setSubject(event.target.value)}
           value={subject}
+          maxLength={50}
           required
         />
+
+        {subject.length === 50 && (
+          <span className="warning">Máximo 50 caractéres</span>
+        )}
 
         <textarea
           id="observation-aluno"
@@ -97,6 +102,10 @@ export function FormAddObservations() {
           maxLength={300}
           required
         />
+
+        {observation.length === 300 && (
+          <span className="warning">Máximo 300 caractéres</span>
+        )}
 
         <button type="submit" className="btn">
           Adicionar

@@ -3,14 +3,18 @@ import { FormUpdateObservation } from "../../Forms/FormUpdateObservation";
 
 import "../../../styles/update-observation.scss"
 
-type UpdateObservationProps = {
+interface UpdateObservationProps {
   setIsModalState: (isModalState: boolean) => void;
   observationId: string;
+  subject: string;
+  observation: string;
 };
 
 export function UpdateObservation({
   setIsModalState,
-  observationId
+  observationId,
+  subject,
+  observation
 }: UpdateObservationProps) {
 
   return (
@@ -22,7 +26,12 @@ export function UpdateObservation({
           <h3 className="title">Editar Observação</h3>
         </header>
 
-        <FormUpdateObservation />
+        <FormUpdateObservation 
+          setIsModalState={setIsModalState}
+          observationId={observationId} 
+          subject={subject}
+          observation={observation}
+        />
       </div>
     </div>
   );

@@ -18,14 +18,10 @@ export function SettingsContent({
   function handleSignOut() {
     signOut(auth)
       .then(() => {
-
         navigate("/");
-        
       })
       .catch((error) => {
-
         console.log("Ocorreu um erro ao sair: " + error);
-
       });
   }
 

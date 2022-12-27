@@ -83,6 +83,8 @@ export function StudentObservation({
         <UpdateObservation
           setIsModalState={setIsUpdateObservationOpen}
           observationId={id}
+          subject={subject}
+          observation={observation}
         />
       )}
     </>

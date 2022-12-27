@@ -1,57 +1,36 @@
 import { FormEvent, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { db } from "../../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
-import { clearInputs } from "../../../helpers/formUpdateFunctions";
-import { useAdmin } from "../../../hooks/useAdmin";
+interface FormUpdateObservationProps {
+  setIsModalState: (isModalState: boolean) => void;
+  observationId: string;
+  subject: string;
+  observation: string;
+}
 
-export function FormUpdateObservation() {
-  const { adminUser } = useAdmin();
-  const { id } = useParams();
-  const [observation, setObservation] = useState("");
-  const [schoolSubject, setSchoolSubject] = useState("");
-  const [teacherName, setTeacherName] = useState("");
-  const [subject, setSubject] = useState("");
-  const [dateSeconds, setDateSeconds] = useState(0);
+export function FormUpdateObservation({
+  setIsModalState,
+  observationId,
+  subject,
+  observation,
+}: FormUpdateObservationProps) {
+  const [newSubject, setNewSubject] = useState("");
+  const [newObservation, setNewObservation] = useState("");
 
   useEffect(() => {
-    getTeacherInfos();
-    getDateSeconds();
-  }, [adminUser]);
+    setNewSubject(subject);
+    setNewObservation(observation);
+  }, []);
 
-  const getTeacherInfos = () => {
-    if (adminUser) {
-      setSchoolSubject(adminUser.schoolSubject!);
-      setTeacherName(adminUser.name);
-    }
-  };
-
-  const getDateSeconds = () => {
-    const date = new Date();
-
-    const dateInSeconds = date.getTime() / 1000;
-
-    setDateSeconds(dateInSeconds);
-  };
-
-  const addObservation = (e: FormEvent) => {
+  const updateObservation = (e: FormEvent) => {
     e.preventDefault();
 
-    if (id) {
-      addObservationDoc(id)
+    if (newSubject !== subject || newObservation !== observation) {
+      updateObservationDoc(observationId)
         .then(() => {
-          alert("Observação inserida com sucesso!");
-
-          const inputTargets = document.querySelectorAll(
-            "#observation-form input"
-          ) as NodeListOf<HTMLInputElement>;
-          const textAreaTargets = document.querySelectorAll(
-            "#observation-form textarea"
-          ) as NodeListOf<HTMLInputElement>;
-
-          clearInputs(inputTargets);
-          clearInputs(textAreaTargets);
+          alert("Observação alterada com sucesso!");
+          setIsModalState(false);
         })
         .catch((error) => {
           console.log(error);
@@ -59,47 +38,55 @@ export function FormUpdateObservation() {
     }
   };
 
-  const addObservationDoc = async (id: string) => {
-    const randomId = Math.floor(Date.now() * Math.random()).toString(36);
-
-    await setDoc(doc(db, "observations", randomId), {
-      id: randomId,
-      studentId: id,
-      observation: observation,
-      observationDate: {
-        seconds: dateSeconds,
+  const updateObservationDoc = async (observationId: string) => {
+    await setDoc(
+      doc(db, "observations", observationId),
+      {
+        subject: newSubject,
+        observation: newObservation,
       },
-      subject: subject,
-      schoolSubject: schoolSubject,
-      teacherName: teacherName,
-    });
+      { merge: true }
+    );
   };
 
   return (
     <main className="main">
-      <form id="update-observation-form" onSubmit={addObservation}>
+      <form id="update-observation-form" onSubmit={updateObservation}>
         <label htmlFor="subject-observation">Qual o assunto?</label>
         <input
           type="text"
           id="subject-observation"
           name="subject-observation"
-          onChange={(event) => setSubject(event.target.value)}
-          value={subject}
+          onChange={(event) => setNewSubject(event.target.value)}
+          value={newSubject}
+          maxLength={50}
           required
         />
+
+        {newSubject.length === 50 && (
+          <span className="warning">Não é possível adicionar mais carácteres (Máximo 50 caractéres atingido)</span>
+        )}
 
         <textarea
           id="observation-aluno"
           name="observation-aluno"
-          placeholder="Digite uma observação sobre o aluno (max 300 caractéres)"
-          onChange={(event) => setObservation(event.target.value)}
-          value={observation}
+          placeholder="Digite uma observação sobre o aluno (máx. 300 caractéres)"
+          onChange={(event) => setNewObservation(event.target.value)}
+          value={newObservation}
           maxLength={300}
           required
         />
 
-        <button type="submit" className="btn">
-          Adicionar
+        {newObservation.length === 300 && (
+          <span className="warning">Não é possível adicionar mais carácteres (Máximo 300 caractéres atingido)</span>
+        )}
+
+        <button
+          disabled={subject === newSubject && observation === newObservation}
+          type="submit"
+          className="btn"
+        >
+          Alterar
         </button>
       </form>
     </main>

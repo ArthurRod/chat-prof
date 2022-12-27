@@ -2,66 +2,70 @@
 
 /** Add Grades Observation SCSS **/
 .add-grades-observations {
-    .menu-select-form {
-        padding-top: 1.25rem;
-        
-        ul {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
+  .menu-select-form {
+    padding-top: 1.25rem;
 
-            li {
-                &::marker {
-                    font-size: 0px;
-                }
+    ul {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
 
-                a {
-                    text-decoration: none;
-                    color: $fonte-principal;
-                    transition: 0.5s;
-
-                    &:hover,
-                    &.active {
-                        color: $blue;
-                    }
-                }
-            }
+      li {
+        &::marker {
+          font-size: 0px;
         }
-    }
 
-    .grade,
-    .observation {
+        a {
+          text-decoration: none;
+          color: $fonte-principal;
+          transition: 0.5s;
 
-        .main {
-            #grades-form,
-            #observation-form {
-                align-items: flex-start;
-                gap: 0;
-
-                label {
-                    margin-bottom: 5px;
-                }
-
-                select {
-                    cursor: pointer;
-                    margin-bottom: 10px;
-                }
-
-                #observation-aluno {
-                    width: 100%;
-                    height: 200px;
-                    margin-top: 20px;
-                    border-radius: 5px;
-                    padding: 5px;
-                    border-color: $blue;
-                }
-
-                button {
-                    margin-top: 20px;
-                }
-            }
+          &:hover,
+          &.active {
+            color: $blue;
+          }
         }
+      }
     }
+  }
+
+  .grade,
+  .observation {
+    .main {
+      #grades-form,
+      #observation-form {
+        align-items: flex-start;
+        gap: 0;
+
+        label {
+          margin-bottom: 5px;
+        }
+
+        select {
+          cursor: pointer;
+          margin-bottom: 10px;
+        }
+
+        #observation-aluno {
+          width: 100%;
+          height: 200px;
+          margin-top: 20px;
+          border-radius: 5px;
+          padding: 10px;
+          border-color: $blue;
+        }
+
+        .warning {
+          margin-top: 5px;
+          font-size: 0.75rem;
+          padding: 0 10px;
+          color: $red;
+        }
+
+        button {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
 }
-
-
