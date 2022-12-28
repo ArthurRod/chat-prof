@@ -10,6 +10,7 @@ import { PrivateAdmin } from "./PrivateAdmin";
 import { TeacherEdit } from "../pages/TeacherEdit";
 import { AdminHome } from "../pages/AdminHome";
 import { StudentEdit } from "../pages/StudentEdit";
+import { Login } from "../pages/Login";
 
 export function RoutesApp() {
   return (
@@ -22,6 +23,7 @@ export function RoutesApp() {
           <Route path="admin-home" element={<PrivateAdmin><AdminHome /></PrivateAdmin>}/>
           <Route path="/edit/teacher/:id" element={<TeacherEdit />} />
           <Route path="/edit/student/:id" element={<StudentEdit />} />
+          <Route path="login" element={<Login />} />
           <Route path="home" element={<Home />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

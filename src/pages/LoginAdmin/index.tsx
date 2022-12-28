@@ -13,10 +13,8 @@ export function LoginAdmin() {
     e.preventDefault();
 
     logInWithEmailAndPassword(email, password)
-      .then(async (data) => {
-
+      .then(() => {
         navigate("/admin-home");
-
       })
       .catch((error) => {
         console.log(error);
