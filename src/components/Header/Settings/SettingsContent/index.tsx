@@ -18,9 +18,8 @@ export function SettingsContent({
   function handleSignOut() {
     signOut(auth)
       .then(() => {
-        sessionStorage.setItem("uid", "");
-        sessionStorage.setItem("email", "");
-        sessionStorage.setItem("pass", "");
+        sessionStorage.removeItem("email");
+        sessionStorage.removeItem("pass");
 
         navigate("/");
       })

@@ -18,7 +18,7 @@ type AuthContextType = {
     phoneNumber: string,
     setExpandForm: (expandForm: boolean) => void
   ) => void;
-  verifyOTP: (e: any, setOTP: (OTP: string) => void) => Promise<void>;
+  verifyOTP: (otp: string) => Promise<void>;
 };
 
 type AuthContextProvider = {
@@ -35,27 +35,21 @@ export function AuthProvider(props: AuthContextProvider) {
   }, []);
 
   const persistUser = async () => {
-    const uid = sessionStorage.getItem("uid");
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, displayName, phoneNumber } = user;
 
-    if (uid && uid.length > 0) {
-      setUser({
-        uid: uid,
-      });
-    } else {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          const { uid } = user;
-
-          if (!uid) {
-            throw new Error("Missing user information.");
-          }
-
+        if (uid) {
           setUser({
             uid: uid,
+            name: displayName!,
+            phone: phoneNumber!
           });
+        } else {
+          throw new Error("Missing user information.");
         }
-      });
-    }
+      }
+    });
   };
 
   const logInWithEmailAndPassword = async (email: string, password: string) => {
@@ -64,50 +58,42 @@ export function AuthProvider(props: AuthContextProvider) {
     if (result.user) {
       const { uid, email } = result.user;
 
-      if (uid && email) {
-        sessionStorage.setItem("uid", uid);
-        sessionStorage.setItem("email", email);
+      if (uid) {
+        sessionStorage.setItem("email", email!);
         sessionStorage.setItem("pass", password);
-      }
 
-      if (!uid || !email) {
+        setUser({
+          uid: uid,
+        });
+      } else {
         throw new Error("Missing information from Account.");
       }
-
-      setUser({
-        uid: uid,
-      });
     }
   };
 
-  const verifyOTP = async (e: any, setOTP: (OTP: string) => void) => {
-    const otp = e.target.value;
-    setOTP(otp);
+  const verifyOTP = async (otp: string) => {
+    const confirmationResult = window.confirmationResult;
 
-    if (otp.length === 6) {
-      const confirmationResult = window.confirmationResult;
+    confirmationResult
+      .confirm(otp)
+      .then((result: UserCredential) => {
+        if (result.user) {
+          const { uid, displayName, phoneNumber } = result.user;
 
-      confirmationResult
-        .confirm(otp)
-        .then((result: UserCredential) => {
-          if (result.user) {
-            const { uid } = result.user;
-
-            if (uid) {
-              sessionStorage.setItem("uid", uid);
-            } else {
-              throw new Error("Missing information from Account.");
-            }
-
+          if (uid) {
             setUser({
               uid: uid,
+              name: displayName!,
+              phone: phoneNumber!
             });
+          } else {
+            throw new Error("Missing information from Account.");
           }
-        })
-        .catch((error: any) => {
-          console.log(error);
-        });
-    }
+        }
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
   };
 
   const sendOTP = (
@@ -138,7 +124,7 @@ export function AuthProvider(props: AuthContextProvider) {
       "recaptcha-container",
       {
         size: "invisible",
-        callback: (response: any) => {
+        callback: () => {
           // reCAPTCHA solved, allow signInWithPhoneNumber.
         },
       },

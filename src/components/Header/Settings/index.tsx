@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SettingsButton } from "./SettingsButton";
 import { SettingsContent } from "./SettingsContent";
 import { useAdminType } from "../../../hooks/useAdminType";
+import { FormUpdateAdminUser } from "../../Forms/FormUpdateAdminUser";
 import { FormUpdateUser } from "../../Forms/FormUpdateUser";
 
 export function Settings() {
@@ -14,9 +15,13 @@ export function Settings() {
 
       {isMenuOpen && adminType ? (
         <SettingsContent setIsMenuOpen={setIsMenuOpen}>
-          <FormUpdateUser adminType={adminType.type} />
+          <FormUpdateAdminUser adminType={adminType.type} />
         </SettingsContent>
-      ) : null}
+      ) : (
+        <SettingsContent setIsMenuOpen={setIsMenuOpen}>
+          <FormUpdateUser />
+        </SettingsContent>
+      )}
     </div>
   );
 }

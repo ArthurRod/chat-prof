@@ -34,6 +34,11 @@ input, select {
   border: 1px solid $blue;
 }
 
+input:disabled {
+  opacity: 0.5;
+  border: 1px solid #666;
+}
+
 input::placeholder {
   color: #666;
 }

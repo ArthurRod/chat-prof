@@ -12,14 +12,19 @@ export function Login() {
 
   const navigate = useNavigate();
 
-  function handlePhoneNumberLogin(event: any, setOTP: (OTP: string) => void) {
-    verifyOTP(event, setOTP)
-      .then(() => {
-        navigate("/home");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  function handlePhoneNumberLogin(event: any) {
+    const otp = event.target.value;
+    setOTP(otp);
+
+    if (otp.length === 6) {
+      verifyOTP(otp)
+        .then(() => {
+          navigate("/home");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   return (
@@ -41,7 +46,7 @@ export function Login() {
             id="code"
             name="code"
             placeholder="Insira o código"
-            onChange={(event) => handlePhoneNumberLogin(event, setOTP)}
+            onChange={(event) => handlePhoneNumberLogin(event)}
             value={OTP}
           />
         )}

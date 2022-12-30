@@ -11,6 +11,7 @@ import { TeacherEdit } from "../pages/TeacherEdit";
 import { AdminHome } from "../pages/AdminHome";
 import { StudentEdit } from "../pages/StudentEdit";
 import { Login } from "../pages/Login";
+import { Private } from "./Private";
 
 export function RoutesApp() {
   return (
@@ -24,7 +25,7 @@ export function RoutesApp() {
           <Route path="/edit/teacher/:id" element={<TeacherEdit />} />
           <Route path="/edit/student/:id" element={<StudentEdit />} />
           <Route path="login" element={<Login />} />
-          <Route path="home" element={<Home />} />
+          <Route path="home" element={<Private><Home /></Private>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

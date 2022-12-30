@@ -1,60 +1,43 @@
 import { FormEvent, useEffect, useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../../services/firebase";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../../../services/firebase";
 
-import { useAdmin } from "../../../hooks/useAdmin";
 import { useAuth } from "../../../hooks/useAuth";
 
-type FormUpdateUserProps = {
-  adminType: string;
-};
-
-export function FormUpdateUser({ adminType }: FormUpdateUserProps) {
+export function FormUpdateUser() {
   const { user } = useAuth();
-  const { adminUser } = useAdmin();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
 
   useEffect(() => {
-    if (adminUser) {
-      setName(adminUser.name);
-      setPhone(adminUser.phone);
+    if (user) {
+      if (user.name) {
+        setName(user.name);
+      }
+      if (user.phone) {
+        setPhone(user.phone);
+      }
     }
-  }, [adminUser]);
+  }, [user]);
 
   function handleUpdateUser(e: FormEvent) {
     e.preventDefault();
 
     if (user) {
       if (name.length !== 0 && phone.length !== 0) {
-        updateUserTable(user.uid);
-        alert("Usuário alterado com sucesso!");
+        if (auth && auth.currentUser) {
+          updateProfile(auth.currentUser, {
+            displayName: name,
+          })
+            .then(() => {
+              alert("Usuário alterado com sucesso!");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
       } else {
         alert("Preencha os campos!");
-      }
-    }
-  }
-
-  async function updateUserTable(uid: string) {
-    if (adminUser && adminType) {
-      if (adminType === "school") {
-        await setDoc(
-          doc(db, "schools", uid),
-          {
-            name: name,
-            phone: phone,
-          },
-          { merge: true }
-        );
-      } else if (adminType === "teacher") {
-        await setDoc(
-          doc(db, "teachers", uid),
-          {
-            name: name,
-            phone: phone,
-          },
-          { merge: true }
-        );
       }
     }
   }
@@ -78,9 +61,9 @@ export function FormUpdateUser({ adminType }: FormUpdateUserProps) {
           type="text"
           id="telefone"
           name="telefone"
-          placeholder="Digite um novo telefone"
           onChange={(event) => setPhone(event.target.value)}
           value={phone}
+          disabled
           required
         />
 

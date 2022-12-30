@@ -1,5 +1,16 @@
+import { Header } from "../../components/Header";
+
 export function Home() {
   return (
-    <p>Home</p>
+    <>
+      <Header />
+      <main className="main">
+        <div className="container">
+          <div className="content">
+            
+          </div>
+        </div>
+      </main>
+    </>
   );
 }
