@@ -5,4 +5,5 @@ export type Grade = {
     schoolGrade: string;
     schoolSubject: string;
     teacherName: string;
+    teacherId: string;
 }

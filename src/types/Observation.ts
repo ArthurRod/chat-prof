@@ -6,6 +6,7 @@ export type Observation = {
     schoolSubject: string;
     subject: string;
     teacherName: string;
+    teacherId: string;
 }
 
 type ObservationDate = {

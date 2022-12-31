@@ -1,5 +1,13 @@
 import { FormEvent, useEffect, useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
+import ReactInputMask from "react-input-mask";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { db } from "../../../services/firebase";
 
 import { useAdmin } from "../../../hooks/useAdmin";
@@ -10,10 +18,12 @@ type FormUpdateAdminUserProps = {
 };
 
 export function FormUpdateAdminUser({ adminType }: FormUpdateAdminUserProps) {
+  const countryCode = "+55";
+
   const { user } = useAuth();
   const { adminUser } = useAdmin();
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(countryCode);
 
   useEffect(() => {
     if (adminUser) {
@@ -55,8 +65,30 @@ export function FormUpdateAdminUser({ adminType }: FormUpdateAdminUserProps) {
           },
           { merge: true }
         );
+
+        updateGradesObservations("grades", uid);
+        updateGradesObservations("observations", uid);
       }
     }
+  }
+
+  async function updateGradesObservations(collectionRef: string, uid: string) {
+    const q = query(
+      collection(db, collectionRef),
+      where("teacherId", "==", uid)
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach(async (data: any) => {
+      await setDoc(
+        doc(db, collectionRef, data.id),
+        {
+          teacherName: name,
+        },
+        { merge: true }
+      );
+    });
   }
 
   return (
@@ -74,13 +106,14 @@ export function FormUpdateAdminUser({ adminType }: FormUpdateAdminUserProps) {
           required
         />
         <label htmlFor="telefone">Telefone</label>
-        <input
-          type="text"
+        <ReactInputMask
+          type="tel"
           id="telefone"
           name="telefone"
           placeholder="Digite um novo telefone"
           onChange={(event) => setPhone(event.target.value)}
           value={phone}
+          mask="+99 (99) 99999-9999"
           required
         />
 

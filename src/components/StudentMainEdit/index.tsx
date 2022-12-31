@@ -1,6 +1,7 @@
-import { doc, getDoc, setDoc } from "@firebase/firestore";
 import { FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ReactInputMask from "react-input-mask";
+import { doc, getDoc, setDoc } from "@firebase/firestore";
 import { db } from "../../services/firebase";
 
 import { assignData, isEmptyInputs } from "../../helpers/formUpdateFunctions";
@@ -33,8 +34,12 @@ export function StudentMainEdit() {
   const updateStudent = async (e: FormEvent) => {
     e.preventDefault();
 
-    let isEmpty = isEmptyInputs();
-    let sucesso = document.querySelector("form .sucesso") as HTMLElement;
+    const targets = document.querySelectorAll(
+      ".main-edit form input"
+    ) as NodeListOf<HTMLInputElement>;
+
+    const isEmpty = isEmptyInputs(targets);
+    const sucesso = document.querySelector("form .sucesso") as HTMLElement;
 
     if (!isEmpty) {
       if (id) {
@@ -70,13 +75,15 @@ export function StudentMainEdit() {
             value={name}
             required
           />
-          <input
-            type="text"
+          <ReactInputMask
+            type="tel"
             id="telefone"
             name="telefone"
             placeholder="Digite um novo telefone"
-            onChange={(event) => assignData(event, setFathersPhone)}
+            onChange={(event: any) => assignData(event, setFathersPhone)}
             value={fathersPhone}
+            disabled
+            mask="+99 (99) 99999-9999"
             required
           />
 

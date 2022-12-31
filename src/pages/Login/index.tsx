@@ -1,11 +1,12 @@
-import { ButtonHTMLAttributes, FormEvent, useState } from "react";
+import { useState } from "react";
+import ReactInputMask from "react-input-mask";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 export function Login() {
   const countryCode = "+55";
 
-  const { user, sendOTP, verifyOTP } = useAuth();
+  const { sendOTP, verifyOTP } = useAuth();
   const [phoneNumber, setPhoneNumber] = useState(countryCode);
   const [expandForm, setExpandForm] = useState(false);
   const [OTP, setOTP] = useState("");
@@ -32,13 +33,15 @@ export function Login() {
       <p>Login</p>
       <form onSubmit={(event) => sendOTP(event, phoneNumber, setExpandForm)}>
         <label htmlFor="telephone">Insira o número de telefone</label>
-        <input
+        <ReactInputMask 
           type="tel"
           id="telephone"
           name="telephone"
           placeholder="+00 (00) 00000-0000"
-          onChange={(event) => setPhoneNumber(event.target.value)}
+          onChange={(event: any) => setPhoneNumber(event.target.value)}
           value={phoneNumber}
+          mask="+99 (99) 99999-9999" 
+          required 
         />
         {expandForm && (
           <input

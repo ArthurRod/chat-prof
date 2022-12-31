@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import ReactInputMask from "react-input-mask";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
@@ -11,9 +12,11 @@ type FormCreateTeacherProps = {
 };
 
 export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
+  const countryCode = "+55";
+
   const { logInWithEmailAndPassword } = useAuth();
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(countryCode);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [schoolSubject, setSchoolSubject] = useState("");
@@ -37,7 +40,7 @@ export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
 
             clearInputs();
             setName("");
-            setPhone("");
+            setPhone(countryCode);
             setEmail("");
             setPassword("");
             setSchoolSubject("");
@@ -90,13 +93,14 @@ export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
           value={schoolSubject}
           required
         />
-        <input
-          type="text"
+        <ReactInputMask
+          type="tel"
           id="telefone"
           name="telefone"
           placeholder="Digite o telefone do professor"
           onChange={(event) => setPhone(event.target.value)}
           value={phone}
+          mask="+99 (99) 99999-9999"
           required
         />
         <input
@@ -119,7 +123,17 @@ export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
           required
         />
 
-        <button type="submit" className="btn">
+        <button
+          disabled={
+            name.length === 0 ||
+            phone.length === 0 ||
+            email.length === 0 ||
+            password.length === 0 ||
+            schoolSubject.length === 0
+          }
+          type="submit"
+          className="btn"
+        >
           Cadastrar
         </button>
       </form>

@@ -5,8 +5,10 @@ import { doc, setDoc } from "firebase/firestore";
 
 import { clearInputs } from "../../../helpers/formUpdateFunctions";
 import { useAdmin } from "../../../hooks/useAdmin";
+import { useAuth } from "../../../hooks/useAuth";
 
 export function FormAddObservations() {
+  const { user } = useAuth();
   const { adminUser } = useAdmin();
   const { id } = useParams();
   const [observation, setObservation] = useState("");
@@ -72,6 +74,7 @@ export function FormAddObservations() {
       subject: subject,
       schoolSubject: schoolSubject,
       teacherName: teacherName,
+      teacherId: user?.uid
     });
   };
 
@@ -107,7 +110,11 @@ export function FormAddObservations() {
           <span className="warning">Máximo 300 caractéres</span>
         )}
 
-        <button type="submit" className="btn">
+        <button
+          disabled={subject.length === 0 || observation.length === 0}
+          type="submit"
+          className="btn"
+        >
           Adicionar
         </button>
       </form>

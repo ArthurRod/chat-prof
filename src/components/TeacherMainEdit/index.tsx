@@ -6,10 +6,10 @@ import { db } from "../../services/firebase";
 import { assignData, isEmptyInputs } from "../../helpers/formUpdateFunctions";
 
 export function TeacherMainEdit() {
+  let { id } = useParams();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  let { id } = useParams();
 
   useEffect(() => {
     getTeacherData();
@@ -34,8 +34,12 @@ export function TeacherMainEdit() {
   const updateTeacher = async (e: FormEvent) => {
     e.preventDefault();
 
-    let isEmpty = isEmptyInputs();
-    let sucesso = document.querySelector("form .sucesso") as HTMLElement;
+    const targets = document.querySelectorAll(
+      ".main-edit form input"
+    ) as NodeListOf<HTMLInputElement>;
+
+    const isEmpty = isEmptyInputs(targets);
+    const sucesso = document.querySelector("form .sucesso") as HTMLElement;
 
     if (!isEmpty) {
       if (id) {

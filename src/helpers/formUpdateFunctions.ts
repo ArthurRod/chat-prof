@@ -1,5 +1,5 @@
-export function isEmptyInputs() {
-    let inputs = document.querySelectorAll("form input") as NodeListOf<HTMLInputElement>
+export function isEmptyInputs(targets?: NodeListOf<HTMLInputElement>) {
+    let inputs = targets ? targets : document.querySelectorAll("form input") as NodeListOf<HTMLInputElement>
     let erro = document.querySelector("form .erro") as HTMLElement
     let isEmptyInputs = false;
 
@@ -36,7 +36,7 @@ export function assignData(event: any, alterarDado: (parametro: string) => void)
 };
 
 export function clearInputs(targets?: NodeListOf<HTMLInputElement>){
-    let inputs = !targets ? document.querySelectorAll("input") as NodeListOf<HTMLInputElement> : targets;
+    let inputs = targets ? targets : document.querySelectorAll("input") as NodeListOf<HTMLInputElement> ;
 
     if (inputs) {
         inputs.forEach((item) => (item.value = ""));

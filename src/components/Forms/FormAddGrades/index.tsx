@@ -5,8 +5,10 @@ import { doc, setDoc } from "firebase/firestore";
 
 import { clearInputs } from "../../../helpers/formUpdateFunctions";
 import { useAdmin } from "../../../hooks/useAdmin";
+import { useAuth } from "../../../hooks/useAuth";
 
 export function FormAddGrades() {
+  const { user } = useAuth();
   const { adminUser } = useAdmin();
   const { id } = useParams();
   const [schoolGrade, setSchoolGrade] = useState("");
@@ -20,8 +22,8 @@ export function FormAddGrades() {
 
   const getTeacherInfos = () => {
     if (adminUser) {
-      setSchoolSubject(adminUser.schoolSubject!);
       setTeacherName(adminUser.name);
+      setSchoolSubject(adminUser.schoolSubject!);
     }
   };
 
@@ -55,6 +57,7 @@ export function FormAddGrades() {
       schoolGrade: schoolGrade,
       schoolSubject: schoolSubject,
       teacherName: teacherName,
+      teacherId: user?.uid,
     });
   };
 
@@ -84,7 +87,11 @@ export function FormAddGrades() {
           required
         />
 
-        <button type="submit" className="btn">
+        <button
+          disabled={period.length === 0 || schoolGrade.length === 0}
+          type="submit"
+          className="btn"
+        >
           Adicionar
         </button>
       </form>
