@@ -7,15 +7,11 @@ import { useAuth } from "../../../hooks/useAuth";
 export function FormUpdateUser() {
   const { user } = useAuth();
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
 
   useEffect(() => {
     if (user) {
       if (user.name) {
         setName(user.name);
-      }
-      if (user.phone) {
-        setPhone(user.phone);
       }
     }
   }, [user]);
@@ -24,20 +20,20 @@ export function FormUpdateUser() {
     e.preventDefault();
 
     if (user) {
-      if (name.length !== 0 && phone.length !== 0) {
+      if (name.length !== 0) {
         if (auth && auth.currentUser) {
           updateProfile(auth.currentUser, {
             displayName: name,
           })
             .then(() => {
-              alert("Usuário alterado com sucesso!");
+              alert("Nome alterado com sucesso!");
             })
             .catch((error) => {
               console.log(error);
             });
         }
       } else {
-        alert("Preencha os campos!");
+        alert("Preencha o campo!");
       }
     }
   }
@@ -54,16 +50,6 @@ export function FormUpdateUser() {
           placeholder="Digite um novo nome"
           onChange={(event) => setName(event.target.value)}
           value={name}
-          required
-        />
-        <label htmlFor="telefone">Telefone</label>
-        <input
-          type="text"
-          id="telefone"
-          name="telefone"
-          onChange={(event) => setPhone(event.target.value)}
-          value={phone}
-          disabled
           required
         />
 

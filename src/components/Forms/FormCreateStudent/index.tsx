@@ -65,15 +65,17 @@ export function FormCreateStudent({ schoolId }: FormCreateStudentProps) {
           type="tel"
           id="telefone-pai"
           name="telefone-pai"
-          placeholder="Digite o telefone do pai ou responsável"
+          placeholder="+99 (99) 99999-9999"
           onChange={(event) => setFathersPhone(event.target.value)}
           value={fathersPhone}
-          mask="+99 (99) 99999-9999"
+          mask="+9999999999999"
           required
         />
 
         <button
-          disabled={name.length === 0 || fathersPhone.length <= 3}
+          disabled={
+            name.length === 0 || fathersPhone.replace(/_*_/, "").length !== 14
+          }
           type="submit"
           className="btn"
         >

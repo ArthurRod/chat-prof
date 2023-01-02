@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import { useGrades } from "../../hooks/useGrades";
 
 import "../../styles/student-grades.scss";

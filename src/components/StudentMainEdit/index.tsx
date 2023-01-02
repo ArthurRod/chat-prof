@@ -79,11 +79,10 @@ export function StudentMainEdit() {
             type="tel"
             id="telefone"
             name="telefone"
-            placeholder="Digite um novo telefone"
+            placeholder="+99 (99) 99999-9999"
             onChange={(event: any) => assignData(event, setFathersPhone)}
             value={fathersPhone}
-            disabled
-            mask="+99 (99) 99999-9999"
+            mask="+9999999999999"
             required
           />
 

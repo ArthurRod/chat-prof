@@ -3,7 +3,7 @@ import { StudentMainEdit } from "../../components/StudentMainEdit";
 import { StudentGrades } from "../../components/StudentGrades/index";
 import { AddData } from "../../components/AddData/index";
 import "../../styles/edit.scss";
-import { AddGradesObservations } from '../../components/AddGradesObservations/index';
+import { AddGradesObservations } from '../../components/Modal/AddGradesObservations/index';
 import { useState } from 'react';
 import { StudentObservations } from '../../components/StudentObservations/index';
 

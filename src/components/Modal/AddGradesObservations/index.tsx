@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { FormAddGrades } from "../../components/Forms/FormAddGrades/index";
-import "../../styles/add-grades-observations.scss";
-import { FormAddObservations } from '../Forms/FormAddObservations/index';
+import { FormAddGrades } from "../../Forms/FormAddGrades/index";
+import { FormAddObservations } from '../../Forms/FormAddObservations/index';
+
+import "../../../styles/add-grades-observations.scss"
 
 interface AddGradesObservationsProps {
     setModalTypeTitle: (modalTypeTitle: string) => void;
