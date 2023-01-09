@@ -1,0 +1,59 @@
+@import "./global-colors.scss";
+
+/** Student SCSS **/
+.student {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid $fonte-principal;
+  width: 100%;
+
+  .name {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .grades,
+  .observations {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    .title {
+      font-size: 1rem;
+      text-align: left;
+      margin: 0;
+    }
+
+    .grade,
+    .observation {
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid $fonte-principal;
+    }
+
+    .grade {
+      width: calc(50% - 8px);
+    }
+
+    .observation {
+      .data {
+        &.subject {
+          margin-bottom: 15px;
+        }
+
+        &.observation {
+          margin-top: 15px;
+          padding: 0;
+          border-radius: 0;
+          border: none;
+        }
+      }
+    }
+  }
+}

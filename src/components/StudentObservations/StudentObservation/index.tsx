@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { DeleteObservation } from "../../Modal/DeleteObservation";
 import { UpdateObservation } from "../../Modal/UpdateObservation";
+import { convertTime } from "../../../helpers/convertTime";
 
 import "../../../styles/student-observation.scss";
 
 interface StudentObservationProps {
   id: string;
-  data: any;
+  dateSeconds: number;
   subject: string;
   observation: string;
   teacherName: string;
@@ -15,7 +16,7 @@ interface StudentObservationProps {
 
 export function StudentObservation({
   id,
-  data,
+  dateSeconds,
   subject,
   observation,
   teacherName,
@@ -26,14 +27,6 @@ export function StudentObservation({
   useEffect(() => {
     handleOpenSettings();
   }, [isUpdateObservationOpen]);
-
-  function convertTime(data: any) {
-    const timeSeconds = data.observationDate.seconds;
-    const date = new Date(timeSeconds * 1000);
-    const dateFormatBr = date.toLocaleDateString("pt-BR");
-
-    return dateFormatBr;
-  }
 
   function handleOpenSettings() {
     let updateDataModal = document.querySelector(".update-modal");
@@ -72,7 +65,7 @@ export function StudentObservation({
           </span>
           <span className="observation-date">
             <strong>Data: </strong>
-            {convertTime(data)}
+            {convertTime(dateSeconds)}
           </span>
         </div>
         

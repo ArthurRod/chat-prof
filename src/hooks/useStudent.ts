@@ -1,12 +1,7 @@
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../services/firebase";
-
-type StudentData = {
-  studentName: string;
-  grades: any[];
-  observations: any[];
-};
+import { StudentData } from "../types/StudentData";
 
 export function useStudent(userPhone: string | undefined) {
   const [studentsData, setStudentsData] = useState<StudentData[]>([]);
