@@ -4,31 +4,27 @@ import { handleOrderObservations } from "../../../helpers/handleOrderObservation
 import { Grade } from "../../../types/Grade";
 import { Observation } from "../../../types/Observation";
 
-import "../../../styles/student.scss"
-import { useStudent } from "../../../hooks/useStudent";
+import "../../../styles/student.scss";
 
 interface StudentProps {
-	data: any;
   studentName: string;
   grades: Grade[];
   observations: Observation[];
 }
 
-export function Student({ data, studentName, grades, observations }: StudentProps) {
+export function Student({ studentName, grades, observations  }: StudentProps) {
   const [orderObservations, setOrderObservations] = useState<Observation[]>([]);
 
   useEffect(() => {
-    handleOrderObservations(observations, setOrderObservations);
+      handleOrderObservations(observations, setOrderObservations);
   }, [observations]);
-
-	console.log(data[0])
 
   return (
     <div className="student">
       <h3 className="name">{studentName}</h3>
       {grades.length > 0 ? (
         <div className="grades">
-					<h3 className="title">Notas</h3>
+          <h3 className="title">Notas</h3>
           {grades.map((key: any, index: any) => (
             <div key={index} className="grade">
               <div className="data period">
@@ -65,7 +61,7 @@ export function Student({ data, studentName, grades, observations }: StudentProp
       )}
       {orderObservations.length > 0 ? (
         <div className="observations">
-					<h3 className="title">Observações</h3>
+          <h3 className="title">Observações</h3>
           {orderObservations.map((key: any, index: any) => (
             <div key={index} className="observation">
               <div className="data subject">

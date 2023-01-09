@@ -10,7 +10,7 @@ export function useStudent(userPhone: string | undefined) {
     getStudentData();
   }, [userPhone]);
 
-  function getStudentData() {
+  async function getStudentData() {
     if (userPhone) {
       const q = query(
         collection(db, "students"),
@@ -18,68 +18,74 @@ export function useStudent(userPhone: string | undefined) {
       );
 
       onSnapshot(q, (querySnapshot) => {
-        const studentsArray: StudentData[] = [];
-
-        querySnapshot.forEach((doc) => {
+        querySnapshot.forEach(async (doc) => {
           const id = doc.data().id;
-          const gradesData = getStudentGradesObservations(id, "grades");
-          const observationsData = getStudentGradesObservations(
+          const gradesData = await getStudentGradesObservations(id, "grades");
+          const observationsData = await getStudentGradesObservations(
             id,
             "observations"
           );
 
-          studentsArray.push({
-            studentName: doc.data().name,
-            grades: gradesData,
-            observations: observationsData,
-          });
+          setStudentsData((studentsData) => [
+            ...studentsData,
+            {
+              studentName: doc.data().name,
+              grades: gradesData,
+              observations: observationsData,
+            },
+          ]);
         });
-
-        setStudentsData(studentsArray);
       });
     }
   }
 
-  function getStudentGradesObservations(id: string, collectionRef: string) {
+  async function getStudentGradesObservations(
+    id: string,
+    collectionRef: string
+  ) {
     const q = query(
       collection(db, collectionRef),
       where("studentId", "==", id)
     );
-    const gradesObservationsArray: any[] = [];
 
-    onSnapshot(q, (querySnapshot) => {
+    const gradesObservationsArray = new Promise<any[]>((resolve, reject) => {
+      const array: any[] = [];
 
-      querySnapshot.forEach((doc) => {
-        if (collectionRef === "grades") {
-            
-          gradesObservationsArray.push({
-            id: doc.id,
-            studentId: doc.data().studentId,
-            period: doc.data().period,
-            schoolGrade: doc.data().schoolGrade,
-            schoolSubject: doc.data().schoolSubject,
-            teacherName: doc.data().teacherName,
-            teacherId: doc.data().teacherId,
-          });
+      onSnapshot(q, (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (collectionRef === "grades") {
+            array.push({
+              id: doc.id,
+              studentId: doc.data().studentId,
+              period: doc.data().period,
+              schoolGrade: doc.data().schoolGrade,
+              schoolSubject: doc.data().schoolSubject,
+              teacherName: doc.data().teacherName,
+              teacherId: doc.data().teacherId,
+            });
+          } else if (collectionRef === "observations") {
+            array.push({
+              id: doc.data().id,
+              studentId: doc.data().studentId,
+              observation: doc.data().observation,
+              observationDate: doc.data().observationDate,
+              schoolSubject: doc.data().schoolSubject,
+              subject: doc.data().subject,
+              teacherName: doc.data().teacherName,
+              teacherId: doc.data().teacherId,
+            });
+          }
+        });
 
-        } else if (collectionRef === "observations") {
-
-          gradesObservationsArray.push({
-            id: doc.data().id,
-            studentId: doc.data().studentId,
-            observation: doc.data().observation,
-            observationDate: doc.data().observationDate,
-            schoolSubject: doc.data().schoolSubject,
-            subject: doc.data().subject,
-            teacherName: doc.data().teacherName,
-            teacherId: doc.data().teacherId,
-          });
-
+        if (array.length > 0) {
+          resolve(array);
+        } else {
+          reject([]);
         }
       });
     });
 
-    return gradesObservationsArray
+    return gradesObservationsArray;
   }
 
   return { studentsData };

@@ -1,7 +1,7 @@
 import { Observation } from "../types/Observation";
 
 export function handleOrderObservations(
-  observations: Observation[],
+  observations: Observation[] | undefined,
   setOrderObservations: (orderedObservations: Observation[]) => void
 ) {
   if (observations && observations.length > 0) {

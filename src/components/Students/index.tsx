@@ -27,8 +27,7 @@ export function Students({ userName, userPhone }: StudentsProps) {
             <Student
               key={index}
               studentName={key.studentName}
-              data={studentsData}
-              grades={studentsData[index].grades}
+              grades={key.grades}
               observations={key.observations}
             />
           ))}
