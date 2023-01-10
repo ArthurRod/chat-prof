@@ -1,15 +1,15 @@
 import { useAuth } from "../../hooks/useAuth";
 import { useAdminType } from "../../hooks/useAdminType";
-import { Login } from "../../pages/Login";
+import { PaginaInicial } from "../../pages/PaginaInicial";
 
 export function Private({ children }: { children: JSX.Element }) {
   const { user } = useAuth();
   const { adminType } = useAdminType();
 
   if(adminType) {
-    return <Login />
+    return <PaginaInicial />
   } else if (!user) {
-    return <Login />
+    return <PaginaInicial />
   }
 
   return children;

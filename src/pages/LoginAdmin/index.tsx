@@ -1,5 +1,6 @@
+import { ArrowLeft } from "phosphor-react";
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 export function LoginAdmin() {
@@ -10,21 +11,28 @@ export function LoginAdmin() {
   const navigate = useNavigate();
 
   function handleAdminLogin(e: FormEvent) {
-    e.preventDefault();
+    if (email.length > 0 && password.length > 0) {
+      e.preventDefault();
 
-    logInWithEmailAndPassword(email, password)
-      .then(() => {
-        navigate("/admin-home");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      logInWithEmailAndPassword(email, password)
+        .then(() => {
+          navigate("/admin-home");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   return (
-    <>
-      <p>Login Adm</p>
+    <div className="login-register login-admin">
+      <Link className="back-button" to="/">
+        <ArrowLeft size={16} />
+        Voltar
+      </Link>
+      <h3 className="title">Login Admin</h3>
       <form onSubmit={handleAdminLogin}>
+        <label htmlFor="email">E-mail</label>
         <input
           type="email"
           id="email"
@@ -32,7 +40,9 @@ export function LoginAdmin() {
           placeholder="Digite o e-mail"
           onChange={(event) => setEmail(event.target.value)}
           value={email}
+          required
         />
+        <label htmlFor="password">Senha</label>
         <input
           type="password"
           id="password"
@@ -41,10 +51,17 @@ export function LoginAdmin() {
           placeholder="Digite a senha"
           onChange={(event) => setPassword(event.target.value)}
           value={password}
+          required
         />
 
-        <button type="submit">Logar</button>
+        <button
+          disabled={email.length === 0 || password.length === 0}
+          className="btn"
+          type="submit"
+        >
+          Logar
+        </button>
       </form>
-    </>
+    </div>
   );
 }

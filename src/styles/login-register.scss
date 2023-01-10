@@ -1,0 +1,38 @@
+@import "./global-colors.scss";
+
+/** Login and Register SCSS **/
+.login-register {
+    width: 50%;
+
+    .back-button {
+        display: flex;
+        color: $fonte-principal;
+        text-decoration: none;
+        transition: 0.3s;
+        gap: 10px;
+        margin-bottom: 30px;
+
+        &:hover {
+            color: $blue;
+        }
+    }
+
+    .title {
+        margin-bottom: 30px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
+}
+
