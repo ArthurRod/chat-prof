@@ -6,6 +6,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 export function Login() {
   const countryCode = "+55";
+  const pathName = window.location.pathname
 
   const { sendOTP, verifyOTP } = useAuth();
   const [phoneNumber, setPhoneNumber] = useState(countryCode);

@@ -3,7 +3,7 @@ import { Logo } from "../../components/Logo";
 
 import "../../styles/initial-page.scss";
 
-export function PaginaInicial() {
+export function PaginaInicial({children}: {children?: JSX.Element}) {
   return (
     <div className="initial-page">
       <aside>
@@ -16,6 +16,7 @@ export function PaginaInicial() {
         </div>
       </aside>
       <main>
+        {children && children}
         <Outlet />
       </main>
     </div>

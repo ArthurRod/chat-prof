@@ -12,6 +12,7 @@ import { ReactNode } from "react";
 
 type AuthContextType = {
   user: User | undefined;
+  setUser: (user: User | undefined) => void;
   logInWithEmailAndPassword: (email: string, password: string) => Promise<void>;
   sendOTP: (
     e: FormEvent,
@@ -28,7 +29,7 @@ type AuthContextProvider = {
 export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider(props: AuthContextProvider) {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User | undefined>();
 
   useEffect(() => {
     persistUser();
@@ -43,7 +44,7 @@ export function AuthProvider(props: AuthContextProvider) {
           setUser({
             uid: uid,
             name: displayName!,
-            phone: phoneNumber!
+            phone: phoneNumber!,
           });
         } else {
           throw new Error("Missing user information.");
@@ -84,7 +85,7 @@ export function AuthProvider(props: AuthContextProvider) {
             setUser({
               uid: uid,
               name: displayName!,
-              phone: phoneNumber!
+              phone: phoneNumber!,
             });
           } else {
             throw new Error("Missing information from Account.");
@@ -106,6 +107,8 @@ export function AuthProvider(props: AuthContextProvider) {
     if (phoneNumber.length >= 14) {
       generateRecaptchaVerifier();
       setExpandForm(true);
+
+      if (user) setUser(undefined);
 
       const appVerifier = window.recaptchaVerifier;
 
@@ -134,7 +137,7 @@ export function AuthProvider(props: AuthContextProvider) {
 
   return (
     <AuthContext.Provider
-      value={{ user, logInWithEmailAndPassword, sendOTP, verifyOTP }}
+      value={{ user, setUser, logInWithEmailAndPassword, sendOTP, verifyOTP }}
     >
       {props.children}
     </AuthContext.Provider>

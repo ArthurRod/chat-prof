@@ -46,7 +46,7 @@ export function AdminHome() {
                 {adminType.type === "school" ? (
                   <FormCreateTeacher schoolId={user.uid} />
                 ) : (
-                  <FormCreateStudent schoolId={adminUser.schoolId} />
+                  <FormCreateStudent schoolId={adminUser.schoolId!} />
                 )}
               </AddData>
             </>
