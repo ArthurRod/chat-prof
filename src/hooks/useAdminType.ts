@@ -1,43 +1,42 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "./useAuth";
-import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
-import { User } from "../types/User";
+import { doc, getDoc } from "firebase/firestore";
 
-type AdminType = {
-  type: string;
-};
+import { User } from "../types/User";
+import { useAuth } from "./useAuth";
 
 export function useAdminType() {
   const { user } = useAuth();
-  const [adminType, setAdminType] = useState<AdminType | null>(null);
+  const [adminType, setAdminType] = useState<string | undefined>(undefined);
+  const [loadingAdminType, setLoadingAdminType] = useState(false);
 
   useEffect(() => {
-
-    if (user) {
-      getAdminType(user);
-    }
-    
+    getAdminType(user);
   }, [user]);
 
-  const getAdminType = async (user: User) => {
-    const userId = user.uid;
-    const docRef = doc(db, "admin-users", userId);
-    const docSnap = await getDoc(docRef);
+  const getAdminType = async (user: User | undefined) => {
+    if (user) {
+      setLoadingAdminType(true);
 
-    if (docSnap.exists()) {
-      const userData = docSnap.data();
+      try {
+        const { uid } = user;
 
-      setAdminType({
-        type: userData.type,
-      });
+        const docRef = doc(db, "admin-users", uid);
+        const docSnap = await getDoc(docRef);
 
-    } else {
-      console.log("Usuário admin não encontrado!");
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          const { type } = userData;
+
+          setAdminType(type);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoadingAdminType(false);
+      }
     }
-
-    return adminType;
   };
 
-  return { adminType, getAdminType };
+  return { loadingAdminType, adminType };
 }

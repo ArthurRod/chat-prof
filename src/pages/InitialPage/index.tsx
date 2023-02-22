@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
+
 import { Logo } from "../../components/Logo";
 
 import "../../styles/initial-page.scss";
 
-export function PaginaInicial({children}: {children?: JSX.Element}) {
+export function InitialPage({ children }: { children?: JSX.Element }) {
   return (
     <div className="initial-page">
       <aside>
@@ -15,10 +16,7 @@ export function PaginaInicial({children}: {children?: JSX.Element}) {
           </p>
         </div>
       </aside>
-      <main>
-        {children && children}
-        <Outlet />
-      </main>
+      <main>{children ? children : <Outlet />}</main>
     </div>
   );
 }

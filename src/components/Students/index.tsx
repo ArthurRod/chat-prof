@@ -3,6 +3,7 @@ import { Student } from "./Student";
 
 import "../../styles/students.scss";
 import { useStudent } from "../../hooks/useStudent";
+import { Loading } from "../Loading";
 
 interface StudentsProps {
   userName: string | undefined;
@@ -10,7 +11,9 @@ interface StudentsProps {
 }
 
 export function Students({ userName, userPhone }: StudentsProps) {
-  const { studentsData } = useStudent(userPhone);
+  const { loadindStudentsData, studentsData } = useStudent(userPhone);
+
+  if (loadindStudentsData) return <Loading />;
 
   return (
     <section className="students">
@@ -23,20 +26,24 @@ export function Students({ userName, userPhone }: StudentsProps) {
               ? " do seu filho(a)."
               : " dos seus filhos(as)."}
           </p>
-          {studentsData.map((key: any, index: number) => (
+          {studentsData.map((studentData: StudentData, index: number) => (
             <Student
               key={index}
-              studentName={key.studentName}
-              grades={key.grades}
-              observations={key.observations}
+              studentName={studentData.studentName}
+              grades={studentData.grades}
+              observations={studentData.observations}
             />
           ))}
         </>
       ) : (
-        <p className="title-no-students">
-          Olá {userName ? userName : "usuário"}! Não foram encontrado(s) alunos
-          cadastrados no sistema com este número de telefone.
-        </p>
+        <>
+          {!loadindStudentsData && (
+            <p className="title-no-students">
+              Olá {userName ? userName : "usuário"}! Não foram encontrado(s)
+              alunos cadastrados no sistema com este número de telefone.
+            </p>
+          )}
+        </>
       )}
     </section>
   );

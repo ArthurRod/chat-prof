@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { convertTime } from "../../../helpers/convertTime";
 import { handleOrderObservations } from "../../../helpers/handleOrderObservations";
 import { Grade } from "../../../types/Grade";
@@ -12,11 +13,11 @@ interface StudentProps {
   observations: Observation[];
 }
 
-export function Student({ studentName, grades, observations  }: StudentProps) {
+export function Student({ studentName, grades, observations }: StudentProps) {
   const [orderObservations, setOrderObservations] = useState<Observation[]>([]);
 
   useEffect(() => {
-      handleOrderObservations(observations, setOrderObservations);
+    handleOrderObservations(observations, setOrderObservations);
   }, [observations]);
 
   return (

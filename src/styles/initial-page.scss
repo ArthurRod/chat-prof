@@ -2,59 +2,58 @@
 
 /** Initial Page SCSS **/
 .initial-page {
+  display: flex;
+  height: 100vh;
+
+  aside,
+  main {
+    width: 50%;
+  }
+
+  aside {
     display: flex;
-    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to bottom right, $blue 60%, $white);
 
-    aside,
-    main {
-        width: 50%;
-    }
+    .content {
+      width: 50%;
 
-    aside {
+      .logo {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        background-image: linear-gradient(to bottom right, $blue 60%, $white);
+        gap: 10px;
+        margin-bottom: 30px;
 
-        .content {
-            width: 50%;
-
-            .logo {
-                display: flex;
-                gap: 10px;
-                margin-bottom: 30px;
-
-                .image {
-                    width: 50px;
-                }
-
-                .text {
-                    color: $white;
-                    font-size: 50px;
-                }
-            }
-
-            strong,
-            p {
-                color: $white;
-            }
-
-            strong {
-                display: flex;
-                font-size: 30px;
-                margin-bottom: 10px;
-            }
-
-            p {
-                font-size: 20px;
-            }
+        .image {
+          width: 50px;
         }
-    }
 
-    main {
+        .text {
+          color: $white;
+          font-size: 50px;
+        }
+      }
+
+      strong,
+      p {
+        color: $white;
+      }
+
+      strong {
         display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
+        font-size: 30px;
+        margin-bottom: 10px;
+      }
 
+      p {
+        font-size: 20px;
+      }
+    }
+  }
+
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

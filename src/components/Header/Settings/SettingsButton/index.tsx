@@ -6,9 +6,8 @@ type SettingsButtonProps = {
 
 export function SettingsButton({ setIsMenuOpen }: SettingsButtonProps) {
   async function handleOpenSettings() {
-    await setIsMenuOpen(true);
-
-    let settingsModal = document.querySelector(".settings-modal");
+    setIsMenuOpen(true);
+    const settingsModal = document.querySelector(".settings-modal");
 
     setTimeout(() => {
       if (settingsModal) {

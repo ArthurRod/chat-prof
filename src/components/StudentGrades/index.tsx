@@ -1,60 +1,42 @@
-import { useParams } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
 import { useGrades } from "../../hooks/useGrades";
-
-import "../../styles/student-grades.scss";
 import { DeleteGrade } from "../Modal/DeleteGrade";
 
-export function StudentGrades() {
-  const { id } = useParams();
+import "../../styles/student-grades.scss";
+import { StudentGrade } from "./StudentGrade";
+
+interface StudentGradesProps {
+  id: string | undefined;
+}
+
+export function StudentGrades({ id }: StudentGradesProps) {
   const { grades } = useGrades(id);
 
   return (
     <section className="student-grades">
       <h3 className="title">Notas</h3>
       {grades && grades.length > 0 ? (
-        grades.map((key: any, index: any) => (
+        grades.map((grade: any, index: any) => (
           <>
-            {key.schoolGrade > 14 ? (
-              <div key={index} className="grade">
-                <span className="teacher-name">
-                  <strong>Professor: </strong>
-                  {key.teacherName}
-                </span>
-                <span className="school-subject">
-                  <strong>Matéria: </strong>
-                  {key.schoolSubject}
-                </span>
-                <span className="period">
-                  <strong>Período: </strong>
-                  {key.period}
-                </span>
-                <span className="school-grade">
-                  <strong>Nota: </strong>
-                  {key.schoolGrade} pts
-                </span>
-                <DeleteGrade gradeId={key.id} />
-              </div>
+            {grade.schoolGrade > 14 ? (
+              <StudentGrade
+                key={index}
+                isBadGrade={false}
+                id={grade.id}
+                teacherName={grade.teacherName}
+                schoolSubject={grade.schoolSubject}
+                period={grade.period}
+                schoolGrade={grade.schoolGrade}
+              />
             ) : (
-              <div key={index} className="grade bad-grade">
-                <span className="teacher-name">
-                  <strong>Professor: </strong>
-                  {key.teacherName}
-                </span>
-                <span className="school-subject">
-                  <strong>Matéria: </strong>
-                  {key.schoolSubject}
-                </span>
-                <span className="period">
-                  <strong>Período: </strong>
-                  {key.period}
-                </span>
-                <span className="school-grade">
-                  <strong>Nota: </strong>
-                  {key.schoolGrade} pts
-                </span>
-                <DeleteGrade gradeId={key.id} />
-              </div>
+              <StudentGrade
+                key={index}
+                isBadGrade={true}
+                id={grade.id}
+                teacherName={grade.teacherName}
+                schoolSubject={grade.schoolSubject}
+                period={grade.period}
+                schoolGrade={grade.schoolGrade}
+              />
             )}
           </>
         ))

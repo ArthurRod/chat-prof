@@ -6,11 +6,10 @@ type CloseMaskProps = {
 };
 
 export function CloseMask({ target, setIsModalState }: CloseMaskProps) {
-  
   async function handleCloseSettings() {
     setIsModalState(false);
 
-    let modal = document.querySelector(`${target}`);
+    const modal = document.querySelector(`${target}`);
 
     if (modal) {
       if (modal.classList.contains("open")) modal.classList.remove("open");

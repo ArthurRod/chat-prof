@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
-import { useNavigate } from "react-router";
-import { signOut } from "firebase/auth";
-import { auth } from "../../../../services/firebase";
+
+import { handleSignOut } from "../../../../helpers/signOut";
 import { CloseMask } from "../../../CloseMask";
 
 type SettingsContentProps = {
@@ -13,21 +12,6 @@ export function SettingsContent({
   setIsMenuOpen,
   children,
 }: SettingsContentProps) {
-  const navigate = useNavigate();
-
-  function handleSignOut() {
-    signOut(auth)
-      .then(() => {
-        sessionStorage.removeItem("email");
-        sessionStorage.removeItem("pass");
-
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log("Ocorreu um erro ao sair: " + error);
-      });
-  }
-
   return (
     <div className="settings-modal">
       <CloseMask target={".settings-modal"} setIsModalState={setIsMenuOpen} />
@@ -40,7 +24,7 @@ export function SettingsContent({
         {children}
 
         <footer className="footer">
-          <button className="btn back sign-out" onClick={handleSignOut}>
+          <button className="btn back sign-out" onClick={() => handleSignOut()}>
             Sair
           </button>
         </footer>

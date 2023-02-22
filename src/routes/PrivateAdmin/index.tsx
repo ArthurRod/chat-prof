@@ -1,12 +1,15 @@
+import { Loading } from "../../components/Loading";
 import { useAdminType } from "../../hooks/useAdminType";
 import { LoginAdmin } from "../../pages/LoginAdmin";
-import { PaginaInicial } from "../../pages/PaginaInicial";
+import { InitialPage } from "../../pages/InitialPage";
 
 export function PrivateAdmin({ children }: { children: JSX.Element }) {
-  const { adminType } = useAdminType();
+  const { loadingAdminType, adminType } = useAdminType();
 
-  if (!adminType) {
-    return <PaginaInicial children={<LoginAdmin/>}/>
+  if (loadingAdminType) {
+    return <Loading />;
+  } else if (!adminType) {
+    return <InitialPage children={<LoginAdmin />} />;
   }
 
   return children;

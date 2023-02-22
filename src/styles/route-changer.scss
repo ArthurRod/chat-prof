@@ -2,55 +2,54 @@
 
 /** Route Changer SCSS **/
 .route-changer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 50%;
+
+  .title {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .nav-links {
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    width: 50%;
+    gap: 20px;
+    align-items: center;
 
-    .title {
-        font-size: 20px;
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 165px;
+      text-decoration: none;
+
+      &:hover {
+        .image {
+          transform: scale(0.8);
+        }
+
+        .text {
+          color: $blue;
+        }
+      }
+
+      .image {
+        transition: 0.3s;
+      }
+
+      .text {
         text-align: center;
+        color: $fonte-principal;
+        transition: 0.3s;
+      }
     }
 
-    .nav-links {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-    
-        a {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            width: 165px;
-            text-decoration: none;
-
-            &:hover {
-                .image {
-                    transform: scale(0.8);
-                }
-
-                .text {
-                    color: $blue;
-                }
-            }
-
-            .image {
-                transition: 0.3s;
-            }
-
-            .text {
-                text-align: center;
-                color: $fonte-principal;
-                transition: 0.3s;
-            }
-        }
-
-        .middle-text {
-            font-size: 20px;
-            font-weight: bold;
-        }
+    .middle-text {
+      font-size: 20px;
+      font-weight: bold;
     }
+  }
 }
-

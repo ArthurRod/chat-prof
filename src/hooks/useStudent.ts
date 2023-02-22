@@ -5,9 +5,10 @@ import { StudentData } from "../types/StudentData";
 
 export function useStudent(userPhone: string | undefined) {
   const [studentsData, setStudentsData] = useState<StudentData[]>([]);
+  const [loadindStudentsData, setLoadindStudentsData] = useState(true);
 
   useEffect(() => {
-    getStudentData();
+    getStudentData().then(() => setLoadindStudentsData(false));
   }, [userPhone]);
 
   async function getStudentData() {
@@ -20,10 +21,10 @@ export function useStudent(userPhone: string | undefined) {
       onSnapshot(q, (querySnapshot) => {
         querySnapshot.forEach(async (doc) => {
           const id = doc.data().id;
-          const gradesData = await getStudentGradesObservations(id, "grades");
+          const gradesData = await getStudentGradesObservations("grades", id);
           const observationsData = await getStudentGradesObservations(
-            id,
-            "observations"
+            "observations",
+            id
           );
 
           setStudentsData((studentsData) => [
@@ -40,8 +41,8 @@ export function useStudent(userPhone: string | undefined) {
   }
 
   async function getStudentGradesObservations(
-    id: string,
-    collectionRef: string
+    collectionRef: string,
+    id: string
   ) {
     const q = query(
       collection(db, collectionRef),
@@ -53,26 +54,28 @@ export function useStudent(userPhone: string | undefined) {
 
       onSnapshot(q, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
+          const data = doc.data();
+
           if (collectionRef === "grades") {
             array.push({
-              id: doc.id,
-              studentId: doc.data().studentId,
-              period: doc.data().period,
-              schoolGrade: doc.data().schoolGrade,
-              schoolSubject: doc.data().schoolSubject,
-              teacherName: doc.data().teacherName,
-              teacherId: doc.data().teacherId,
+              id: id,
+              studentId: data.studentId,
+              period: data.period,
+              schoolGrade: data.schoolGrade,
+              schoolSubject: data.schoolSubject,
+              teacherName: data.teacherName,
+              teacherId: data.teacherId,
             });
           } else if (collectionRef === "observations") {
             array.push({
-              id: doc.data().id,
-              studentId: doc.data().studentId,
-              observation: doc.data().observation,
-              observationDate: doc.data().observationDate,
-              schoolSubject: doc.data().schoolSubject,
-              subject: doc.data().subject,
-              teacherName: doc.data().teacherName,
-              teacherId: doc.data().teacherId,
+              id: id,
+              studentId: data.studentId,
+              observation: data.observation,
+              observationDate: data.observationDate,
+              schoolSubject: data.schoolSubject,
+              subject: data.subject,
+              teacherName: data.teacherName,
+              teacherId: data.teacherId,
             });
           }
         });
@@ -87,6 +90,7 @@ export function useStudent(userPhone: string | undefined) {
 
     return gradesObservationsArray;
   }
+  console.log(loadindStudentsData);
 
-  return { studentsData };
+  return { loadindStudentsData, studentsData };
 }

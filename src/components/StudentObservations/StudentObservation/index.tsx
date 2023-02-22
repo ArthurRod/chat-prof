@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+
+import { convertTime } from "../../../helpers/convertTime";
 import { DeleteObservation } from "../../Modal/DeleteObservation";
 import { UpdateObservation } from "../../Modal/UpdateObservation";
-import { convertTime } from "../../../helpers/convertTime";
 
 import "../../../styles/student-observation.scss";
 
@@ -29,7 +30,7 @@ export function StudentObservation({
   }, [isUpdateObservationOpen]);
 
   function handleOpenSettings() {
-    let updateDataModal = document.querySelector(".update-modal");
+    const updateDataModal = document.querySelector(".update-modal");
 
     setTimeout(() => {
       if (updateDataModal) {
@@ -68,7 +69,7 @@ export function StudentObservation({
             {convertTime(dateSeconds)}
           </span>
         </div>
-        
+
         <DeleteObservation observationId={id} />
       </div>
 

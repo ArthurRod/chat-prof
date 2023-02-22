@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useObservations } from "../../hooks/useObservations";
+
 import { Observation } from "../../types/Observation";
-import { StudentObservation } from "./StudentObservation";
+import { useObservations } from "../../hooks/useObservations";
 import { handleOrderObservations } from "../../helpers/handleOrderObservations";
+import { StudentObservation } from "./StudentObservation";
 
 import "../../styles/student-observations.scss";
 
-export function StudentObservations() {
-  const { id } = useParams();
+interface StudentObservationsProps {
+  id: string | undefined;
+}
+
+export function StudentObservations({ id }: StudentObservationsProps) {
   const { observations } = useObservations(id);
   const [orderObservations, setOrderObservations] = useState<Observation[]>([]);
 
@@ -21,7 +24,6 @@ export function StudentObservations() {
       <h3 className="title">Observações</h3>
       {orderObservations && orderObservations.length > 0 ? (
         orderObservations.map((key: any, index: any) => (
-
           <StudentObservation
             key={index}
             id={key.id}
@@ -31,7 +33,6 @@ export function StudentObservations() {
             teacherName={key.teacherName}
             schoolSubject={key.schoolSubject}
           />
-
         ))
       ) : (
         <div className="no-observations">

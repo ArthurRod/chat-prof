@@ -1,0 +1,12 @@
+@import "./global-colors.scss";
+
+/** User Conected SCSS **/
+.user-conected {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .text {
+    color: $fonte-principal;
+  }
+}

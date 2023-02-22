@@ -1,35 +1,70 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { PaginaInicial } from "../pages/PaginaInicial";
-import { CadastroEscola } from "../pages/CadastroEscola";
+import { AuthProvider } from "../contexts/AuthContext";
+import { InitialPage } from "../pages/InitialPage";
+import { RegisterSchool } from "../pages/RegisterSchool";
 import { Home } from "../pages/Home";
 import { LoginAdmin } from "../pages/LoginAdmin";
 import { NotFound } from "../pages/NotFound";
-import { AuthProvider } from "../contexts/AuthContext";
-import { PrivateAdmin } from "./PrivateAdmin";
 import { TeacherEdit } from "../pages/TeacherEdit";
 import { AdminHome } from "../pages/AdminHome";
 import { StudentEdit } from "../pages/StudentEdit";
 import { Login } from "../pages/Login";
+import { RouteChanger } from "../pages/InitialPage/RouteChanger";
 import { Private } from "./Private";
-import { RouteChanger } from "../pages/PaginaInicial/RouteChanger";
+import { PrivateAdmin } from "./PrivateAdmin";
 
 export function RoutesApp() {
   return (
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<PaginaInicial />}>
+          <Route path="/" element={<InitialPage />}>
             <Route path="" element={<RouteChanger />} />
-            <Route path="cadastro-escola" element={<CadastroEscola />} />
+
+            <Route path="register-school" element={<RegisterSchool />} />
+
             <Route path="login-admin" element={<LoginAdmin />} />
+
             <Route path="login" element={<Login />} />
           </Route>
 
-          <Route path="admin-home" element={<PrivateAdmin><AdminHome /></PrivateAdmin>}/>
-          <Route path="/edit/teacher/:id" element={<TeacherEdit />} />
-          <Route path="/edit/student/:id" element={<StudentEdit />} />
-          <Route path="home" element={<Private><Home /></Private>} />
+          <Route
+            path="admin-home"
+            element={
+              <PrivateAdmin>
+                <AdminHome />
+              </PrivateAdmin>
+            }
+          />
+
+          <Route
+            path="/edit/teacher/:id"
+            element={
+              <PrivateAdmin>
+                <TeacherEdit />
+              </PrivateAdmin>
+            }
+          />
+
+          <Route
+            path="/edit/student/:id"
+            element={
+              <PrivateAdmin>
+                <StudentEdit />
+              </PrivateAdmin>
+            }
+          />
+
+          <Route
+            path="home"
+            element={
+              <Private>
+                <Home />
+              </Private>
+            }
+          />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

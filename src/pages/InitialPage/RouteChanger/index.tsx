@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
-import "../../../styles/route-changer.scss"
+import "../../../styles/route-changer.scss";
 
 export function RouteChanger() {
   return (
     <div className="route-changer">
       <h3 className="title">O que você deseja fazer?</h3>
       <nav className="nav-links">
-        <Link to="cadastro-escola">
+        <Link to="register-school">
           <img
             className="image"
             src="/src/assets/png/school.png"

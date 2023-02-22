@@ -1,4 +1,5 @@
 import { createContext, FormEvent, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import { auth } from "../services/firebase";
 import {
   onAuthStateChanged,
@@ -7,19 +8,19 @@ import {
   signInWithPhoneNumber,
   UserCredential,
 } from "firebase/auth";
+
 import { User } from "../types/User";
-import { ReactNode } from "react";
 
 type AuthContextType = {
   user: User | undefined;
-  setUser: (user: User | undefined) => void;
+  loadingUser: boolean;
   logInWithEmailAndPassword: (email: string, password: string) => Promise<void>;
+  logInWithPhoneNumber: (otp: string) => Promise<void>;
   sendOTP: (
     e: FormEvent,
     phoneNumber: string,
     setExpandForm: (expandForm: boolean) => void
   ) => void;
-  verifyOTP: (otp: string) => Promise<void>;
 };
 
 type AuthContextProvider = {
@@ -30,6 +31,7 @@ export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider(props: AuthContextProvider) {
   const [user, setUser] = useState<User | undefined>();
+  const [loadingUser, setLoadingUser] = useState(false);
 
   useEffect(() => {
     persistUser();
@@ -38,16 +40,22 @@ export function AuthProvider(props: AuthContextProvider) {
   const persistUser = async () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, displayName, phoneNumber } = user;
+        setLoadingUser(true);
 
-        if (uid) {
-          setUser({
-            uid: uid,
-            name: displayName!,
-            phone: phoneNumber!,
-          });
-        } else {
-          throw new Error("Missing user information.");
+        try {
+          const { uid, displayName, phoneNumber } = user;
+
+          if (uid) {
+            setUser({
+              uid: uid,
+              name: displayName!,
+              phone: phoneNumber!,
+            });
+          }
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setLoadingUser(false);
         }
       }
     });
@@ -56,45 +64,56 @@ export function AuthProvider(props: AuthContextProvider) {
   const logInWithEmailAndPassword = async (email: string, password: string) => {
     const result = await signInWithEmailAndPassword(auth, email, password);
 
-    if (result.user) {
-      const { uid, email } = result.user;
+    if (result) {
+      setLoadingUser(true);
+      const { user } = result;
 
-      if (uid) {
-        sessionStorage.setItem("email", email!);
-        sessionStorage.setItem("pass", password);
+      try {
+        const { uid } = user;
 
-        setUser({
-          uid: uid,
-        });
-      } else {
-        throw new Error("Missing information from Account.");
+        if (uid) {
+          sessionStorage.setItem("email", email!);
+          sessionStorage.setItem("pass", password);
+
+          setUser({
+            uid: uid,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoadingUser(false);
       }
     }
   };
 
-  const verifyOTP = async (otp: string) => {
+  const logInWithPhoneNumber = async (otp: string) => {
     const confirmationResult = window.confirmationResult;
 
-    confirmationResult
-      .confirm(otp)
-      .then((result: UserCredential) => {
-        if (result.user) {
-          const { uid, displayName, phoneNumber } = result.user;
+    if (confirmationResult) {
+      confirmationResult
+        .confirm(otp)
+        .then((result: UserCredential) => {
+          setLoadingUser(true);
+          const { user } = result;
 
-          if (uid) {
-            setUser({
-              uid: uid,
-              name: displayName!,
-              phone: phoneNumber!,
-            });
-          } else {
-            throw new Error("Missing information from Account.");
+          if (user) {
+            const { uid, displayName, phoneNumber } = user;
+
+            if (uid) {
+              setUser({
+                uid: uid,
+                name: displayName!,
+                phone: phoneNumber!,
+              });
+            }
           }
-        }
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
+        })
+        .catch((error: any) => {
+          console.log(error);
+        })
+        .finally(() => setLoadingUser(false));
+    }
   };
 
   const sendOTP = (
@@ -105,20 +124,24 @@ export function AuthProvider(props: AuthContextProvider) {
     event.preventDefault();
 
     if (phoneNumber.length >= 14) {
+      if (user) {
+        setUser(undefined);
+      }
+
       generateRecaptchaVerifier();
       setExpandForm(true);
 
-      if (user) setUser(undefined);
-
       const appVerifier = window.recaptchaVerifier;
 
-      signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-        .then((confirmationResult) => {
-          window.confirmationResult = confirmationResult;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (appVerifier) {
+        signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+          .then((confirmationResult) => {
+            window.confirmationResult = confirmationResult;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     }
   };
 
@@ -127,9 +150,6 @@ export function AuthProvider(props: AuthContextProvider) {
       "recaptcha-container",
       {
         size: "invisible",
-        callback: () => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-        },
       },
       auth
     );
@@ -137,7 +157,13 @@ export function AuthProvider(props: AuthContextProvider) {
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, logInWithEmailAndPassword, sendOTP, verifyOTP }}
+      value={{
+        user,
+        loadingUser,
+        logInWithEmailAndPassword,
+        logInWithPhoneNumber,
+        sendOTP,
+      }}
     >
       {props.children}
     </AuthContext.Provider>

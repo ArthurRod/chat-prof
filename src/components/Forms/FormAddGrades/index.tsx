@@ -22,8 +22,10 @@ export function FormAddGrades() {
 
   const getTeacherInfos = () => {
     if (adminUser) {
-      setTeacherName(adminUser.name);
-      setSchoolSubject(adminUser.schoolSubject!);
+      const { name, schoolSubject } = adminUser;
+
+      setTeacherName(name);
+      setSchoolSubject(schoolSubject!);
     }
   };
 

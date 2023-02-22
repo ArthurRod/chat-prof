@@ -1,11 +1,14 @@
 import { Header } from "../../components/Header";
+import { Loading } from "../../components/Loading";
 import { Students } from "../../components/Students";
 import { useAuth } from "../../hooks/useAuth";
 
 export function Home() {
-  const { user } = useAuth();
+  const { loadingUser, user } = useAuth();
 
-  if(!user) return <h3>Loading...</h3>
+  if (!user || loadingUser) return <Loading />;
+
+  const { name, phone } = user;
 
   return (
     <>
@@ -13,7 +16,7 @@ export function Home() {
       <main className="main">
         <div className="container">
           <div className="content">
-            <Students userName={user.name} userPhone={user.phone} />
+            <Students userName={name} userPhone={phone} />
           </div>
         </div>
       </main>

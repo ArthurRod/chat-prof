@@ -1,12 +1,14 @@
-import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../services/firebase";
+
 import { Observation } from "../types/Observation";
 import { useAuth } from "./useAuth";
 
 export function useObservations(studentId: string | undefined) {
-  const [observations, setObservations] = useState<Observation[]>([]);
   const { user } = useAuth();
+  const [observations, setObservations] = useState<Observation[]>([]);
+  const [isValidId, setIsValidId] = useState(false);
 
   useEffect(() => {
     getObservations();
@@ -23,23 +25,26 @@ export function useObservations(studentId: string | undefined) {
       onSnapshot(q, (querySnapshot) => {
         const observationsArray: Observation[] = [];
 
-        querySnapshot.forEach((doc) => {
-          observationsArray.push({
-            id: doc.data().id,
-            studentId: doc.data().studentId,
-            observation: doc.data().observation,
-            observationDate: doc.data().observationDate,
-            schoolSubject: doc.data().schoolSubject,
-            subject: doc.data().subject,
-            teacherName: doc.data().teacherName,
-            teacherId: doc.data().teacherId,
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach((doc) => {
+            observationsArray.push({
+              id: doc.data().id,
+              studentId: doc.data().studentId,
+              observation: doc.data().observation,
+              observationDate: doc.data().observationDate,
+              schoolSubject: doc.data().schoolSubject,
+              subject: doc.data().subject,
+              teacherName: doc.data().teacherName,
+              teacherId: doc.data().teacherId,
+            });
           });
-        });
 
-        setObservations(observationsArray);
+          setObservations(observationsArray);
+          setIsValidId(true);
+        }
       });
     }
   }
 
-  return { observations };
+  return { isValidId, observations };
 }

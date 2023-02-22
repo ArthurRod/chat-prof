@@ -15,7 +15,7 @@ export function Settings() {
 
       {isMenuOpen && adminType ? (
         <SettingsContent setIsMenuOpen={setIsMenuOpen}>
-          <FormUpdateAdminUser adminType={adminType.type} />
+          <FormUpdateAdminUser adminType={adminType} />
         </SettingsContent>
       ) : (
         <SettingsContent setIsMenuOpen={setIsMenuOpen}>
