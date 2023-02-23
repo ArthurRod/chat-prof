@@ -23,15 +23,15 @@ export function StudentObservations({ id }: StudentObservationsProps) {
     <section className="student-observations">
       <h3 className="title">Observações</h3>
       {orderObservations && orderObservations.length > 0 ? (
-        orderObservations.map((key: any, index: any) => (
+        orderObservations.map((orderObservation: Observation, index: any) => (
           <StudentObservation
             key={index}
-            id={key.id}
-            dateSeconds={key.observationDate.seconds}
-            subject={key.subject}
-            observation={key.observation}
-            teacherName={key.teacherName}
-            schoolSubject={key.schoolSubject}
+            id={orderObservation.id}
+            dateSeconds={orderObservation.observationDate.seconds}
+            subject={orderObservation.subject}
+            observation={orderObservation.observation}
+            teacherName={orderObservation.teacherName}
+            schoolSubject={orderObservation.schoolSubject}
           />
         ))
       ) : (

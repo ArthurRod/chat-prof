@@ -1,5 +1,4 @@
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../../../../services/firebase";
+import { db, doc, deleteDoc } from "../../../../services/firebase";
 
 type DeleteObservationModalProps = {
   setIsModalState: (isModalState: boolean) => void;
@@ -8,36 +7,30 @@ type DeleteObservationModalProps = {
 
 export function DeleteObservationModal({
   setIsModalState,
-  observationId
+  observationId,
 }: DeleteObservationModalProps) {
-
   function handleDeleteObservation() {
-
-    deleteObservation().then(async() => {
-
-      handleCloseSettings();
-
-    }).catch((error) => {
-
-      console.log(error);
-
-    });
+    deleteObservation()
+      .then(async () => {
+        handleCloseSettings();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   async function deleteObservation() {
-
     if (observationId) {
       await deleteDoc(doc(db, "observations", observationId));
 
       alert(`Observação removida com sucesso`);
     }
-
   }
 
-  async function handleCloseSettings() {
-    await setIsModalState(false);
+  function handleCloseSettings() {
+    setIsModalState(false);
 
-    let modal = document.querySelector(".delete-modal.observation");
+    const modal = document.querySelector(".delete-modal.observation");
 
     if (modal) {
       if (modal.classList.contains("open")) modal.classList.remove("open");

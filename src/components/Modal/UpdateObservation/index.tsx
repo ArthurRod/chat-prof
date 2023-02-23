@@ -1,22 +1,21 @@
 import { CloseMask } from "../../CloseMask";
 import { FormUpdateObservation } from "../../Forms/FormUpdateObservation";
 
-import "../../../styles/update-observation.scss"
+import "../../../styles/update-observation.scss";
 
 interface UpdateObservationProps {
   setIsModalState: (isModalState: boolean) => void;
   observationId: string;
   subject: string;
   observation: string;
-};
+}
 
 export function UpdateObservation({
   setIsModalState,
   observationId,
   subject,
-  observation
+  observation,
 }: UpdateObservationProps) {
-
   return (
     <div className="update-modal">
       <CloseMask target={".update-modal"} setIsModalState={setIsModalState} />
@@ -26,9 +25,9 @@ export function UpdateObservation({
           <h3 className="title">Editar Observação</h3>
         </header>
 
-        <FormUpdateObservation 
+        <FormUpdateObservation
           setIsModalState={setIsModalState}
-          observationId={observationId} 
+          observationId={observationId}
           subject={subject}
           observation={observation}
         />

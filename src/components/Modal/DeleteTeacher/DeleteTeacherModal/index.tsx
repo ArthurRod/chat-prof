@@ -1,5 +1,4 @@
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../../../../services/firebase";
+import { db, doc, deleteDoc } from "../../../../services/firebase";
 
 type DeleteTeacherModalProps = {
   setIsModalState: (isModalState: boolean) => void;
@@ -10,24 +9,19 @@ type DeleteTeacherModalProps = {
 export function DeleteTeacherModal({
   setIsModalState,
   teacherName,
-  teacherId
+  teacherId,
 }: DeleteTeacherModalProps) {
-
   function handleDeleteTeacher() {
-
-    deleteTeacher().then(async() => {
-
-      handleCloseSettings();
-
-    }).catch((error) => {
-
-      console.log(error);
-
-    });
+    deleteTeacher()
+      .then(() => {
+        handleCloseSettings();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   async function deleteTeacher() {
-
     if (teacherId) {
       await deleteDoc(doc(db, "teachers", teacherId));
 
@@ -35,13 +29,12 @@ export function DeleteTeacherModal({
 
       alert(`Os dados do professor ${teacherName} foram removidos com sucesso`);
     }
-
   }
 
-  async function handleCloseSettings() {
-    await setIsModalState(false);
+  function handleCloseSettings() {
+    setIsModalState(false);
 
-    let modal = document.querySelector(".delete-modal.teacher");
+    const modal = document.querySelector(".delete-modal.teacher");
 
     if (modal) {
       if (modal.classList.contains("open")) modal.classList.remove("open");

@@ -1,6 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { updateProfile } from "firebase/auth";
-import { auth } from "../../../services/firebase";
+import { auth, updateProfile } from "../../../services/firebase";
 
 import { useAuth } from "../../../hooks/useAuth";
 

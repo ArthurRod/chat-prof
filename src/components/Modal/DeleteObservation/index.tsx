@@ -8,9 +8,7 @@ type DeleteObservationProps = {
   observationId: string;
 };
 
-export function DeleteObservation({
-  observationId
-}: DeleteObservationProps) {
+export function DeleteObservation({ observationId }: DeleteObservationProps) {
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
 
   return (

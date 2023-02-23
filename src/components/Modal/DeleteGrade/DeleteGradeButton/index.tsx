@@ -4,11 +4,13 @@ type DeleteGradeButtonProps = {
   setIsAddFormOpen: (isAddFormOpen: boolean) => void;
 };
 
-export function DeleteGradeButton({ setIsAddFormOpen }: DeleteGradeButtonProps) {
-  async function handleOpenSettings() {
-    await setIsAddFormOpen(true);
+export function DeleteGradeButton({
+  setIsAddFormOpen,
+}: DeleteGradeButtonProps) {
+  function handleOpenSettings() {
+    setIsAddFormOpen(true);
 
-    let deleteGradeModal = document.querySelector(".delete-modal.grade");
+    const deleteGradeModal = document.querySelector(".delete-modal.grade");
 
     setTimeout(() => {
       if (deleteGradeModal) {

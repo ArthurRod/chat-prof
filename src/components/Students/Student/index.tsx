@@ -26,31 +26,31 @@ export function Student({ studentName, grades, observations }: StudentProps) {
       {grades.length > 0 ? (
         <div className="grades">
           <h3 className="title">Notas</h3>
-          {grades.map((key: any, index: any) => (
+          {grades.map((grade: Grade, index: any) => (
             <div key={index} className="grade">
               <div className="data period">
                 <span>
                   <strong>Período: </strong>
                 </span>
-                <span>{key.period}</span>
+                <span>{grade.period}</span>
               </div>
               <div className="data teacher-name">
                 <span>
                   <strong>Professor: </strong>
                 </span>
-                <span>{key.teacherName}</span>
+                <span>{grade.teacherName}</span>
               </div>
               <div className="data school-subject">
                 <span>
                   <strong>Matéria: </strong>
                 </span>
-                <span>{key.schoolSubject}</span>
+                <span>{grade.schoolSubject}</span>
               </div>
               <div className="data school-grade">
                 <span>
                   <strong>Nota: </strong>
                 </span>
-                <span>{key.schoolGrade} pts</span>
+                <span>{grade.schoolGrade} pts</span>
               </div>
             </div>
           ))}
@@ -63,34 +63,38 @@ export function Student({ studentName, grades, observations }: StudentProps) {
       {orderObservations.length > 0 ? (
         <div className="observations">
           <h3 className="title">Observações</h3>
-          {orderObservations.map((key: any, index: any) => (
-            <div key={index} className="observation">
-              <div className="data subject">
-                <h3>{key.subject}</h3>
+          {orderObservations.map(
+            (orderObservation: Observation, index: any) => (
+              <div key={index} className="observation">
+                <div className="data subject">
+                  <h3>{orderObservation.subject}</h3>
+                </div>
+                <div className="data data">
+                  <span>
+                    <strong>Data: </strong>
+                  </span>
+                  <span>
+                    {convertTime(orderObservation.observationDate.seconds)}
+                  </span>
+                </div>
+                <div className="data teacher-name">
+                  <span>
+                    <strong>Professor: </strong>
+                  </span>
+                  <span>{orderObservation.teacherName}</span>
+                </div>
+                <div className="data school-subject">
+                  <span>
+                    <strong>Matéria: </strong>
+                  </span>
+                  <span>{orderObservation.schoolSubject}</span>
+                </div>
+                <div className="data observation">
+                  <p>{orderObservation.observation}</p>
+                </div>
               </div>
-              <div className="data data">
-                <span>
-                  <strong>Data: </strong>
-                </span>
-                <span>{convertTime(key.observationDate.seconds)}</span>
-              </div>
-              <div className="data teacher-name">
-                <span>
-                  <strong>Professor: </strong>
-                </span>
-                <span>{key.teacherName}</span>
-              </div>
-              <div className="data school-subject">
-                <span>
-                  <strong>Matéria: </strong>
-                </span>
-                <span>{key.schoolSubject}</span>
-              </div>
-              <div className="data observation">
-                <p>{key.observation}</p>
-              </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       ) : (
         <span className="no-observations">

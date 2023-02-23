@@ -1,5 +1,4 @@
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../../../../services/firebase";
+import { db, doc, deleteDoc } from "../../../../services/firebase";
 
 type DeleteGradeModalProps = {
   setIsModalState: (isModalState: boolean) => void;
@@ -8,36 +7,30 @@ type DeleteGradeModalProps = {
 
 export function DeleteGradeModal({
   setIsModalState,
-  gradeId
+  gradeId,
 }: DeleteGradeModalProps) {
-
   function handleDeleteGrade() {
-
-    deleteGrade().then(async() => {
-
-      handleCloseSettings();
-
-    }).catch((error) => {
-
-      console.log(error);
-
-    });
+    deleteGrade()
+      .then(async () => {
+        handleCloseSettings();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   async function deleteGrade() {
-
     if (gradeId) {
       await deleteDoc(doc(db, "grades", gradeId));
 
       alert(`Nota removida com sucesso`);
     }
-
   }
 
-  async function handleCloseSettings() {
-    await setIsModalState(false);
+  function handleCloseSettings() {
+    setIsModalState(false);
 
-    let modal = document.querySelector(".delete-modal.grade");
+    const modal = document.querySelector(".delete-modal.grade");
 
     if (modal) {
       if (modal.classList.contains("open")) modal.classList.remove("open");

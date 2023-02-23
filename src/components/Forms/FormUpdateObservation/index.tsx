@@ -1,6 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { db } from "../../../services/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { db, doc, setDoc } from "../../../services/firebase";
 
 interface FormUpdateObservationProps {
   setIsModalState: (isModalState: boolean) => void;
@@ -64,7 +63,10 @@ export function FormUpdateObservation({
         />
 
         {newSubject.length === 50 && (
-          <span className="warning">Não é possível adicionar mais carácteres (Máximo 50 caractéres atingido)</span>
+          <span className="warning">
+            Não é possível adicionar mais carácteres (Máximo 50 caractéres
+            atingido)
+          </span>
         )}
 
         <textarea
@@ -78,7 +80,10 @@ export function FormUpdateObservation({
         />
 
         {newObservation.length === 300 && (
-          <span className="warning">Não é possível adicionar mais carácteres (Máximo 300 caractéres atingido)</span>
+          <span className="warning">
+            Não é possível adicionar mais carácteres (Máximo 300 caractéres
+            atingido)
+          </span>
         )}
 
         <button

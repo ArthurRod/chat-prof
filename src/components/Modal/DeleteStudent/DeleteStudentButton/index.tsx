@@ -7,10 +7,10 @@ type DeleteStudentModalProps = {
 export function DeleteStudentButton({
   setIsAddFormOpen,
 }: DeleteStudentModalProps) {
-  async function handleOpenSettings() {
-    await setIsAddFormOpen(true);
+  function handleOpenSettings() {
+    setIsAddFormOpen(true);
 
-    let deleteStudentModal = document.querySelector(".delete-modal.student");
+    const deleteStudentModal = document.querySelector(".delete-modal.student");
 
     setTimeout(() => {
       if (deleteStudentModal) {

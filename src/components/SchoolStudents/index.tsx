@@ -54,17 +54,22 @@ export function SchoolStudents({ schoolId }: SchoolStudentsProps) {
             <span className="delete"></span>
           </header>
 
-          {schoolStudents.map((key: any) => (
-            <div key={key.id} className="row">
+          {schoolStudents.map((schoolStudent: any) => (
+            <div key={schoolStudent.id} className="row">
               <Link
                 className="row-link"
                 target="_self"
-                to={`/edit/student/${key.id}`}
+                to={`/edit/student/${schoolStudent.id}`}
               >
-                <span className="name">{key.name}</span>
-                <span className="fathers-phone">{key.fathersPhone}</span>
+                <span className="name">{schoolStudent.name}</span>
+                <span className="fathers-phone">
+                  {schoolStudent.fathersPhone}
+                </span>
               </Link>
-              <DeleteStudent studentId={key.id} studentName={key.name} />
+              <DeleteStudent
+                studentId={schoolStudent.id}
+                studentName={schoolStudent.name}
+              />
             </div>
           ))}
         </section>

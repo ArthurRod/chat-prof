@@ -54,18 +54,21 @@ export function SchoolTeachers() {
             <span className="delete"></span>
           </header>
 
-          {schoolTeachers.map((key: any) => (
-            <div key={key.uid} className="row">
+          {schoolTeachers.map((schoolTeacher: any) => (
+            <div key={schoolTeacher.uid} className="row">
               <Link
                 className="row-link"
                 target="_self"
-                to={`/edit/teacher/${key.uid}`}
+                to={`/edit/teacher/${schoolTeacher.uid}`}
               >
-                <span className="name">{key.name}</span>
-                <span className="email">{key.email}</span>
-                <span className="phone">{key.phone}</span>
+                <span className="name">{schoolTeacher.name}</span>
+                <span className="email">{schoolTeacher.email}</span>
+                <span className="phone">{schoolTeacher.phone}</span>
               </Link>
-              <DeleteTeacher teacherId={key.uid} teacherName={key.name} />
+              <DeleteTeacher
+                teacherId={schoolTeacher.uid}
+                teacherName={schoolTeacher.name}
+              />
             </div>
           ))}
         </section>

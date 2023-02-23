@@ -1,7 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import ReactInputMask from "react-input-mask";
-import { doc, getDoc, setDoc } from "@firebase/firestore";
-import { db } from "../../services/firebase";
+import { db, doc, getDoc, setDoc } from "../../services/firebase";
 
 import { assignData } from "../../helpers/formUpdateFunctions";
 

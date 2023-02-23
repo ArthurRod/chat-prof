@@ -1,7 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { db } from "../../../services/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { db, doc, setDoc } from "../../../services/firebase";
 
 import { clearInputs } from "../../../helpers/formUpdateFunctions";
 import { useAdmin } from "../../../hooks/useAdmin";
@@ -24,14 +23,15 @@ export function FormAddObservations() {
 
   const getTeacherInfos = () => {
     if (adminUser) {
-      setSchoolSubject(adminUser.schoolSubject!);
-      setTeacherName(adminUser.name);
+      const { name, schoolSubject } = adminUser;
+
+      setTeacherName(name);
+      setSchoolSubject(schoolSubject!);
     }
   };
 
   const getDateSeconds = () => {
     const date = new Date();
-
     const dateInSeconds = date.getTime() / 1000;
 
     setDateSeconds(dateInSeconds);
@@ -74,7 +74,7 @@ export function FormAddObservations() {
       subject: subject,
       schoolSubject: schoolSubject,
       teacherName: teacherName,
-      teacherId: user?.uid
+      teacherId: user?.uid,
     });
   };
 

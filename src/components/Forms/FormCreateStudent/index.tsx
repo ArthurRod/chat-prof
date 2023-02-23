@@ -1,7 +1,6 @@
 import { FormEvent, useState } from "react";
 import InputMask from "react-input-mask";
-import { db } from "../../../services/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { db, doc, setDoc } from "../../../services/firebase";
 
 import { clearInputs } from "../../../helpers/formUpdateFunctions";
 

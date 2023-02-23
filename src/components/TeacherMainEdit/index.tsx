@@ -1,7 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { doc, getDoc, setDoc } from "@firebase/firestore";
-import { db } from "../../services/firebase";
+import { db, doc, getDoc, setDoc } from "../../services/firebase";
 
 import { assignData } from "../../helpers/formUpdateFunctions";
 

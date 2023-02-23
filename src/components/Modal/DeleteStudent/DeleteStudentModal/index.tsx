@@ -1,7 +1,9 @@
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../../../../services/firebase";
+import { db, doc, deleteDoc } from "../../../../services/firebase";
+
 import { useGrades } from "../../../../hooks/useGrades";
 import { useObservations } from "../../../../hooks/useObservations";
+import { Grade } from "../../../../types/Grade";
+import { Observation } from "../../../../types/Observation";
 
 type DeleteStudentModalProps = {
   setIsModalState: (isModalState: boolean) => void;
@@ -31,8 +33,8 @@ export function DeleteStudentModal({
     if (studentId) {
       await deleteDoc(doc(db, "students", studentId));
 
-      deleteStudentGrades(studentId)
-      deleteStudentObservations(studentId)
+      deleteStudentGrades(studentId);
+      deleteStudentObservations(studentId);
 
       alert(`Os dados do aluno ${studentName} foram removidos com sucesso`);
     }
@@ -40,38 +42,28 @@ export function DeleteStudentModal({
 
   function deleteStudentGrades(studentId: string) {
     if (studentId && grades) {
-
-      grades.map(async (key: any) => {
-
-        if(key.studentId === studentId) {
-
-          await deleteDoc(doc(db, "grades", key.id));
-
+      grades.map(async (grade: Grade) => {
+        if (grade.studentId === studentId) {
+          await deleteDoc(doc(db, "grades", grade.id));
         }
-
-      })
+      });
     }
   }
 
   function deleteStudentObservations(studentId: string) {
     if (studentId && observations) {
-
-      observations.map(async (key: any) => {
-
-        if(key.studentId === studentId) {
-
-          await deleteDoc(doc(db, "observations", key.id));
-
+      observations.map(async (observation: Observation) => {
+        if (observation.studentId === studentId) {
+          await deleteDoc(doc(db, "observations", observation.id));
         }
-
-      })
+      });
     }
   }
 
-  async function handleCloseSettings() {
+  function handleCloseSettings() {
     setIsModalState(false);
 
-    let modal = document.querySelector(".delete-modal.student");
+    const modal = document.querySelector(".delete-modal.student");
 
     if (modal) {
       if (modal.classList.contains("open")) modal.classList.remove("open");

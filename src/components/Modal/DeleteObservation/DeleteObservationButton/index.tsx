@@ -4,11 +4,15 @@ type DeleteObservationButtonProps = {
   setIsAddFormOpen: (isAddFormOpen: boolean) => void;
 };
 
-export function DeleteObservationButton({ setIsAddFormOpen }: DeleteObservationButtonProps) {
-  async function handleOpenSettings() {
-    await setIsAddFormOpen(true);
+export function DeleteObservationButton({
+  setIsAddFormOpen,
+}: DeleteObservationButtonProps) {
+  function handleOpenSettings() {
+    setIsAddFormOpen(true);
 
-    let deleteObservationModal = document.querySelector(".delete-modal.observation");
+    const deleteObservationModal = document.querySelector(
+      ".delete-modal.observation"
+    );
 
     setTimeout(() => {
       if (deleteObservationModal) {

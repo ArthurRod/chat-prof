@@ -1,14 +1,14 @@
 import { FormEvent, useEffect, useState } from "react";
 import ReactInputMask from "react-input-mask";
 import {
+  db,
   collection,
   doc,
   getDocs,
   query,
-  setDoc,
   where,
-} from "firebase/firestore";
-import { db } from "../../../services/firebase";
+  setDoc,
+} from "../../../services/firebase";
 
 import { useAdmin } from "../../../hooks/useAdmin";
 import { useAuth } from "../../../hooks/useAuth";

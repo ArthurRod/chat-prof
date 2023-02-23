@@ -4,11 +4,13 @@ type DeleteTeacherButtonProps = {
   setIsAddFormOpen: (isAddFormOpen: boolean) => void;
 };
 
-export function DeleteTeacherButton({ setIsAddFormOpen }: DeleteTeacherButtonProps) {
-  async function handleOpenSettings() {
-    await setIsAddFormOpen(true);
+export function DeleteTeacherButton({
+  setIsAddFormOpen,
+}: DeleteTeacherButtonProps) {
+  function handleOpenSettings() {
+    setIsAddFormOpen(true);
 
-    let deleteTeacherModal = document.querySelector(".delete-modal.teacher");
+    const deleteTeacherModal = document.querySelector(".delete-modal.teacher");
 
     setTimeout(() => {
       if (deleteTeacherModal) {

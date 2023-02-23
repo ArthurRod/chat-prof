@@ -1,8 +1,12 @@
 import { FormEvent, useState } from "react";
 import ReactInputMask from "react-input-mask";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../../services/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import {
+  auth,
+  db,
+  doc,
+  setDoc,
+  createUserWithEmailAndPassword,
+} from "../../../services/firebase";
 
 import { useAuth } from "../../../hooks/useAuth";
 import { clearInputs } from "../../../helpers/formUpdateFunctions";
