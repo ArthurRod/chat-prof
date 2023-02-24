@@ -12,10 +12,12 @@ export function Private({ children }: { children: JSX.Element }) {
     return <Loading />;
   }
 
-  if (!user) {
-    return <InitialPage children={<Login />} />;
-  } else if (adminType) {
-    return <InitialPage children={<Login />} />;
+  if (!user || adminType) {
+    return (
+      <InitialPage>
+        <Login />
+      </InitialPage>
+    );
   }
 
   return children;

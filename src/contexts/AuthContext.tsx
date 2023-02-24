@@ -15,6 +15,7 @@ type AuthContextType = {
   user: User | undefined;
   loadingUser: boolean;
   logInWithEmailAndPassword: (email: string, password: string) => Promise<void>;
+  reloginUser: () => Promise<void>;
   logInWithPhoneNumber: (otp: string) => Promise<void>;
   sendOTP: (
     e: FormEvent,
@@ -84,6 +85,15 @@ export function AuthProvider(props: AuthContextProvider) {
       } finally {
         setLoadingUser(false);
       }
+    }
+  };
+
+  const reloginUser = async () => {
+    const email = sessionStorage.getItem("email");
+    const pass = sessionStorage.getItem("pass");
+
+    if (email && pass && pass.length > 5) {
+      await logInWithEmailAndPassword(email, pass);
     }
   };
 
@@ -161,6 +171,7 @@ export function AuthProvider(props: AuthContextProvider) {
         user,
         loadingUser,
         logInWithEmailAndPassword,
+        reloginUser,
         logInWithPhoneNumber,
         sendOTP,
       }}

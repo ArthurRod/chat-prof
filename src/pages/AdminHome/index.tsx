@@ -9,6 +9,7 @@ import { Header } from "../../components/Header";
 import { SchoolTeachers } from "../../components/SchoolTeachers";
 import { SchoolStudents } from "../../components/SchoolStudents";
 import { Loading } from "../../components/Loading";
+import { Modal } from "../../components/Modal";
 
 export function AdminHome() {
   const { user } = useAuth();
@@ -25,8 +26,6 @@ export function AdminHome() {
     return <Loading />;
   }
 
-  const uid = user.uid;
-
   return (
     <>
       <Header />
@@ -42,20 +41,22 @@ export function AdminHome() {
               />
 
               {adminType === "school" ? (
-                <SchoolTeachers />
-              ) : (
-                <SchoolStudents schoolId={adminUser.schoolId} />
-              )}
+                <>
+                  <SchoolTeachers />
 
-              <AddData
-                modalTypeTitle={adminType === "school" ? "Professor" : "Aluno"}
-              >
-                {adminType === "school" ? (
-                  <FormCreateTeacher schoolId={uid} />
-                ) : (
-                  <FormCreateStudent schoolId={adminUser.schoolId!} />
-                )}
-              </AddData>
+                  <Modal title="Adicionar professor">
+                    <FormCreateTeacher schoolId={user.uid} />
+                  </Modal>
+                </>
+              ) : (
+                <>
+                  <SchoolStudents schoolId={adminUser.schoolId} />
+
+                  <Modal title="Adicionar aluno">
+                    <FormCreateStudent schoolId={adminUser.schoolId!} />
+                  </Modal>
+                </>
+              )}
             </>
           </div>
         </div>

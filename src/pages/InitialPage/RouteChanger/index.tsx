@@ -4,7 +4,7 @@ import "../../../styles/route-changer.scss";
 
 export function RouteChanger() {
   return (
-    <div className="route-changer">
+    <section className="route-changer">
       <h3 className="title">O que você deseja fazer?</h3>
       <nav className="nav-links">
         <Link to="register-school">
@@ -38,6 +38,6 @@ export function RouteChanger() {
           <span className="text">Fazer login</span>
         </Link>
       </nav>
-    </div>
+    </section>
   );
 }

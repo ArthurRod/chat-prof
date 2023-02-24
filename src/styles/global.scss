@@ -5,17 +5,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body,
-select,
-textarea {
   font-family: "Roboto", sans-serif;
   color: $fonte-principal;
-  background-color: $white;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: $white;
 }
 
 .main {
@@ -23,16 +21,23 @@ textarea {
   margin-bottom: 30px;
 }
 
-textarea:focus,
+/* Input, TextArea, Select */
 input:focus,
+textarea:focus,
 select:focus {
   outline: 0;
 }
 
 input,
 select {
+  height: 35px;
+  border-radius: 5px;
   padding: 0 10px;
   border: 1px solid $blue;
+}
+
+input::placeholder {
+  color: #666;
 }
 
 input:disabled {
@@ -40,24 +45,14 @@ input:disabled {
   border: 1px solid #666;
 }
 
-input::placeholder {
-  color: #666;
-}
-
-button.btn,
-input,
-select {
-  height: 35px;
-  border-radius: 5px;
-}
-
+/* Buttons */
 button.btn,
 a.btn.back {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 35px;
   border: 1px solid $blue;
-  cursor: pointer;
   background-color: transparent;
   transition: background-color 0.5s;
   font-size: 1rem;
@@ -65,22 +60,24 @@ a.btn.back {
   color: $fonte-principal;
   text-transform: uppercase;
   border-radius: 5px;
+  cursor: pointer;
 }
 
-button.btn:disabled {
+button:disabled {
   border: 1px solid $fonte-principal;
-  cursor: pointer;
   background-color: #f4f4f4;
   opacity: 0.5;
+  cursor: default;
+}
+
+button.btn:hover:not(button.btn:disabled) {
+  background-color: $blue;
 }
 
 button.btn.back,
 a.btn.back {
   border: 1px solid $red;
-}
-
-button.btn:hover:not(button.btn:disabled) {
-  background-color: $blue;
+  text-decoration: none;
 }
 
 button.btn.back:hover,
@@ -88,12 +85,9 @@ a.btn.back:hover {
   background-color: $red !important;
 }
 
-a.btn.back {
-  text-decoration: none;
-}
-
+/* Container */
 .container {
-  max-width: 1200px;
+  max-width: 1270px;
   margin: 0 auto;
   width: 100%;
 

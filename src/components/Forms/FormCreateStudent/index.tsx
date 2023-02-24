@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import InputMask from "react-input-mask";
 import { db, doc, setDoc } from "../../../services/firebase";
 
-import { clearInputs } from "../../../helpers/formUpdateFunctions";
+import { clearForm } from "../../../helpers/clearForm";
 
 type FormCreateStudentProps = {
   schoolId: string;
@@ -22,8 +22,7 @@ export function FormCreateStudent({ schoolId }: FormCreateStudentProps) {
         .then(() => {
           alert("Aluno cadastrado com sucesso!");
 
-          clearInputs();
-
+          clearForm("form-create-student");
           setName("");
           setFathersPhone(countryCode);
         })
@@ -47,40 +46,38 @@ export function FormCreateStudent({ schoolId }: FormCreateStudentProps) {
   };
 
   return (
-    <main className="main">
-      <form onSubmit={createStudent}>
-        <label htmlFor="telefone-pai">Nome do aluno</label>
-        <input
-          type="text"
-          id="nome"
-          name="nome"
-          placeholder="Digite o nome do aluno"
-          onChange={(event) => setName(event.target.value)}
-          value={name}
-          required
-        />
-        <label htmlFor="telefone-pai">Telefone dos pais</label>
-        <InputMask
-          type="tel"
-          id="telefone-pai"
-          name="telefone-pai"
-          placeholder="+99 (99) 99999-9999"
-          onChange={(event) => setFathersPhone(event.target.value)}
-          value={fathersPhone}
-          mask="+9999999999999"
-          required
-        />
+    <form id="form-create-student" onSubmit={createStudent}>
+      <label htmlFor="telefone-pai">Nome do aluno</label>
+      <input
+        type="text"
+        id="nome"
+        name="nome"
+        placeholder="Digite o nome do aluno"
+        onChange={(event) => setName(event.target.value)}
+        value={name}
+        required
+      />
+      <label htmlFor="telefone-pai">Telefone dos pais</label>
+      <InputMask
+        type="tel"
+        id="telefone-pai"
+        name="telefone-pai"
+        placeholder="+99 (99) 99999-9999"
+        onChange={(event) => setFathersPhone(event.target.value)}
+        value={fathersPhone}
+        mask="+9999999999999"
+        required
+      />
 
-        <button
-          disabled={
-            name.length === 0 || fathersPhone.replace(/_*_/, "").length !== 14
-          }
-          type="submit"
-          className="btn"
-        >
-          Cadastrar
-        </button>
-      </form>
-    </main>
+      <button
+        disabled={
+          name.length === 0 || fathersPhone.replace(/_*_/, "").length !== 14
+        }
+        type="submit"
+        className="btn"
+      >
+        Cadastrar
+      </button>
+    </form>
   );
 }
