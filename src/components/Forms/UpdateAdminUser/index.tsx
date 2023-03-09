@@ -13,11 +13,11 @@ import {
 import { useAdmin } from "../../../hooks/useAdmin";
 import { useAuth } from "../../../hooks/useAuth";
 
-type FormUpdateAdminUserProps = {
+type UpdateAdminUserProps = {
   adminType: string;
 };
 
-export function FormUpdateAdminUser({ adminType }: FormUpdateAdminUserProps) {
+export function UpdateAdminUser({ adminType }: UpdateAdminUserProps) {
   const countryCode = "+55";
 
   const { user } = useAuth();

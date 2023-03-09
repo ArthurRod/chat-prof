@@ -1,0 +1,49 @@
+@import "./global-colors.scss";
+
+/** Alert SCSS **/
+.delete-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.alert {
+  position: fixed;
+  max-width: 500px;
+  width: 50%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, 20%);
+  z-index: 2;
+
+  .alert-content {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 3px 10px #ccc;
+    border-radius: 5px;
+    max-width: 500px;
+    width: 500px;
+    background-color: $white;
+    gap: 0;
+
+    .header {
+      padding: 15px;
+      align-items: center;
+      justify-content: space-between;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+
+      .title {
+        color: $white;
+      }
+    }
+
+    button {
+      margin-top: 20px;
+    }
+  }
+}

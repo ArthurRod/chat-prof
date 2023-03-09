@@ -10,8 +10,14 @@
   position: fixed;
   right: 30px;
   bottom: 30px;
-  cursor: pointer;
   box-shadow: 0px 7px 10px #ccc;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .overlay {
@@ -19,22 +25,23 @@
   width: 100vw;
   height: 100vh;
   top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
   backdrop-filter: blur(2px);
   z-index: 1;
 }
 
 .modal {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
+  position: fixed;
+  max-width: 500px;
+  width: 50%;
+  height: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 0;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, 20%);
+  z-index: 2;
 
   .modal-content {
     display: flex;
@@ -43,7 +50,6 @@
     border-radius: 5px;
     max-width: 500px;
     width: 500px;
-    z-index: 2;
     background-color: $white;
     gap: 0;
 
@@ -75,8 +81,14 @@
         margin-bottom: 5px;
       }
 
-      input {
+      input,
+      textarea,
+      select {
         margin-bottom: 10px;
+      }
+
+      textarea {
+        min-height: 200px;
       }
 
       button {

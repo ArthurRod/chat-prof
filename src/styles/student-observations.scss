@@ -16,5 +16,39 @@
       text-align: left;
       margin-bottom: 0;
     }
+
+    .student-observation {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid $fonte-principal;
+      transition: 0.5s;
+      width: calc(50% - 5px);
+
+      &:hover {
+        border-color: $blue;
+        box-shadow: 0px 0px 10px #00000029;
+      }
+
+      .observation-subject {
+        margin-bottom: 20px;
+        padding-right: 70px;
+      }
+
+      .edit-button {
+        position: absolute;
+        right: 50px;
+        top: 15px;
+      }
+
+      .delete-button {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+      }
+    }
   }
 }

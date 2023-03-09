@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { db, doc, deleteDoc } from "../../../services/firebase";
+import { PencilSimple, Trash } from "phosphor-react";
 
 import { convertTime } from "../../../helpers/convertTime";
-import { DeleteObservation } from "../../Modal/DeleteObservation";
-import { UpdateObservation } from "../../Modal/UpdateObservation";
-
-import "../../../styles/student-observation.scss";
+import { Modal } from "../../Modal";
+import { Alert } from "../../Alert";
+import { UpdateObservation } from "../../Forms/UpdateObservation";
 
 interface StudentObservationProps {
   id: string;
@@ -23,64 +23,73 @@ export function StudentObservation({
   teacherName,
   schoolSubject,
 }: StudentObservationProps) {
-  const [isUpdateObservationOpen, setIsUpdateObservationOpen] = useState(false);
-
-  useEffect(() => {
-    handleOpenSettings();
-  }, [isUpdateObservationOpen]);
-
-  function handleOpenSettings() {
-    const updateDataModal = document.querySelector(".update-modal");
-
-    setTimeout(() => {
-      if (updateDataModal) {
-        updateDataModal.classList.add("open");
-      }
-    }, 1);
+  async function deleteObservation() {
+    if (id) {
+      deleteDoc(doc(db, "observations", id))
+        .then(() => alert(`Observação removida com sucesso`))
+        .catch((error) => console.log(error));
+    }
   }
 
   return (
-    <>
-      <div className="student-observation">
-        <div
-          className="observation"
-          onClick={() => {
-            setIsUpdateObservationOpen(true);
-          }}
-        >
-          <span className="observation-subject">
-            <strong>Assunto: </strong>
-            {subject}
-          </span>
-          <span className="teacher-observation">
-            <strong>Observação: </strong>
-            {observation}
-          </span>
-          <span className="teacher-name">
-            <strong>Professor: </strong>
-            {teacherName}
-          </span>
-          <span className="scholl-subject">
-            <strong>Matéria: </strong>
-            {schoolSubject}
-          </span>
-          <span className="observation-date">
-            <strong>Data: </strong>
-            {convertTime(dateSeconds)}
-          </span>
-        </div>
-
-        <DeleteObservation observationId={id} />
+    <div className="student-observation">
+      <div className="observation-subject">
+        <span>
+          <strong>Assunto: </strong>
+          {subject}
+        </span>
+      </div>
+      <div className="teacher-observation">
+        <span>
+          <strong>Observação: </strong>
+          {observation}
+        </span>
+      </div>
+      <div className="teacher-name">
+        <span>
+          <strong>Professor: </strong>
+          {teacherName}
+        </span>
+      </div>
+      <div className="scholl-subject">
+        <span>
+          <strong>Matéria: </strong>
+          {schoolSubject}
+        </span>
+      </div>
+      <div className="observation-date">
+        <span>
+          <strong>Data: </strong>
+          {convertTime(dateSeconds)}
+        </span>
       </div>
 
-      {isUpdateObservationOpen && (
+      <Modal
+        title="Editar Observação"
+        triggerName="edit-button"
+        trigger={
+          <PencilSimple
+            className="edit-button-icon"
+            size={32}
+            color="#FFA500"
+          />
+        }
+      >
         <UpdateObservation
-          setIsModalState={setIsUpdateObservationOpen}
           observationId={id}
           subject={subject}
           observation={observation}
         />
-      )}
-    </>
+      </Modal>
+
+      <Alert
+        title="Confirmar exclusão"
+        triggerName="delete-button"
+        trigger={
+          <Trash className="delete-button-icon" size={32} color="#ff4040" />
+        }
+        action={deleteObservation}
+      />
+    </div>
   );
 }

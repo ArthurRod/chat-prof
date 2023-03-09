@@ -4,11 +4,11 @@ import { db, doc, setDoc } from "../../../services/firebase";
 
 import { clearForm } from "../../../helpers/clearForm";
 
-type FormCreateStudentProps = {
+type CreateStudentProps = {
   schoolId: string;
 };
 
-export function FormCreateStudent({ schoolId }: FormCreateStudentProps) {
+export function CreateStudent({ schoolId }: CreateStudentProps) {
   const countryCode = "+55";
 
   const [name, setName] = useState("");

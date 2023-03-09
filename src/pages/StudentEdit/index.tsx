@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 
 import { Header } from "../../components/Header";
 import { StudentMainEdit } from "../../components/StudentMainEdit";
-import { StudentGrades } from "../../components/StudentGrades/index";
-import { AddData } from "../../components/AddData/index";
-import { AddGradesObservations } from "../../components/Modal/AddGradesObservations/index";
-import { StudentObservations } from "../../components/StudentObservations/index";
+import { StudentGrades } from "../../components/StudentGrades";
+import { AddGradesObservations } from "../../components/AddGradesObservations";
+import { StudentObservations } from "../../components/StudentObservations";
+import { Modal } from "../../components/Modal";
+import { Plus } from "phosphor-react";
 
 import "../../styles/edit.scss";
 
@@ -31,11 +32,17 @@ export function StudentEdit() {
               <>
                 <StudentGrades id={id} />
                 <StudentObservations id={id} />
-                <AddData modalTypeTitle={modalTypeTitle}>
+                <Modal
+                  title={`Adicionar ${modalTypeTitle}`}
+                  triggerName="add-button"
+                  trigger={
+                    <Plus className="add-button-icon" size={32} color="#fff" />
+                  }
+                >
                   <AddGradesObservations
                     setModalTypeTitle={setModalTypeTitle}
                   />
-                </AddData>
+                </Modal>
               </>
             )}
           </div>

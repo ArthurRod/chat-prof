@@ -3,7 +3,7 @@ import { auth, updateProfile } from "../../../services/firebase";
 
 import { useAuth } from "../../../hooks/useAuth";
 
-export function FormUpdateUser() {
+export function UpdateUser() {
   const { user } = useAuth();
   const [name, setName] = useState("");
 

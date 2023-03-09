@@ -1,15 +1,15 @@
 import { useAuth } from "../../hooks/useAuth";
 import { useAdmin } from "../../hooks/useAdmin";
 import { useAdminType } from "../../hooks/useAdminType";
-import { AddData } from "../../components/AddData";
-import { FormCreateStudent } from "../../components/Forms/FormCreateStudent";
-import { FormCreateTeacher } from "../../components/Forms/FormCreateTeacher";
+import { CreateStudent } from "../../components/Forms/CreateStudent";
+import { CreateTeacher } from "../../components/Forms/CreateTeacher";
 import { AdminInfos } from "../../components/AdminInfos";
 import { Header } from "../../components/Header";
 import { SchoolTeachers } from "../../components/SchoolTeachers";
 import { SchoolStudents } from "../../components/SchoolStudents";
 import { Loading } from "../../components/Loading";
 import { Modal } from "../../components/Modal";
+import { Plus } from "phosphor-react";
 
 export function AdminHome() {
   const { user } = useAuth();
@@ -44,16 +44,36 @@ export function AdminHome() {
                 <>
                   <SchoolTeachers />
 
-                  <Modal title="Adicionar professor">
-                    <FormCreateTeacher schoolId={user.uid} />
+                  <Modal
+                    title="Adicionar professor"
+                    triggerName="add-button"
+                    trigger={
+                      <Plus
+                        className="add-button-icon"
+                        size={32}
+                        color="#fff"
+                      />
+                    }
+                  >
+                    <CreateTeacher schoolId={user.uid} />
                   </Modal>
                 </>
               ) : (
                 <>
                   <SchoolStudents schoolId={adminUser.schoolId} />
 
-                  <Modal title="Adicionar aluno">
-                    <FormCreateStudent schoolId={adminUser.schoolId!} />
+                  <Modal
+                    title="Adicionar aluno"
+                    triggerName="add-button"
+                    trigger={
+                      <Plus
+                        className="add-button-icon"
+                        size={32}
+                        color="#fff"
+                      />
+                    }
+                  >
+                    <CreateStudent schoolId={adminUser.schoolId!} />
                   </Modal>
                 </>
               )}

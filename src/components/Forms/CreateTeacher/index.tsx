@@ -10,11 +10,11 @@ import {
 
 import { useAuth } from "../../../hooks/useAuth";
 
-type FormCreateTeacherProps = {
+type CreateTeacherProps = {
   schoolId: string | undefined;
 };
 
-export function FormCreateTeacher({ schoolId }: FormCreateTeacherProps) {
+export function CreateTeacher({ schoolId }: CreateTeacherProps) {
   const countryCode = "+55";
 
   const { reloginUser } = useAuth();

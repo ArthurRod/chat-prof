@@ -5,14 +5,19 @@ import "../../styles/modal.scss";
 
 interface ModalProps {
   title: string;
+  triggerName?: string;
+  trigger: JSX.Element;
   children: JSX.Element;
 }
 
-export function Modal({ title, children }: ModalProps) {
+export function Modal({ title, trigger, triggerName, children }: ModalProps) {
   return (
     <Dialog.Root>
-      <Dialog.Trigger type="button" className="add-button">
-        <Plus className="add-button-icon" size={32} color="#fff" />
+      <Dialog.Trigger
+        type="button"
+        className={triggerName ? triggerName : "trigger"}
+      >
+        {trigger}
       </Dialog.Trigger>
 
       <Dialog.Portal>
