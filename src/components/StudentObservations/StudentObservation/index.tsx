@@ -84,6 +84,7 @@ export function StudentObservation({
 
       <Alert
         title="Confirmar exclusão"
+        description=" Deseja remover a observação?"
         triggerName="delete-button"
         trigger={
           <Trash className="delete-button-icon" size={32} color="#ff4040" />

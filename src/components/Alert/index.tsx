@@ -4,13 +4,20 @@ import { useState } from "react";
 import "../../styles/alert.scss";
 
 interface AlertProps {
-  title: string;
+  title?: string;
+  description: string;
   trigger: JSX.Element;
   triggerName?: string;
   action?: () => void;
 }
 
-export function Alert({ title, trigger, triggerName, action }: AlertProps) {
+export function Alert({
+  title,
+  description,
+  trigger,
+  triggerName,
+  action,
+}: AlertProps) {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger
@@ -26,19 +33,21 @@ export function Alert({ title, trigger, triggerName, action }: AlertProps) {
         <AlertDialog.Content className="alert">
           <div className="alert-content">
             <header className="header">
-              <AlertDialog.Title className="title">{title}</AlertDialog.Title>
+              <AlertDialog.Title className="title">
+                {title ? title : ""}
+              </AlertDialog.Title>
             </header>
             <AlertDialog.Description className="alert-description">
-              Desja remover a observação?
+              {description}
             </AlertDialog.Description>
 
             {action && (
               <div className="alert-controls">
                 <AlertDialog.Cancel asChild>
-                  <button className="alert-cancel">Cancelar</button>
+                  <button className="btn back alert-cancel">Cancelar</button>
                 </AlertDialog.Cancel>
                 <AlertDialog.Action asChild>
-                  <button onClick={action} className="alert-success">
+                  <button onClick={action} className="btn alert-success">
                     Sim
                   </button>
                 </AlertDialog.Action>

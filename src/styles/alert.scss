@@ -11,11 +11,11 @@
   position: fixed;
   max-width: 500px;
   width: 50%;
-  height: 30%;
+  height: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 30%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, 20%);
   z-index: 2;
@@ -42,8 +42,15 @@
       }
     }
 
-    button {
-      margin-top: 20px;
+    .alert-description {
+      padding: 15px;
+    }
+
+    .alert-controls {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0px 15px 15px;
+      gap: 20px;
     }
   }
 }

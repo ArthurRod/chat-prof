@@ -1,5 +1,4 @@
 import { useGrades } from "../../hooks/useGrades";
-import { DeleteGrade } from "../Modal/DeleteGrade";
 
 import "../../styles/student-grades.scss";
 import { StudentGrade } from "./StudentGrade";

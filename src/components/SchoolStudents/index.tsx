@@ -1,11 +1,16 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { collection, onSnapshot, query, where } from "@firebase/firestore";
-import { db } from "../../services/firebase";
+import {
+  collection,
+  db,
+  query,
+  onSnapshot,
+  where,
+} from "../../services/firebase";
+
 import { Student } from "../../types/Student";
+import { SchoolStudent } from "./SchoolStudent";
 
 import "../../styles/school-teachers-students.scss";
-import { DeleteStudent } from "../Modal/DeleteStudent";
 
 type SchoolStudentsProps = {
   schoolId: string | undefined;
@@ -54,24 +59,18 @@ export function SchoolStudents({ schoolId }: SchoolStudentsProps) {
             <span className="delete"></span>
           </header>
 
-          {schoolStudents.map((schoolStudent: any) => (
-            <div key={schoolStudent.id} className="row">
-              <Link
-                className="row-link"
-                target="_self"
-                to={`/edit/student/${schoolStudent.id}`}
-              >
-                <span className="name">{schoolStudent.name}</span>
-                <span className="fathers-phone">
-                  {schoolStudent.fathersPhone}
-                </span>
-              </Link>
-              <DeleteStudent
-                studentId={schoolStudent.id}
-                studentName={schoolStudent.name}
+          {schoolStudents.map((schoolStudent: Student, i: number) => {
+            const { id, name, fathersPhone } = schoolStudent;
+
+            return (
+              <SchoolStudent
+                key={i}
+                studentId={id}
+                studentName={name}
+                studentFathersPhone={fathersPhone}
               />
-            </div>
-          ))}
+            );
+          })}
         </section>
       ) : (
         <section className="school-no-list">

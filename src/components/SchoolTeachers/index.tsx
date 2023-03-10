@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { collection, onSnapshot, query, where } from "@firebase/firestore";
-import { db } from "../../services/firebase";
+import {
+  collection,
+  db,
+  onSnapshot,
+  query,
+  where,
+} from "../../services/firebase";
 
-import { DeleteTeacher } from "../Modal/DeleteTeacher";
-import { useAuth } from "../../hooks/useAuth";
 import { AdminUser } from "../../types/AdminUser";
+import { useAuth } from "../../hooks/useAuth";
+import { SchoolTeacher } from "./SchoolTeacher";
 
 import "../../styles/school-teachers-students.scss";
 
@@ -54,23 +58,19 @@ export function SchoolTeachers() {
             <span className="delete"></span>
           </header>
 
-          {schoolTeachers.map((schoolTeacher: any) => (
-            <div key={schoolTeacher.uid} className="row">
-              <Link
-                className="row-link"
-                target="_self"
-                to={`/edit/teacher/${schoolTeacher.uid}`}
-              >
-                <span className="name">{schoolTeacher.name}</span>
-                <span className="email">{schoolTeacher.email}</span>
-                <span className="phone">{schoolTeacher.phone}</span>
-              </Link>
-              <DeleteTeacher
-                teacherId={schoolTeacher.uid}
-                teacherName={schoolTeacher.name}
+          {schoolTeachers.map((schoolTeacher: AdminUser, i: number) => {
+            const { uid, name, phone, email } = schoolTeacher;
+
+            return (
+              <SchoolTeacher
+                key={i}
+                teacherId={uid}
+                teacherName={name}
+                teacherPhone={phone}
+                teacherEmail={email}
               />
-            </div>
-          ))}
+            );
+          })}
         </section>
       ) : (
         <section className="school-no-list">
