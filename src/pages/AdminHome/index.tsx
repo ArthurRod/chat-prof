@@ -22,7 +22,7 @@ export function AdminHome() {
   }
 
   if (!user || !adminType || !adminUser) {
-    return;
+    return <section>Não foi encontrado um usuário válido</section>;
   }
 
   const { uid } = user;

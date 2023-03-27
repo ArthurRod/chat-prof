@@ -8,7 +8,7 @@ export function Home() {
 
   if (loadingUser) return <Loading />;
 
-  if (!user) return;
+  if (!user) return <section>Não foi encontrado um usuário válido</section>;
 
   const { name, phone } = user;
 
