@@ -7,14 +7,14 @@ import { setDoc, doc } from "firebase/firestore";
 import { auth, db } from "../../services/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-import { useAuth } from "../../hooks/useAuth";
+import { useAdminAuth } from "../../hooks/useAdminAuth";
 import { UserConected } from "../../components/UserConected";
 import { Loading } from "../../components/Loading";
 
 import "../../styles/login-register.scss";
 
 export function RegisterSchool() {
-  const { loadingUser, user } = useAuth();
+  const { loadingUser, user } = useAdminAuth();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

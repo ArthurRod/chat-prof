@@ -31,28 +31,37 @@ export function SchoolTeacher({
   }
 
   return (
-    <div className="row">
-      <Link
-        className="row-link"
-        target="_self"
-        to={`/edit/teacher/${teacherId}`}
-      >
-        <span className="name">{teacherName}</span>
-        <span className="email">{teacherEmail}</span>
-        <span className="phone">{teacherPhone}</span>
-      </Link>
-
-      <Alert
-        title="Confirmar exclusão"
-        description={`Ao realizar esta ação os dados do professor ${teacherName} serão
+    <tr aria-label="Linha do corpo da tabela">
+      <td>
+        <Link
+          className="row-link"
+          target="_self"
+          to={`/edit/teacher/${teacherId}`}
+        >
+          <span className="name" aria-label="Nome do professor">
+            {teacherName}
+          </span>
+          <span className="email" aria-label="E-mail do professor">
+            {teacherEmail}
+          </span>
+          <span className="phone" aria-label="Telefone do professor">
+            {teacherPhone}
+          </span>
+        </Link>
+      </td>
+      <td className="delete">
+        <Alert
+          title="Confirmar exclusão"
+          description={`Ao realizar esta ação os dados do professor ${teacherName} serão
         excluídos, porém, o seu respectivo usuário permanecerá no sistema e a
         exclusão deste deverá ser feita manualmente, deseja proseguir?`}
-        triggerName="delete-button"
-        trigger={
-          <Trash className="delete-button-icon" size={32} color="#ff4040" />
-        }
-        action={deleteTeacher}
-      />
-    </div>
+          triggerName="delete-button"
+          trigger={
+            <Trash className="delete-button-icon" size={32} color="#ff4040" />
+          }
+          action={deleteTeacher}
+        />
+      </td>
+    </tr>
   );
 }

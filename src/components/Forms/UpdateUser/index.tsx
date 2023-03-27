@@ -1,10 +1,10 @@
 import { FormEvent, useEffect, useState } from "react";
 import { auth, updateProfile } from "../../../services/firebase";
 
-import { useAuth } from "../../../hooks/useAuth";
+import { useAdminAuth } from "../../../hooks/useAdminAuth";
 
 export function UpdateUser() {
-  const { user } = useAuth();
+  const { user } = useAdminAuth();
   const [name, setName] = useState("");
 
   useEffect(() => {

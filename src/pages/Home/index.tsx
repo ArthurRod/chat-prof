@@ -6,7 +6,9 @@ import { useAuth } from "../../hooks/useAuth";
 export function Home() {
   const { loadingUser, user } = useAuth();
 
-  if (!user || loadingUser) return <Loading />;
+  if (loadingUser) return <Loading />;
+
+  if (!user) return;
 
   const { name, phone } = user;
 

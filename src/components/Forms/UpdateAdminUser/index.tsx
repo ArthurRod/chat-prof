@@ -11,7 +11,7 @@ import {
 } from "../../../services/firebase";
 
 import { useAdmin } from "../../../hooks/useAdmin";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAdminAuth } from "../../../hooks/useAdminAuth";
 
 type UpdateAdminUserProps = {
   adminType: string;
@@ -20,7 +20,7 @@ type UpdateAdminUserProps = {
 export function UpdateAdminUser({ adminType }: UpdateAdminUserProps) {
   const countryCode = "+55";
 
-  const { user } = useAuth();
+  const { user } = useAdminAuth();
   const { adminUser } = useAdmin();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState(countryCode);

@@ -3,10 +3,10 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../services/firebase";
 
 import { Grade } from "../types/Grade";
-import { useAuth } from "./useAuth";
+import { useAdminAuth } from "./useAdminAuth";
 
 export function useGrades(studentId: string | undefined) {
-  const { user } = useAuth();
+  const { user } = useAdminAuth();
   const [grades, setGrades] = useState<Grade[]>([]);
   const [isValidId, setIsValidId] = useState(false);
 

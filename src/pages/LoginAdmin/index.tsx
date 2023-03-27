@@ -2,16 +2,16 @@ import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "phosphor-react";
 
-import { useAuth } from "../../hooks/useAuth";
+import { useAdminAuth } from "../../hooks/useAdminAuth";
 import { Loading } from "../../components/Loading";
 import { UserConected } from "../../components/UserConected";
 
 export function LoginAdmin() {
-  const { loadingUser, user } = useAuth();
+  const { loadingUser, user } = useAdminAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { logInWithEmailAndPassword } = useAuth();
+  const { logInWithEmailAndPassword } = useAdminAuth();
 
   const navigate = useNavigate();
 

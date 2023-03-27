@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import { db, doc, setDoc } from "../../../services/firebase";
 
 import { useAdmin } from "../../../hooks/useAdmin";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAdminAuth } from "../../../hooks/useAdminAuth";
 import { clearForm } from "../../../helpers/clearForm";
 
 export function AddGrades() {
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user } = useAdminAuth();
   const { adminUser } = useAdmin();
   const [schoolGrade, setSchoolGrade] = useState("");
   const [period, setPeriod] = useState("1º Bimestre");

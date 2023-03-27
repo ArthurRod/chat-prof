@@ -1,0 +1,92 @@
+@import "global-colors.scss";
+
+/** SchoolTeachers and SchoolStudents SCSS **/
+table.table,
+.empty-table {
+  display: flex;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #3b4751;
+  flex-direction: column;
+  max-width: 800px;
+  width: 800px;
+  margin: 30px auto;
+}
+
+table.table {
+  th,
+  span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .name {
+    width: 45%;
+  }
+
+  .email {
+    width: 30%;
+  }
+
+  .phone {
+    width: 25%;
+  }
+
+  .fathers-phone {
+    width: 50%;
+  }
+
+  thead.table-header,
+  tr,
+  tr .row-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  thead {
+    padding-bottom: 10px;
+    padding-right: 42px;
+    border-bottom: 1px solid;
+
+    th {
+      font-weight: 600;
+      text-align: left;
+    }
+  }
+
+  tbody {
+    tr {
+      padding-top: 10px;
+
+      &:not(:last-child) {
+        padding-bottom: 10px;
+        border-bottom: 1px solid;
+      }
+
+      td {
+        width: 100%;
+
+        &.delete {
+          width: 32px;
+        }
+
+        .row-link {
+          height: 35px;
+          text-decoration: none;
+          color: $fonte-principal;
+          border-radius: 5px;
+          transition: 0.5s;
+
+          &:hover,
+          &:focus {
+            background-color: $blue;
+            padding: 0 10px;
+          }
+        }
+      }
+    }
+  }
+}

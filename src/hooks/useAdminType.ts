@@ -3,10 +3,10 @@ import { db } from "../services/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 import { User } from "../types/User";
-import { useAuth } from "./useAuth";
+import { useAdminAuth } from "./useAdminAuth";
 
 export function useAdminType() {
-  const { user } = useAuth();
+  const { user } = useAdminAuth();
   const [adminType, setAdminType] = useState<string | undefined>(undefined);
   const [loadingAdminType, setLoadingAdminType] = useState(false);
 

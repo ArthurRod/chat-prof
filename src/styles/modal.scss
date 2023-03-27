@@ -84,11 +84,20 @@
       input,
       textarea,
       select {
+        padding: 10px;
         margin-bottom: 10px;
       }
 
       textarea {
         min-height: 200px;
+      }
+
+      .warning {
+        margin-top: 5px;
+        font-size: 0.75rem;
+        padding: 0 10px 0 0;
+        color: $red;
+        margin-bottom: 10px;
       }
 
       button {

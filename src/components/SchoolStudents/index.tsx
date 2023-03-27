@@ -10,7 +10,7 @@ import {
 import { Student } from "../../types/Student";
 import { SchoolStudent } from "./SchoolStudent";
 
-import "../../styles/school-teachers-students.scss";
+import "../../styles/table-teacher-students.scss";
 
 type SchoolStudentsProps = {
   schoolId: string | undefined;
@@ -46,34 +46,41 @@ export function SchoolStudents({ schoolId }: SchoolStudentsProps) {
   return (
     <>
       {schoolStudents.length > 0 ? (
-        <section className="school-teachers-students">
-          <header className="table-header">
-            <span className="name">
-              <b>Nome</b>
-            </span>
+        <section
+          className="school-students"
+          aria-label="Seção tabela de estudantes"
+        >
+          <table className="table" aria-label="Tabela de estudantes">
+            <thead className="table-header" aria-label="Cabeçalho da tabela">
+              <th className="name" aria-label="Cabeçalho nome">
+                Nome
+              </th>
+              <th
+                className="fathers-phone"
+                aria-label="Cabeçalho telefone dos pais"
+              >
+                Telefone dos pais
+              </th>
+            </thead>
 
-            <span className="fathers-phone">
-              <b>Telefone dos pais</b>
-            </span>
+            <tbody aria-label="Corpo da tabela">
+              {schoolStudents.map((schoolStudent: Student, i: number) => {
+                const { id, name, fathersPhone } = schoolStudent;
 
-            <span className="delete"></span>
-          </header>
-
-          {schoolStudents.map((schoolStudent: Student, i: number) => {
-            const { id, name, fathersPhone } = schoolStudent;
-
-            return (
-              <SchoolStudent
-                key={i}
-                studentId={id}
-                studentName={name}
-                studentFathersPhone={fathersPhone}
-              />
-            );
-          })}
+                return (
+                  <SchoolStudent
+                    key={i}
+                    studentId={id}
+                    studentName={name}
+                    studentFathersPhone={fathersPhone}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
         </section>
       ) : (
-        <section className="school-no-list">
+        <section className="empty-table">
           <p>
             Não existem alunos cadastrados... Para cadastrar novos alunos clique
             no botão adicionar abaixo

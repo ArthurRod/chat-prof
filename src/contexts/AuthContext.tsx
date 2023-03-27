@@ -3,7 +3,6 @@ import { ReactNode } from "react";
 import { auth } from "../services/firebase";
 import {
   onAuthStateChanged,
-  signInWithEmailAndPassword,
   RecaptchaVerifier,
   signInWithPhoneNumber,
   UserCredential,
@@ -14,8 +13,6 @@ import { User } from "../types/User";
 type AuthContextType = {
   user: User | undefined;
   loadingUser: boolean;
-  logInWithEmailAndPassword: (email: string, password: string) => Promise<void>;
-  reloginUser: () => Promise<void>;
   logInWithPhoneNumber: (otp: string) => Promise<void>;
   sendOTP: (
     e: FormEvent,
@@ -25,12 +22,12 @@ type AuthContextType = {
 };
 
 type AuthContextProvider = {
-  children: ReactNode;
+  children: JSX.Element;
 };
 
 export const AuthContext = createContext({} as AuthContextType);
 
-export function AuthProvider(props: AuthContextProvider) {
+export function AuthProvider({ children }: AuthContextProvider) {
   const [user, setUser] = useState<User | undefined>();
   const [loadingUser, setLoadingUser] = useState(false);
 
@@ -60,41 +57,6 @@ export function AuthProvider(props: AuthContextProvider) {
         }
       }
     });
-  };
-
-  const logInWithEmailAndPassword = async (email: string, password: string) => {
-    const result = await signInWithEmailAndPassword(auth, email, password);
-
-    if (result) {
-      setLoadingUser(true);
-      const { user } = result;
-
-      try {
-        const { uid } = user;
-
-        if (uid) {
-          sessionStorage.setItem("email", email!);
-          sessionStorage.setItem("pass", password);
-
-          setUser({
-            uid: uid,
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoadingUser(false);
-      }
-    }
-  };
-
-  const reloginUser = async () => {
-    const email = sessionStorage.getItem("email");
-    const pass = sessionStorage.getItem("pass");
-
-    if (email && pass && pass.length > 5) {
-      await logInWithEmailAndPassword(email, pass);
-    }
   };
 
   const logInWithPhoneNumber = async (otp: string) => {
@@ -170,13 +132,11 @@ export function AuthProvider(props: AuthContextProvider) {
       value={{
         user,
         loadingUser,
-        logInWithEmailAndPassword,
-        reloginUser,
         logInWithPhoneNumber,
         sendOTP,
       }}
     >
-      {props.children}
+      {children}
     </AuthContext.Provider>
   );
 }

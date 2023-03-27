@@ -8,13 +8,13 @@ import {
 } from "../../services/firebase";
 
 import { AdminUser } from "../../types/AdminUser";
-import { useAuth } from "../../hooks/useAuth";
+import { useAdminAuth } from "../../hooks/useAdminAuth";
 import { SchoolTeacher } from "./SchoolTeacher";
 
-import "../../styles/school-teachers-students.scss";
+import "../../styles/table-teacher-students.scss";
 
 export function SchoolTeachers() {
-  const { user } = useAuth();
+  const { user } = useAdminAuth();
   const [schoolTeachers, setSchoolTeachers] = useState<AdminUser[]>([]);
 
   useEffect(() => {
@@ -44,36 +44,42 @@ export function SchoolTeachers() {
   return (
     <>
       {schoolTeachers.length > 0 ? (
-        <section className="school-teachers-students">
-          <header className="table-header">
-            <span className="name">
-              <b>Nome</b>
-            </span>
-            <span className="email">
-              <b>E-mail</b>
-            </span>
-            <span className="phone">
-              <b>Telefone</b>
-            </span>
-            <span className="delete"></span>
-          </header>
+        <section
+          className="school-teachers"
+          aria-label="Seção tabela de professores"
+        >
+          <table className="table" aria-label="Tabela de professores">
+            <thead className="table-header" aria-label="Cabeçalho da tabela">
+              <th className="name" aria-label="Cabeçalho nome">
+                Nome
+              </th>
+              <th className="email" aria-label="Cabeçalho e-mail">
+                E-mail
+              </th>
+              <th className="phone" aria-label="Cabeçalho telefone">
+                Telefone
+              </th>
+            </thead>
 
-          {schoolTeachers.map((schoolTeacher: AdminUser, i: number) => {
-            const { uid, name, phone, email } = schoolTeacher;
+            <tbody aria-label="Corpo da tabela">
+              {schoolTeachers.map((schoolTeacher: AdminUser, i: number) => {
+                const { uid, name, phone, email } = schoolTeacher;
 
-            return (
-              <SchoolTeacher
-                key={i}
-                teacherId={uid}
-                teacherName={name}
-                teacherPhone={phone}
-                teacherEmail={email}
-              />
-            );
-          })}
+                return (
+                  <SchoolTeacher
+                    key={i}
+                    teacherId={uid}
+                    teacherName={name}
+                    teacherPhone={phone}
+                    teacherEmail={email}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
         </section>
       ) : (
-        <section className="school-no-list">
+        <section className="empty-table">
           <p>
             Não existem professores cadastrados nesta escola... Para cadastrar
             novos professores clique no botão adicionar abaixo

@@ -2,10 +2,10 @@ import { db, doc, deleteDoc } from "../../../services/firebase";
 import { Link } from "react-router-dom";
 import { Trash } from "phosphor-react";
 
-import { Grade } from "../../../types/Grade";
-import { Observation } from "../../../types/Observation";
 import { useGrades } from "../../../hooks/useGrades";
 import { useObservations } from "../../../hooks/useObservations";
+import { Grade } from "../../../types/Grade";
+import { Observation } from "../../../types/Observation";
 import { Alert } from "../../Alert";
 
 interface SchoolStudentProps {
@@ -54,25 +54,35 @@ export function SchoolStudent({
   }
 
   return (
-    <div className="row">
-      <Link
-        className="row-link"
-        target="_self"
-        to={`/edit/student/${studentId}`}
-      >
-        <span className="name">{studentName}</span>
-        <span className="fathers-phone">{studentFathersPhone}</span>
-      </Link>
-
-      <Alert
-        title="Confirmar exclusão"
-        description={`Ao realizar esta ação os dados do aluno ${studentName} serão excluídos, deseja proseguir?`}
-        triggerName="delete-button"
-        trigger={
-          <Trash className="delete-button-icon" size={32} color="#ff4040" />
-        }
-        action={deleteStudent}
-      />
-    </div>
+    <tr aria-label="Linha do corpo da tabela">
+      <td>
+        <Link
+          className="row-link"
+          target="_self"
+          to={`/edit/student/${studentId}`}
+        >
+          <span className="name" aria-label="Nome do estudante">
+            {studentName}
+          </span>
+          <span
+            className="fathers-phone"
+            aria-label="Telefone dos pais do estudante"
+          >
+            {studentFathersPhone}
+          </span>
+        </Link>
+      </td>
+      <td className="delete">
+        <Alert
+          title="Confirmar exclusão"
+          description={`Ao realizar esta ação os dados do aluno ${studentName} serão excluídos, deseja proseguir?`}
+          triggerName="delete-button"
+          trigger={
+            <Trash className="delete-button-icon" size={32} color="#ff4040" />
+          }
+          action={deleteStudent}
+        />
+      </td>
+    </tr>
   );
 }

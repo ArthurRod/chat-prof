@@ -8,7 +8,7 @@ import {
   setDoc,
 } from "../../../services/firebase";
 
-import { useAuth } from "../../../hooks/useAuth";
+import { useAdminAuth } from "../../../hooks/useAdminAuth";
 
 type CreateTeacherProps = {
   schoolId: string | undefined;
@@ -17,7 +17,7 @@ type CreateTeacherProps = {
 export function CreateTeacher({ schoolId }: CreateTeacherProps) {
   const countryCode = "+55";
 
-  const { reloginUser } = useAuth();
+  const { reloginUser } = useAdminAuth();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState(countryCode);
   const [email, setEmail] = useState("");

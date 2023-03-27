@@ -4,11 +4,11 @@ import { db, doc, setDoc } from "../../../services/firebase";
 
 import { clearForm } from "../../../helpers/clearForm";
 import { useAdmin } from "../../../hooks/useAdmin";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAdminAuth } from "../../../hooks/useAdminAuth";
 
 export function AddObservations() {
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user } = useAdminAuth();
   const { adminUser } = useAdmin();
   const [observation, setObservation] = useState("");
   const [schoolSubject, setSchoolSubject] = useState("");

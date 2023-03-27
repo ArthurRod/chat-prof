@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ReactInputMask from "react-input-mask";
 import { ArrowLeft } from "phosphor-react";
@@ -8,19 +8,19 @@ import { Loading } from "../../components/Loading";
 import { UserConected } from "../../components/UserConected";
 
 export function Login() {
-  const { loadingUser, user } = useAuth();
-
   const countryCode = "+55";
 
-  const { sendOTP, logInWithPhoneNumber } = useAuth();
+  const { loadingUser, user, sendOTP, logInWithPhoneNumber } = useAuth();
+
   const [phoneNumber, setPhoneNumber] = useState(countryCode);
   const [expandForm, setExpandForm] = useState(false);
   const [OTP, setOTP] = useState("");
 
   const navigate = useNavigate();
 
-  function handlePhoneNumberLogin(event: any) {
+  function handlePhoneNumberLogin(event: React.ChangeEvent<HTMLInputElement>) {
     const otp = event.target.value;
+
     setOTP(otp);
 
     if (otp.length === 6) {
@@ -43,7 +43,7 @@ export function Login() {
       {user ? (
         <UserConected pathName="login" />
       ) : (
-        <div className="login-register login">
+        <section className="login-register login">
           <Link className="back-button" to="/">
             <ArrowLeft size={16} />
             Voltar
@@ -86,7 +86,7 @@ export function Login() {
             )}
             <div id="recaptcha-container"></div>
           </form>
-        </div>
+        </section>
       )}
     </>
   );

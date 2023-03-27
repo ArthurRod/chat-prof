@@ -1,8 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { db, doc, setDoc } from "../../../services/firebase";
 
-import "../../../styles/update-observation.scss";
-
 interface UpdateObservationProps {
   observationId: string;
   subject: string;

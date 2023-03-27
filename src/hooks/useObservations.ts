@@ -3,10 +3,10 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../services/firebase";
 
 import { Observation } from "../types/Observation";
-import { useAuth } from "./useAuth";
+import { useAdminAuth } from "./useAdminAuth";
 
 export function useObservations(studentId: string | undefined) {
-  const { user } = useAuth();
+  const { user } = useAdminAuth();
   const [observations, setObservations] = useState<Observation[]>([]);
   const [isValidId, setIsValidId] = useState(false);
 
