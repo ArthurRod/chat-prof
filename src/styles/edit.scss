@@ -12,7 +12,8 @@
       margin-bottom: 10px;
     }
 
-    form {
+    form,
+    .invalid-id {
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -23,11 +24,7 @@
         width: 50%;
       }
 
-      .erro {
-        color: $red;
-      }
-
-      footer {
+      .bottom {
         display: flex;
         gap: 10px;
         width: 50%;
