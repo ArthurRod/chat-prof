@@ -92,35 +92,32 @@ export function UpdateAdminUser({ adminType }: UpdateAdminUserProps) {
   }
 
   return (
-    <main className="main">
-      <h4 className="title">Alterar os seus dados</h4>
-      <form onSubmit={handleUpdateAdminUser}>
-        <label htmlFor="nome">Nome</label>
-        <input
-          type="text"
-          id="nome"
-          name="nome"
-          placeholder="Digite um novo nome"
-          onChange={(event) => setName(event.target.value)}
-          value={name}
-          required
-        />
-        <label htmlFor="telefone">Telefone</label>
-        <ReactInputMask
-          type="tel"
-          id="telefone"
-          name="telefone"
-          placeholder="Digite um novo telefone"
-          onChange={(event) => setPhone(event.target.value)}
-          value={phone}
-          mask="+99 (99) 99999-9999"
-          required
-        />
+    <form onSubmit={handleUpdateAdminUser}>
+      <label htmlFor="nome">Nome</label>
+      <input
+        type="text"
+        id="nome"
+        name="nome"
+        placeholder="Digite um novo nome"
+        onChange={(event) => setName(event.target.value)}
+        value={name}
+        required
+      />
+      <label htmlFor="telefone">Telefone</label>
+      <ReactInputMask
+        type="tel"
+        id="telefone"
+        name="telefone"
+        placeholder="Digite um novo telefone"
+        onChange={(event) => setPhone(event.target.value)}
+        value={phone}
+        mask="+99 (99) 99999-9999"
+        required
+      />
 
-        <button type="submit" className="btn alterate-user">
-          Alterar
-        </button>
-      </form>
-    </main>
+      <button type="submit" className="btn alterate-user">
+        Alterar
+      </button>
+    </form>
   );
 }

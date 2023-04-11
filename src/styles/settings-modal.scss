@@ -1,0 +1,27 @@
+@import "./global-colors.scss";
+
+/** Settings Modal SCSS **/
+.modal.settings-modal {
+  width: 350px;
+  height: 100vh;
+  max-width: 350px;
+  transition: 0.5s;
+  left: auto;
+  top: 0;
+  right: 0;
+  transform: none;
+
+  .modal-content {
+    height: 100%;
+
+    form {
+      height: 100%;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: flex-end;
+      padding: 15px;
+    }
+  }
+}

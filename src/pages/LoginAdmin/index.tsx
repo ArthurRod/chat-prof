@@ -4,7 +4,7 @@ import { ArrowLeft } from "phosphor-react";
 
 import { useAdminAuth } from "../../hooks/useAdminAuth";
 import { Loading } from "../../components/Loading";
-import { UserConected } from "../../components/UserConected";
+import { UserConected } from "../../routes/UserConected";
 
 export function LoginAdmin() {
   const { loadingUser, user } = useAdminAuth();

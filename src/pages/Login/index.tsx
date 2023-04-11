@@ -5,7 +5,7 @@ import { ArrowLeft } from "phosphor-react";
 
 import { useAuth } from "../../hooks/useAuth";
 import { Loading } from "../../components/Loading";
-import { UserConected } from "../../components/UserConected";
+import { UserConected } from "../../routes/UserConected";
 
 export function Login() {
   const countryCode = "+55";

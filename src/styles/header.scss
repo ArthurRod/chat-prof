@@ -27,88 +27,17 @@
     }
   }
 
-  .settings {
-    .button {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
+  .settings-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 
-      &:hover {
-        .button-icon {
-          transform: rotate(120deg);
-          transition: transform 0.5s ease-in-out;
-          -webkit-transition: transform 0.5s ease-in-out;
-          -moz-transition: transform 0.5s ease-in-out;
-        }
-      }
-    }
-
-    .settings-modal {
-      position: fixed;
-      right: -110vw;
-      top: 0;
-      display: flex;
-      height: 100vh;
-      width: 100vw;
-      z-index: 2;
-      transition: 0.5s;
-
-      &.open {
-        right: 0;
-      }
-
-      .content {
-        display: flex;
-        flex-direction: column;
-        background-color: $white;
-        width: 20%;
-        box-shadow: 0px 3px 10px #ccc;
-
-        .header,
-        .main,
-        .footer {
-          padding: 1.25rem 1rem;
-          width: 100%;
-        }
-
-        .header {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: $blue;
-
-          .title {
-            color: $white;
-            font-size: 2rem;
-          }
-        }
-
-        .main {
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          gap: 10px;
-          margin: 0;
-
-          form {
-            display: flex;
-            flex-direction: column;
-
-            label {
-              margin-bottom: 5px;
-            }
-
-            input {
-              max-width: 350px;
-              margin-bottom: 10px;
-            }
-
-            .btn.alterate-user {
-              margin-top: 10px;
-              max-width: 200px;
-            }
-          }
-        }
+    &:hover {
+      .button-icon {
+        transform: rotate(120deg);
+        transition: transform 0.5s ease-in-out;
+        -webkit-transition: transform 0.5s ease-in-out;
+        -moz-transition: transform 0.5s ease-in-out;
       }
     }
   }

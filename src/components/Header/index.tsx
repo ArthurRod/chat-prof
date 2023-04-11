@@ -1,5 +1,5 @@
 import { Logo } from "../Logo";
-import { Settings } from "./Settings";
+import { Settings } from "../Settings";
 import "../../styles/header.scss";
 
 export function Header() {

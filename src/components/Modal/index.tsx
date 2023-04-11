@@ -6,11 +6,18 @@ import "../../styles/modal.scss";
 interface ModalProps {
   title: string;
   triggerName?: string;
+  className?: string;
   trigger: JSX.Element;
   children: JSX.Element;
 }
 
-export function Modal({ title, trigger, triggerName, children }: ModalProps) {
+export function Modal({
+  title,
+  triggerName,
+  className,
+  trigger,
+  children,
+}: ModalProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger
@@ -23,7 +30,7 @@ export function Modal({ title, trigger, triggerName, children }: ModalProps) {
       <Dialog.Portal>
         <Dialog.Overlay className="overlay" />
 
-        <Dialog.Content className="modal">
+        <Dialog.Content className={`modal ${className ? className : ""}`}>
           <div className="modal-content">
             <header className="header">
               <Dialog.Title className="title">{title}</Dialog.Title>

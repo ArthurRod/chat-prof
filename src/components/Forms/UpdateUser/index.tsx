@@ -38,24 +38,21 @@ export function UpdateUser() {
   }
 
   return (
-    <main className="main">
-      <h4 className="title">Alterar os seus dados</h4>
-      <form onSubmit={handleUpdateUser}>
-        <label htmlFor="nome">Nome</label>
-        <input
-          type="text"
-          id="nome"
-          name="nome"
-          placeholder="Digite um novo nome"
-          onChange={(event) => setName(event.target.value)}
-          value={name}
-          required
-        />
+    <form onSubmit={handleUpdateUser}>
+      <label htmlFor="nome">Nome</label>
+      <input
+        type="text"
+        id="nome"
+        name="nome"
+        placeholder="Digite um novo nome"
+        onChange={(event) => setName(event.target.value)}
+        value={name}
+        required
+      />
 
-        <button type="submit" className="btn alterate-user">
-          Alterar
-        </button>
-      </form>
-    </main>
+      <button type="submit" className="btn alterate-user">
+        Alterar
+      </button>
+    </form>
   );
 }

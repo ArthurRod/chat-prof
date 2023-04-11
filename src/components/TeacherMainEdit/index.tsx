@@ -11,10 +11,10 @@ export function TeacherMainEdit() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [initialPhone, setInitialPhone] = useState("");
   const [initialName, setInitialName] = useState("");
-  const [phone, setPhone] = useState(countryCode);
+  const [initialPhone, setInitialPhone] = useState("");
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState(countryCode);
 
   const [isValidId, setIsValidId] = useState(false);
   const [loading, setLoading] = useState(false);

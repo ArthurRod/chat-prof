@@ -8,7 +8,7 @@ import { auth, db } from "../../services/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import { useAdminAuth } from "../../hooks/useAdminAuth";
-import { UserConected } from "../../components/UserConected";
+import { UserConected } from "../../routes/UserConected";
 import { Loading } from "../../components/Loading";
 
 import "../../styles/login-register.scss";
