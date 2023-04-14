@@ -21,14 +21,22 @@
 
       input,
       select {
-        width: 50%;
+        width: 100%;
+
+        @media (min-width: 1025px) {
+          width: 50%;
+        }
       }
 
       .bottom {
         display: flex;
         gap: 10px;
-        width: 50%;
         justify-content: center;
+        width: 100%;
+
+        @media (min-width: 1025px) {
+          width: 50%;
+        }
 
         button {
           width: 50%;

@@ -5,6 +5,7 @@
   display: flex;
   padding: 1.25rem 0;
   background-color: $blue;
+  width: 100%;
 
   .content {
     display: flex;
@@ -23,7 +24,11 @@
 
     .text {
       color: $white;
-      font-size: 2rem;
+      font-size: 24px;
+
+      @media (min-width: 1025px) {
+        font-size: 2rem;
+      }
     }
   }
 

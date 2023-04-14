@@ -38,7 +38,11 @@
     }
 
     .grade {
-      width: calc(50% - 8px);
+      width: 100%;
+
+      @media (min-width: 768px) {
+        width: calc(50% - 8px);
+      }
     }
 
     .observation {

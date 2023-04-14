@@ -2,7 +2,11 @@
 
 /** Login and Register SCSS **/
 .login-register {
-  width: 50%;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 
   .back-button {
     display: flex;

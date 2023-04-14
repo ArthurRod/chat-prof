@@ -3,11 +3,25 @@
 /** Initial Page SCSS **/
 .initial-page {
   display: flex;
-  height: 100vh;
+  flex-direction: column;
+
+  @media (min-width: 1025px) {
+    flex-direction: row;
+    height: 100vh;
+  }
 
   aside,
   main {
-    width: 50%;
+    padding: 15px;
+    width: 100%;
+
+    @media (min-width: 768px) {
+      padding: 30px;
+    }
+
+    @media (min-width: 1025px) {
+      width: 50%;
+    }
   }
 
   aside {
@@ -15,14 +29,26 @@
     justify-content: center;
     align-items: center;
     background-image: linear-gradient(to bottom right, $blue 60%, $white);
+    height: 50vh;
+
+    @media (min-width: 1025px) {
+      height: 100vh;
+    }
 
     .content {
-      width: 50%;
+      @media (min-width: 1025px) {
+        width: 50%;
+      }
 
       .logo {
         display: flex;
         gap: 10px;
         margin-bottom: 30px;
+        justify-content: center;
+
+        @media (min-width: 768px) {
+          justify-content: flex-start;
+        }
 
         .image {
           width: 50px;
@@ -30,23 +56,42 @@
 
         .text {
           color: $white;
-          font-size: 50px;
+          font-size: 32px;
+
+          @media (min-width: 768px) {
+            font-size: 50px;
+          }
         }
       }
 
       strong,
       p {
         color: $white;
+        text-align: center;
+
+        @media (min-width: 768px) {
+          text-align: left;
+        }
       }
 
       strong {
         display: flex;
-        font-size: 30px;
+        font-size: 24px;
         margin-bottom: 10px;
+        justify-content: center;
+
+        @media (min-width: 768px) {
+          justify-content: flex-start;
+          font-size: 30px;
+        }
       }
 
       p {
-        font-size: 20px;
+        font-size: 16px;
+
+        @media (min-width: 768px) {
+          font-size: 20px;
+        }
       }
     }
   }

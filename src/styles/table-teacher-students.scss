@@ -9,8 +9,12 @@ table.table,
   border: 1px solid #3b4751;
   flex-direction: column;
   max-width: 800px;
-  width: 800px;
+  width: 100%;
   margin: 30px auto;
+
+  @media (min-width: 1025px) {
+    width: 800px;
+  }
 }
 
 table.table {
@@ -22,7 +26,11 @@ table.table {
   }
 
   .name {
-    width: 45%;
+    width: 30%;
+
+    @media (min-width: 1025px) {
+      width: 40%;
+    }
   }
 
   .email {
@@ -30,7 +38,11 @@ table.table {
   }
 
   .phone {
-    width: 25%;
+    width: 40%;
+
+    @media (min-width: 1025px) {
+      width: 30%;
+    }
   }
 
   .fathers-phone {
@@ -43,7 +55,11 @@ table.table {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
+
+    @media (min-width: 1025px) {
+      gap: 10px;
+    }
   }
 
   thead {
@@ -67,18 +83,27 @@ table.table {
       }
 
       td {
-        width: 100%;
+        width: calc(100% - 37px);
+        font-size: 12px;
+
+        @media (min-width: 768px) {
+          width: 100%;
+          font-size: 16px;
+        }
 
         &.delete {
           width: 32px;
         }
 
         .row-link {
-          height: 35px;
           text-decoration: none;
           color: $fonte-principal;
           border-radius: 5px;
           transition: 0.5s;
+
+          @media (min-width: 1025px) {
+            height: 35px;
+          }
 
           &:hover,
           &:focus {

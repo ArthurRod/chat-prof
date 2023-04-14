@@ -2,7 +2,7 @@
 
 /** Settings Modal SCSS **/
 .modal.settings-modal {
-  width: 350px;
+  width: 90%;
   height: 100vh;
   max-width: 350px;
   transition: 0.5s;
@@ -10,6 +10,10 @@
   top: 0;
   right: 0;
   transform: none;
+
+  @media (min-width: 1025px) {
+    width: 350px;
+  }
 
   .modal-content {
     height: 100%;

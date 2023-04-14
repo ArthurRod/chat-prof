@@ -7,9 +7,13 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 10px;
-    width: 800px;
+    width: 100%;
     max-width: 800px;
     margin: 0 auto;
+
+    @media (min-width: 1025px) {
+      width: 800px;
+    }
 
     .title {
       width: 100%;
@@ -28,8 +32,12 @@
       padding: 15px;
       border-radius: 5px;
       border: 1px solid $fonte-principal;
-      width: calc(50% - 5px);
+      width: 100%;
       position: relative;
+
+      @media (min-width: 768px) {
+        width: calc(50% - 5px);
+      }
 
       .delete-button {
         position: absolute;

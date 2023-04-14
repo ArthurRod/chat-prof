@@ -5,7 +5,10 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
-  width: 50%;
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 
   .title {
     font-size: 20px;
@@ -23,8 +26,12 @@
       flex-direction: column;
       align-items: center;
       gap: 10px;
-      width: 165px;
+      width: 250px;
       text-decoration: none;
+
+      @media (min-width: 768px) {
+        width: 165px;
+      }
 
       &:hover {
         .image {
@@ -38,6 +45,11 @@
 
       .image {
         transition: 0.3s;
+        width: 75px;
+
+        @media (min-width: 768px) {
+          width: 100px;
+        }
       }
 
       .text {
