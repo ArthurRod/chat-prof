@@ -50,15 +50,17 @@ export function SchoolTeachers() {
         >
           <table className="table" aria-label="Tabela de professores">
             <thead className="table-header" aria-label="Cabeçalho da tabela">
-              <th className="name" aria-label="Cabeçalho nome">
-                Nome
-              </th>
-              <th className="email" aria-label="Cabeçalho e-mail">
-                E-mail
-              </th>
-              <th className="phone" aria-label="Cabeçalho telefone">
-                Telefone
-              </th>
+              <tr>
+                <th className="name" aria-label="Cabeçalho nome">
+                  Nome
+                </th>
+                <th className="email" aria-label="Cabeçalho e-mail">
+                  E-mail
+                </th>
+                <th className="phone" aria-label="Cabeçalho telefone">
+                  Telefone
+                </th>
+              </tr>
             </thead>
 
             <tbody aria-label="Corpo da tabela">

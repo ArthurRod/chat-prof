@@ -26,17 +26,21 @@ export function StudentObservations({ id }: StudentObservationsProps) {
     <section className="student-observations">
       <h3 className="title">Observações</h3>
       {orderObservations && orderObservations.length > 0 ? (
-        orderObservations.map((orderObservation: Observation, index: any) => (
-          <StudentObservation
-            key={index}
-            id={orderObservation.id}
-            dateSeconds={orderObservation.observationDate.seconds}
-            subject={orderObservation.subject}
-            observation={orderObservation.observation}
-            teacherName={orderObservation.teacherName}
-            schoolSubject={orderObservation.schoolSubject}
-          />
-        ))
+        orderObservations.map((orderObservation: Observation) => {
+          const key = Math.floor(Date.now() * Math.random()).toString(36);
+
+          return (
+            <StudentObservation
+              key={key}
+              id={orderObservation.id}
+              dateSeconds={orderObservation.observationDate.seconds}
+              subject={orderObservation.subject}
+              observation={orderObservation.observation}
+              teacherName={orderObservation.teacherName}
+              schoolSubject={orderObservation.schoolSubject}
+            />
+          );
+        })
       ) : (
         <div className="no-observations">
           Não existem observações cadastradas para este aluno

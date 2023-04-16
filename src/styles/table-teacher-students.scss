@@ -67,9 +67,13 @@ table.table {
     padding-right: 42px;
     border-bottom: 1px solid;
 
-    th {
-      font-weight: 600;
-      text-align: left;
+    tr {
+      width: 100%;
+
+      th {
+        font-weight: 600;
+        text-align: left;
+      }
     }
   }
 

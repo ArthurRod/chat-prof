@@ -52,15 +52,17 @@ export function SchoolStudents({ schoolId }: SchoolStudentsProps) {
         >
           <table className="table" aria-label="Tabela de estudantes">
             <thead className="table-header" aria-label="Cabeçalho da tabela">
-              <th className="name" aria-label="Cabeçalho nome">
-                Nome
-              </th>
-              <th
-                className="fathers-phone"
-                aria-label="Cabeçalho telefone dos pais"
-              >
-                Telefone dos pais
-              </th>
+              <tr>
+                <th className="name" aria-label="Cabeçalho nome">
+                  Nome
+                </th>
+                <th
+                  className="fathers-phone"
+                  aria-label="Cabeçalho telefone dos pais"
+                >
+                  Telefone dos pais
+                </th>
+              </tr>
             </thead>
 
             <tbody aria-label="Corpo da tabela">
