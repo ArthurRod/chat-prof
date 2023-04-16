@@ -4,13 +4,16 @@ import ReactInputMask from "react-input-mask";
 import { ArrowLeft } from "phosphor-react";
 
 import { useAuth } from "../../hooks/useAuth";
-import { Loading } from "../../components/Loading";
 import { UserConected } from "../../routes/UserConected";
+import { useAdminAuth } from "../../hooks/useAdminAuth";
+import { isStringMaxSize } from "../../helpers/isStringMaxSize";
+import { Alert } from "../../components/Alert";
 
 export function Login() {
   const countryCode = "+55";
 
-  const { loadingUser, user, sendOTP, logInWithPhoneNumber } = useAuth();
+  const { error, user, sendOTP, logInWithPhoneNumber } = useAuth();
+  const { adminUserAuth } = useAdminAuth();
 
   const [phoneNumber, setPhoneNumber] = useState(countryCode);
   const [expandForm, setExpandForm] = useState(false);
@@ -34,13 +37,9 @@ export function Login() {
     }
   }
 
-  if (loadingUser) {
-    return <Loading />;
-  }
-
   return (
     <>
-      {user ? (
+      {user || adminUserAuth ? (
         <UserConected pathName="login" />
       ) : (
         <section className="login-register login">
@@ -77,7 +76,7 @@ export function Login() {
 
             {!expandForm && (
               <button
-                disabled={phoneNumber.length < 10}
+                disabled={!isStringMaxSize(phoneNumber, 13)}
                 className="btn"
                 type="submit"
               >
@@ -86,6 +85,10 @@ export function Login() {
             )}
             <div id="recaptcha-container"></div>
           </form>
+
+          {error && (
+            <Alert title="Erro" description={error} defaultOpen={true} />
+          )}
         </section>
       )}
     </>

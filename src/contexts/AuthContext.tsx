@@ -9,8 +9,12 @@ import {
 } from "firebase/auth";
 
 import { User } from "../types/User";
+import { isStringMaxSize } from "../helpers/isStringMaxSize";
+import { FirebaseError } from "firebase/app";
+import { firebaseErrorConverter } from "../helpers/firebaseErrorConverter";
 
 type AuthContextType = {
+  error: string | undefined;
   user: User | undefined;
   loadingUser: boolean;
   logInWithPhoneNumber: (otp: string) => Promise<void>;
@@ -30,59 +34,68 @@ export const AuthContext = createContext({} as AuthContextType);
 export function AuthProvider({ children }: AuthContextProvider) {
   const [user, setUser] = useState<User | undefined>();
   const [loadingUser, setLoadingUser] = useState(false);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     persistUser();
   }, []);
 
-  const persistUser = async () => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setLoadingUser(true);
+  const persistUser = () => {
+    setLoadingUser(true);
 
-        try {
-          const { uid, displayName, phoneNumber } = user;
+    try {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const { uid, phoneNumber, displayName } = user;
 
-          if (uid) {
+          if (uid && phoneNumber) {
             setUser({
               uid: uid,
-              name: displayName!,
-              phone: phoneNumber!,
+              phone: phoneNumber,
+              name: displayName ? displayName : "",
             });
+
+            setLoadingUser(false);
           }
-        } catch (error) {
-          console.log(error);
-        } finally {
+        } else {
           setLoadingUser(false);
         }
-      }
-    });
+      });
+    } catch (error) {
+      setLoadingUser(false);
+      console.log(error);
+    }
   };
 
   const logInWithPhoneNumber = async (otp: string) => {
     const confirmationResult = window.confirmationResult;
 
     if (confirmationResult) {
+      setLoadingUser(true);
+
       confirmationResult
         .confirm(otp)
         .then((result: UserCredential) => {
-          setLoadingUser(true);
           const { user } = result;
 
           if (user) {
             const { uid, displayName, phoneNumber } = user;
 
-            if (uid) {
+            if (uid && phoneNumber) {
               setUser({
                 uid: uid,
-                name: displayName!,
-                phone: phoneNumber!,
+                phone: phoneNumber,
+                name: displayName ? displayName : "",
               });
             }
           }
         })
         .catch((error: any) => {
-          console.log(error);
+          if (error instanceof FirebaseError) {
+            const convertedError = firebaseErrorConverter(error);
+
+            setError(convertedError);
+          }
         })
         .finally(() => setLoadingUser(false));
     }
@@ -95,11 +108,7 @@ export function AuthProvider({ children }: AuthContextProvider) {
   ) => {
     event.preventDefault();
 
-    if (phoneNumber.length >= 14) {
-      if (user) {
-        setUser(undefined);
-      }
-
+    if (isStringMaxSize(phoneNumber, 13)) {
       generateRecaptchaVerifier();
       setExpandForm(true);
 
@@ -114,6 +123,8 @@ export function AuthProvider({ children }: AuthContextProvider) {
             console.log(error);
           });
       }
+    } else {
+      alert("Preencha os campos corretamente");
     }
   };
 
@@ -130,6 +141,7 @@ export function AuthProvider({ children }: AuthContextProvider) {
   return (
     <AuthContext.Provider
       value={{
+        error,
         user,
         loadingUser,
         logInWithPhoneNumber,

@@ -5,6 +5,7 @@ import { convertTime } from "../../../helpers/convertTime";
 import { Modal } from "../../Modal";
 import { Alert } from "../../Alert";
 import { UpdateObservation } from "../../Forms/UpdateObservation";
+import { useState } from "react";
 
 interface StudentObservationProps {
   id: string;
@@ -23,10 +24,18 @@ export function StudentObservation({
   teacherName,
   schoolSubject,
 }: StudentObservationProps) {
+  const [alertMessage, setAlertMessage] = useState("");
+
   async function deleteObservation() {
     if (id) {
       deleteDoc(doc(db, "observations", id))
-        .then(() => alert(`Observação removida com sucesso`))
+        .then(() => {
+          setAlertMessage(`Observação removida com sucesso.`);
+
+          setTimeout(() => {
+            setAlertMessage("");
+          }, 3000);
+        })
         .catch((error) => console.log(error));
     }
   }
@@ -91,6 +100,10 @@ export function StudentObservation({
         }
         action={deleteObservation}
       />
+
+      {alertMessage && (
+        <Alert title="Aviso" description={alertMessage} defaultOpen={true} />
+      )}
     </div>
   );
 }

@@ -2,24 +2,23 @@ import { useEffect, useState } from "react";
 import { db } from "../services/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
-import { User } from "../types/User";
 import { useAdminAuth } from "./useAdminAuth";
 
 export function useAdminType() {
-  const { user } = useAdminAuth();
+  const { adminUserAuth } = useAdminAuth();
   const [adminType, setAdminType] = useState<string | undefined>(undefined);
   const [loadingAdminType, setLoadingAdminType] = useState(false);
 
   useEffect(() => {
-    getAdminType(user);
-  }, [user]);
+    getAdminType();
+  }, [adminUserAuth]);
 
-  const getAdminType = async (user: User | undefined) => {
-    if (user) {
+  const getAdminType = async () => {
+    if (adminUserAuth) {
       setLoadingAdminType(true);
 
       try {
-        const { uid } = user;
+        const { uid } = adminUserAuth;
 
         const docRef = doc(db, "admin-users", uid);
         const docSnap = await getDoc(docRef);

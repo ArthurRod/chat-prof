@@ -5,12 +5,10 @@ import { Login } from "../../pages/Login";
 import { Loading } from "../../components/Loading";
 
 export function Private({ children }: { children: JSX.Element }) {
-  const { user } = useAuth();
+  const { loadingUser, user } = useAuth();
   const { loadingAdminType, adminType } = useAdminType();
 
-  if (loadingAdminType) {
-    return <Loading />;
-  }
+  if (loadingUser || loadingAdminType) return <Loading />;
 
   if (!user || adminType) {
     return (

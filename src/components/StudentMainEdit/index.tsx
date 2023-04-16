@@ -62,7 +62,7 @@ export function StudentMainEdit({
     e.preventDefault();
 
     if (name.length === 0 || !isStringMaxSize(fathersPhone, 13)) {
-      alert("Preencha corretamente campos");
+      alert("Preencha os campos corretamente");
       return;
     }
 

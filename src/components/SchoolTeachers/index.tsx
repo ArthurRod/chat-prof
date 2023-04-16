@@ -14,13 +14,13 @@ import { SchoolTeacher } from "./SchoolTeacher";
 import "../../styles/table-teacher-students.scss";
 
 export function SchoolTeachers() {
-  const { user } = useAdminAuth();
+  const { adminUserAuth } = useAdminAuth();
   const [schoolTeachers, setSchoolTeachers] = useState<AdminUser[]>([]);
 
   useEffect(() => {
     const q = query(
       collection(db, "teachers"),
-      where("schoolId", "==", user?.uid)
+      where("schoolId", "==", adminUserAuth?.uid)
     );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -39,7 +39,7 @@ export function SchoolTeachers() {
     });
 
     return () => unsubscribe();
-  }, [user]);
+  }, [adminUserAuth]);
 
   return (
     <>

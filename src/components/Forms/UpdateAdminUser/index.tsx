@@ -12,6 +12,9 @@ import {
 
 import { useAdmin } from "../../../hooks/useAdmin";
 import { useAdminAuth } from "../../../hooks/useAdminAuth";
+import { Loading } from "../../Loading";
+import { Alert } from "../../Alert";
+import { isStringMaxSize } from "../../../helpers/isStringMaxSize";
 
 type UpdateAdminUserProps = {
   adminType: string;
@@ -20,10 +23,15 @@ type UpdateAdminUserProps = {
 export function UpdateAdminUser({ adminType }: UpdateAdminUserProps) {
   const countryCode = "+55";
 
-  const { user } = useAdminAuth();
+  const { loadingUser, adminUserAuth } = useAdminAuth();
   const { adminUser } = useAdmin();
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState(countryCode);
+  const [alertMessage, setAlertMessage] = useState("");
+
+  const initialName = adminUser && adminUser.name ? adminUser.name : "";
+  const initialPhone = adminUser && adminUser.phone ? adminUser.phone : "";
 
   useEffect(() => {
     if (adminUser) {
@@ -35,12 +43,27 @@ export function UpdateAdminUser({ adminType }: UpdateAdminUserProps) {
   function handleUpdateAdminUser(e: FormEvent) {
     e.preventDefault();
 
-    if (user) {
-      if (name.length !== 0 && phone.length !== 0) {
-        updateAdminUserTable(user.uid);
-        alert("Usuário alterado com sucesso!");
+    if (adminUserAuth) {
+      if (
+        name.length !== 0 &&
+        phone.length !== 0 &&
+        (name !== initialName || phone !== initialPhone)
+      ) {
+        updateAdminUserTable(adminUserAuth.uid)
+          .then(() => {
+            setAlertMessage(
+              "Nome alterado com sucesso, é necessário recarregar a página para que as mudanças tenham efeito"
+            );
+
+            setTimeout(() => {
+              setAlertMessage("");
+            }, 3000);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
-        alert("Preencha os campos!");
+        setAlertMessage("Preencha corretamente os campos.");
       }
     }
   }
@@ -91,33 +114,48 @@ export function UpdateAdminUser({ adminType }: UpdateAdminUserProps) {
     });
   }
 
-  return (
-    <form onSubmit={handleUpdateAdminUser}>
-      <label htmlFor="nome">Nome</label>
-      <input
-        type="text"
-        id="nome"
-        name="nome"
-        placeholder="Digite um novo nome"
-        onChange={(event) => setName(event.target.value)}
-        value={name}
-        required
-      />
-      <label htmlFor="telefone">Telefone</label>
-      <ReactInputMask
-        type="tel"
-        id="telefone"
-        name="telefone"
-        placeholder="Digite um novo telefone"
-        onChange={(event) => setPhone(event.target.value)}
-        value={phone}
-        mask="+99 (99) 99999-9999"
-        required
-      />
+  if (loadingUser || !adminUser) return <Loading />;
 
-      <button type="submit" className="btn alterate-user">
-        Alterar
-      </button>
-    </form>
+  return (
+    <>
+      <form onSubmit={handleUpdateAdminUser}>
+        <label htmlFor="nome">Nome</label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          placeholder="Digite um novo nome"
+          onChange={(event) => setName(event.target.value)}
+          value={name}
+          required
+        />
+        <label htmlFor="telefone">Telefone</label>
+        <ReactInputMask
+          type="tel"
+          id="telefone"
+          name="telefone"
+          placeholder="Digite um novo telefone"
+          onChange={(event) => setPhone(event.target.value)}
+          value={phone}
+          mask="+99 (99) 99999-9999"
+          required
+        />
+
+        <button
+          disabled={
+            (initialName === name || name.length === 0) &&
+            (initialPhone === phone || !isStringMaxSize(phone, 13))
+          }
+          type="submit"
+          className="btn alterate-user"
+        >
+          Alterar
+        </button>
+      </form>
+
+      {alertMessage && (
+        <Alert title="Aviso" description={alertMessage} defaultOpen={true} />
+      )}
+    </>
   );
 }

@@ -6,18 +6,21 @@ import { handleOrderObservations } from "../../helpers/handleOrderObservations";
 import { StudentObservation } from "./StudentObservation";
 
 import "../../styles/student-observations.scss";
+import { Loading } from "../Loading";
 
 interface StudentObservationsProps {
   id: string | undefined;
 }
 
 export function StudentObservations({ id }: StudentObservationsProps) {
-  const { observations } = useObservations(id);
+  const { loading, observations } = useObservations(id);
   const [orderObservations, setOrderObservations] = useState<Observation[]>([]);
 
   useEffect(() => {
     handleOrderObservations(observations, setOrderObservations);
   }, [observations]);
+
+  if (loading) return <Loading />;
 
   return (
     <section className="student-observations">

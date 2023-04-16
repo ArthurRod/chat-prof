@@ -2,40 +2,50 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../services/firebase";
 import { StudentData } from "../types/StudentData";
+import { Grade } from "../types/Grade";
+import { Observation } from "../types/Observation";
 
 export function useStudent(userPhone: string | undefined) {
   const [studentsData, setStudentsData] = useState<StudentData[]>([]);
-  const [loadindStudentsData, setLoadindStudentsData] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getStudentData().then(() => setLoadindStudentsData(false));
+    getStudentData();
   }, [userPhone]);
 
   async function getStudentData() {
     if (userPhone) {
+      setLoading(true);
+
       const q = query(
         collection(db, "students"),
         where("fathersPhone", "==", userPhone)
       );
 
       onSnapshot(q, (querySnapshot) => {
-        querySnapshot.forEach(async (doc) => {
-          const id = doc.data().id;
-          const gradesData = await getStudentGradesObservations("grades", id);
-          const observationsData = await getStudentGradesObservations(
-            "observations",
-            id
-          );
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach(async (doc) => {
+            const id = doc.data().id;
+            const gradesData = await getStudentGradesObservations("grades", id);
+            const observationsData = await getStudentGradesObservations(
+              "observations",
+              id
+            );
 
-          setStudentsData((studentsData) => [
-            ...studentsData,
-            {
-              studentName: doc.data().name,
-              grades: gradesData,
-              observations: observationsData,
-            },
-          ]);
-        });
+            setStudentsData((studentsData) => [
+              ...studentsData,
+              {
+                studentName: doc.data().name,
+                grades: gradesData,
+                observations: observationsData,
+              },
+            ]);
+
+            setLoading(false);
+          });
+        } else {
+          setLoading(false);
+        }
       });
     }
   }
@@ -49,33 +59,50 @@ export function useStudent(userPhone: string | undefined) {
       where("studentId", "==", id)
     );
 
-    const gradesObservationsArray = new Promise<any[]>((resolve, reject) => {
-      const array: any[] = [];
+    const gradesObservationsArray = new Promise<any>((resolve, reject) => {
+      const array: any = [];
 
       onSnapshot(q, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const data = doc.data();
-
           if (collectionRef === "grades") {
+            const {
+              studentId,
+              period,
+              schoolGrade,
+              schoolSubject,
+              teacherName,
+              teacherId,
+            } = doc.data();
+
             array.push({
               id: id,
-              studentId: data.studentId,
-              period: data.period,
-              schoolGrade: data.schoolGrade,
-              schoolSubject: data.schoolSubject,
-              teacherName: data.teacherName,
-              teacherId: data.teacherId,
+              studentId: studentId,
+              period: period,
+              schoolGrade: schoolGrade,
+              schoolSubject: schoolSubject,
+              teacherName: teacherName,
+              teacherId: teacherId,
             });
           } else if (collectionRef === "observations") {
+            const {
+              studentId,
+              observation,
+              observationDate,
+              schoolSubject,
+              subject,
+              teacherName,
+              teacherId,
+            } = doc.data();
+
             array.push({
               id: id,
-              studentId: data.studentId,
-              observation: data.observation,
-              observationDate: data.observationDate,
-              schoolSubject: data.schoolSubject,
-              subject: data.subject,
-              teacherName: data.teacherName,
-              teacherId: data.teacherId,
+              studentId: studentId,
+              observation: observation,
+              observationDate: observationDate,
+              schoolSubject: schoolSubject,
+              subject: subject,
+              teacherName: teacherName,
+              teacherId: teacherId,
             });
           }
         });
@@ -90,7 +117,6 @@ export function useStudent(userPhone: string | undefined) {
 
     return gradesObservationsArray;
   }
-  console.log(loadindStudentsData);
 
-  return { loadindStudentsData, studentsData };
+  return { loading, studentsData };
 }

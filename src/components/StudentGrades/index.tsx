@@ -1,6 +1,7 @@
 import { useGrades } from "../../hooks/useGrades";
 
 import "../../styles/student-grades.scss";
+import { Loading } from "../Loading";
 import { StudentGrade } from "./StudentGrade";
 
 interface StudentGradesProps {
@@ -8,7 +9,9 @@ interface StudentGradesProps {
 }
 
 export function StudentGrades({ id }: StudentGradesProps) {
-  const { grades } = useGrades(id);
+  const { loading, grades } = useGrades(id);
+
+  if (loading) return <Loading />;
 
   return (
     <section className="student-grades">

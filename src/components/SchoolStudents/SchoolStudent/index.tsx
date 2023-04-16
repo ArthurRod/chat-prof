@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { db, doc, deleteDoc } from "../../../services/firebase";
 import { Link } from "react-router-dom";
 import { Trash } from "phosphor-react";
@@ -21,6 +22,7 @@ export function SchoolStudent({
 }: SchoolStudentProps) {
   const { grades } = useGrades(studentId);
   const { observations } = useObservations(studentId);
+  const [alertMessage, setAlertMessage] = useState("");
 
   async function deleteStudent() {
     if (studentId) {
@@ -29,7 +31,13 @@ export function SchoolStudent({
       deleteStudentGrades(studentId);
       deleteStudentObservations(studentId);
 
-      alert(`Os dados do aluno ${studentName} foram removidos com sucesso`);
+      setAlertMessage(
+        `Os dados do aluno ${studentName} foram removidos com sucesso`
+      );
+
+      setTimeout(() => {
+        setAlertMessage("");
+      }, 3000);
     }
   }
 
@@ -54,35 +62,41 @@ export function SchoolStudent({
   }
 
   return (
-    <tr aria-label="Linha do corpo da tabela">
-      <td>
-        <Link
-          className="row-link"
-          target="_self"
-          to={`/edit/student/${studentId}`}
-        >
-          <span className="name" aria-label="Nome do estudante">
-            {studentName}
-          </span>
-          <span
-            className="fathers-phone"
-            aria-label="Telefone dos pais do estudante"
+    <>
+      <tr aria-label="Linha do corpo da tabela">
+        <td>
+          <Link
+            className="row-link"
+            target="_self"
+            to={`/edit/student/${studentId}`}
           >
-            {studentFathersPhone}
-          </span>
-        </Link>
-      </td>
-      <td className="delete">
-        <Alert
-          title="Confirmar exclusão"
-          description={`Ao realizar esta ação os dados do aluno ${studentName} serão excluídos, deseja proseguir?`}
-          triggerName="delete-button"
-          trigger={
-            <Trash className="delete-button-icon" size={32} color="#ff4040" />
-          }
-          action={deleteStudent}
-        />
-      </td>
-    </tr>
+            <span className="name" aria-label="Nome do estudante">
+              {studentName}
+            </span>
+            <span
+              className="fathers-phone"
+              aria-label="Telefone dos pais do estudante"
+            >
+              {studentFathersPhone}
+            </span>
+          </Link>
+        </td>
+        <td className="delete">
+          <Alert
+            title="Confirmar exclusão"
+            description={`Ao realizar esta ação os dados do aluno ${studentName} serão excluídos, deseja proseguir?`}
+            triggerName="delete-button"
+            trigger={
+              <Trash className="delete-button-icon" size={32} color="#ff4040" />
+            }
+            action={deleteStudent}
+          />
+        </td>
+      </tr>
+
+      {alertMessage && (
+        <Alert title="Aviso" description={alertMessage} defaultOpen={true} />
+      )}
+    </>
   );
 }

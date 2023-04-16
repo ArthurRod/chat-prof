@@ -1,14 +1,19 @@
 import { createContext, useEffect, useState } from "react";
-import { ReactNode } from "react";
 import { auth } from "../services/firebase";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 
 import { User } from "../types/User";
+import { FirebaseError } from "firebase/app";
+import { firebaseErrorConverter } from "../helpers/firebaseErrorConverter";
 
 type AuthAdminContextType = {
-  user: User | undefined;
+  error: string | undefined;
+  adminUserAuth: User | undefined;
   loadingUser: boolean;
-  logInWithEmailAndPassword: (email: string, password: string) => Promise<void>;
+  logInWithEmailAndPassword: (
+    email: string,
+    password: string
+  ) => Promise<void | string>;
   reloginUser: () => Promise<void>;
 };
 
@@ -19,60 +24,66 @@ type AuthAdminContextProvider = {
 export const AuthAdminContext = createContext({} as AuthAdminContextType);
 
 export function AuthAdminProvider({ children }: AuthAdminContextProvider) {
-  const [user, setUser] = useState<User | undefined>();
+  const [adminUserAuth, setAdminUserAuth] = useState<User | undefined>();
   const [loadingUser, setLoadingUser] = useState(false);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     persistUser();
   }, []);
 
-  const persistUser = async () => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setLoadingUser(true);
+  const persistUser = () => {
+    setLoadingUser(true);
 
-        try {
-          const { uid, displayName, phoneNumber } = user;
+    try {
+      onAuthStateChanged(auth, (adminUserAuth) => {
+        if (adminUserAuth) {
+          const { uid } = adminUserAuth;
 
           if (uid) {
-            setUser({
+            setAdminUserAuth({
               uid: uid,
-              name: displayName!,
-              phone: phoneNumber!,
             });
+
+            setLoadingUser(false);
           }
-        } catch (error) {
-          console.log(error);
-        } finally {
+        } else {
           setLoadingUser(false);
         }
-      }
-    });
+      });
+    } catch (error) {
+      setLoadingUser(false);
+      console.log(error);
+    }
   };
 
   const logInWithEmailAndPassword = async (email: string, password: string) => {
-    const result = await signInWithEmailAndPassword(auth, email, password);
+    setLoadingUser(true);
 
-    if (result) {
-      setLoadingUser(true);
-      const { user } = result;
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
 
-      try {
+      if (result) {
+        const { user } = result;
         const { uid } = user;
 
         if (uid) {
-          sessionStorage.setItem("email", email!);
+          sessionStorage.setItem("email", email);
           sessionStorage.setItem("pass", password);
 
-          setUser({
+          setAdminUserAuth({
             uid: uid,
           });
         }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoadingUser(false);
       }
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        const convertedError = firebaseErrorConverter(error);
+
+        setError(convertedError);
+      }
+    } finally {
+      setLoadingUser(false);
     }
   };
 
@@ -81,14 +92,17 @@ export function AuthAdminProvider({ children }: AuthAdminContextProvider) {
     const pass = sessionStorage.getItem("pass");
 
     if (email && pass && pass.length > 5) {
+      setLoadingUser(true);
       await logInWithEmailAndPassword(email, pass);
+      setLoadingUser(false);
     }
   };
 
   return (
     <AuthAdminContext.Provider
       value={{
-        user,
+        error,
+        adminUserAuth,
         loadingUser,
         logInWithEmailAndPassword,
         reloginUser,

@@ -6,45 +6,67 @@ import { Grade } from "../types/Grade";
 import { useAdminAuth } from "./useAdminAuth";
 
 export function useGrades(studentId: string | undefined) {
-  const { user } = useAdminAuth();
+  const { adminUserAuth } = useAdminAuth();
   const [grades, setGrades] = useState<Grade[]>([]);
   const [isValidId, setIsValidId] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getGrades();
-  }, [studentId, user]);
+  }, [studentId, adminUserAuth]);
 
   function getGrades() {
-    if (studentId && user) {
-      const q = query(
-        collection(db, "grades"),
-        where("studentId", "==", studentId),
-        where("teacherId", "==", user.uid)
-      );
+    if (studentId && adminUserAuth) {
+      setLoading(true);
 
-      onSnapshot(q, (querySnapshot) => {
-        const gradesArray: Grade[] = [];
+      try {
+        const q = query(
+          collection(db, "grades"),
+          where("studentId", "==", studentId),
+          where("teacherId", "==", adminUserAuth.uid)
+        );
 
-        if (!querySnapshot.empty) {
-          querySnapshot.forEach((doc) => {
-            gradesArray.push({
-              id: doc.id,
-              studentId: doc.data().studentId,
-              period: doc.data().period,
-              schoolGrade: doc.data().schoolGrade,
-              schoolSubject: doc.data().schoolSubject,
-              teacherName: doc.data().teacherName,
-              teacherId: doc.data().teacherId,
+        onSnapshot(q, (querySnapshot) => {
+          const gradesArray: Grade[] = [];
+
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+              const {
+                studentId,
+                period,
+                schoolGrade,
+                schoolSubject,
+                teacherName,
+                teacherId,
+              } = doc.data();
+
+              gradesArray.push({
+                id: doc.id,
+                studentId: studentId,
+                period: period,
+                schoolGrade: schoolGrade,
+                schoolSubject: schoolSubject,
+                teacherName: teacherName,
+                teacherId: teacherId,
+              });
             });
-          });
 
-          setGrades(gradesArray);
+            setGrades(gradesArray);
 
-          setIsValidId(true);
-        }
-      });
+            setIsValidId(true);
+
+            setLoading(false);
+          } else {
+            setLoading(false);
+          }
+        });
+      } catch (error) {
+        setLoading(false);
+
+        console.log(error);
+      }
     }
   }
 
-  return { isValidId, grades };
+  return { loading, isValidId, grades };
 }

@@ -5,16 +5,18 @@ import { db, doc, setDoc } from "../../../services/firebase";
 import { clearForm } from "../../../helpers/clearForm";
 import { useAdmin } from "../../../hooks/useAdmin";
 import { useAdminAuth } from "../../../hooks/useAdminAuth";
+import { Alert } from "../../Alert";
 
 export function AddObservations() {
   const { id } = useParams();
-  const { user } = useAdminAuth();
+  const { adminUserAuth } = useAdminAuth();
   const { adminUser } = useAdmin();
   const [observation, setObservation] = useState("");
   const [schoolSubject, setSchoolSubject] = useState("");
   const [teacherName, setTeacherName] = useState("");
   const [subject, setSubject] = useState("");
   const [dateSeconds, setDateSeconds] = useState(0);
+  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     getTeacherInfos();
@@ -43,9 +45,13 @@ export function AddObservations() {
     if (id) {
       addObservationDoc(id)
         .then(() => {
-          alert("Observação inserida com sucesso!");
+          setAlertMessage("Observação inserida com sucesso.");
 
           clearForm("observation-form");
+
+          setTimeout(() => {
+            setAlertMessage("");
+          }, 3000);
         })
         .catch((error) => {
           console.log(error);
@@ -66,48 +72,54 @@ export function AddObservations() {
       subject: subject,
       schoolSubject: schoolSubject,
       teacherName: teacherName,
-      teacherId: user?.uid,
+      teacherId: adminUserAuth?.uid,
     });
   };
 
   return (
-    <form id="observation-form" onSubmit={addObservation}>
-      <label htmlFor="subject-observation">Qual o assunto?</label>
-      <input
-        type="text"
-        id="subject-observation"
-        name="subject-observation"
-        onChange={(event) => setSubject(event.target.value)}
-        value={subject}
-        maxLength={50}
-        required
-      />
+    <>
+      <form id="observation-form" onSubmit={addObservation}>
+        <label htmlFor="subject-observation">Qual o assunto?</label>
+        <input
+          type="text"
+          id="subject-observation"
+          name="subject-observation"
+          onChange={(event) => setSubject(event.target.value)}
+          value={subject}
+          maxLength={50}
+          required
+        />
 
-      {subject.length === 50 && (
-        <span className="warning">Máximo 50 caractéres</span>
+        {subject.length === 50 && (
+          <span className="warning">Máximo 50 caractéres</span>
+        )}
+
+        <textarea
+          id="observation-aluno"
+          name="observation-aluno"
+          placeholder="Digite uma observação sobre o aluno (max 300 caractéres)"
+          onChange={(event) => setObservation(event.target.value)}
+          value={observation}
+          maxLength={300}
+          required
+        />
+
+        {observation.length === 300 && (
+          <span className="warning">Máximo 300 caractéres</span>
+        )}
+
+        <button
+          disabled={subject.length === 0 || observation.length === 0}
+          type="submit"
+          className="btn"
+        >
+          Adicionar
+        </button>
+      </form>
+
+      {alertMessage && (
+        <Alert title="Aviso" description={alertMessage} defaultOpen={true} />
       )}
-
-      <textarea
-        id="observation-aluno"
-        name="observation-aluno"
-        placeholder="Digite uma observação sobre o aluno (max 300 caractéres)"
-        onChange={(event) => setObservation(event.target.value)}
-        value={observation}
-        maxLength={300}
-        required
-      />
-
-      {observation.length === 300 && (
-        <span className="warning">Máximo 300 caractéres</span>
-      )}
-
-      <button
-        disabled={subject.length === 0 || observation.length === 0}
-        type="submit"
-        className="btn"
-      >
-        Adicionar
-      </button>
-    </form>
+    </>
   );
 }

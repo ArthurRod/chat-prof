@@ -6,45 +6,70 @@ import { Observation } from "../types/Observation";
 import { useAdminAuth } from "./useAdminAuth";
 
 export function useObservations(studentId: string | undefined) {
-  const { user } = useAdminAuth();
+  const { adminUserAuth } = useAdminAuth();
   const [observations, setObservations] = useState<Observation[]>([]);
   const [isValidId, setIsValidId] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getObservations();
-  }, [studentId, user]);
+  }, [studentId, adminUserAuth]);
 
   function getObservations() {
-    if (studentId && user) {
-      const q = query(
-        collection(db, "observations"),
-        where("studentId", "==", studentId),
-        where("teacherId", "==", user.uid)
-      );
+    if (studentId && adminUserAuth) {
+      setLoading(true);
 
-      onSnapshot(q, (querySnapshot) => {
-        const observationsArray: Observation[] = [];
+      try {
+        const q = query(
+          collection(db, "observations"),
+          where("studentId", "==", studentId),
+          where("teacherId", "==", adminUserAuth.uid)
+        );
 
-        if (!querySnapshot.empty) {
-          querySnapshot.forEach((doc) => {
-            observationsArray.push({
-              id: doc.data().id,
-              studentId: doc.data().studentId,
-              observation: doc.data().observation,
-              observationDate: doc.data().observationDate,
-              schoolSubject: doc.data().schoolSubject,
-              subject: doc.data().subject,
-              teacherName: doc.data().teacherName,
-              teacherId: doc.data().teacherId,
+        onSnapshot(q, (querySnapshot) => {
+          const observationsArray: Observation[] = [];
+
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+              const {
+                id,
+                studentId,
+                observation,
+                observationDate,
+                schoolSubject,
+                subject,
+                teacherName,
+                teacherId,
+              } = doc.data();
+
+              observationsArray.push({
+                id: id,
+                studentId: studentId,
+                observation: observation,
+                observationDate: observationDate,
+                schoolSubject: schoolSubject,
+                subject: subject,
+                teacherName: teacherName,
+                teacherId: teacherId,
+              });
             });
-          });
 
-          setObservations(observationsArray);
-          setIsValidId(true);
-        }
-      });
+            setObservations(observationsArray);
+
+            setIsValidId(true);
+
+            setLoading(false);
+          } else {
+            setLoading(false);
+          }
+        });
+      } catch (error) {
+        console.log(error);
+
+        setLoading(false);
+      }
     }
   }
 
-  return { isValidId, observations };
+  return { loading, isValidId, observations };
 }

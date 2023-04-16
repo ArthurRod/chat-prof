@@ -12,21 +12,21 @@ import { useAdminType } from "./useAdminType";
 import { useAdminAuth } from "./useAdminAuth";
 
 export function useAdmin() {
-  const { user } = useAdminAuth();
+  const { adminUserAuth } = useAdminAuth();
   const { adminType } = useAdminType();
   const [adminUser, setAdminUser] = useState<AdminUser>();
   const [loadingAdminUser, setLoadingAdminUser] = useState(false);
 
   useEffect(() => {
     getAdminData();
-  }, [user, adminType]);
+  }, [adminUserAuth, adminType]);
 
   const getAdminData = () => {
-    if (user && adminType) {
+    if (adminUserAuth && adminType) {
       setLoadingAdminUser(true);
 
       try {
-        const { uid } = user;
+        const { uid } = adminUserAuth;
 
         if (adminType === "teacher") {
           const docRef = doc(db, "teachers", uid);

@@ -11,9 +11,9 @@ interface StudentsProps {
 }
 
 export function Students({ userName, userPhone }: StudentsProps) {
-  const { loadindStudentsData, studentsData } = useStudent(userPhone);
+  const { loading, studentsData } = useStudent(userPhone);
 
-  if (loadindStudentsData) return <Loading />;
+  if (loading) return <Loading />;
 
   return (
     <section className="students">
@@ -36,14 +36,10 @@ export function Students({ userName, userPhone }: StudentsProps) {
           ))}
         </>
       ) : (
-        <>
-          {!loadindStudentsData && (
-            <p className="title-no-students">
-              Olá {userName ? userName : "usuário"}! Não foram encontrado(s)
-              alunos cadastrados no sistema com este número de telefone.
-            </p>
-          )}
-        </>
+        <p className="title-no-students">
+          Olá {userName ? userName : "usuário"}! Não foram encontrado(s) alunos
+          cadastrados no sistema com este número de telefone.
+        </p>
       )}
     </section>
   );

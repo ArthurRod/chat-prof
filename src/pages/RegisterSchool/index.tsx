@@ -8,26 +8,33 @@ import { auth, db } from "../../services/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import { useAdminAuth } from "../../hooks/useAdminAuth";
+import { useAuth } from "../../hooks/useAuth";
 import { UserConected } from "../../routes/UserConected";
 import { Loading } from "../../components/Loading";
 
 import "../../styles/login-register.scss";
+import { FirebaseError } from "firebase/app";
+import { firebaseErrorConverter } from "../../helpers/firebaseErrorConverter";
+import { isStringMaxSize } from "../../helpers/isStringMaxSize";
+import { Alert } from "../../components/Alert";
 
 export function RegisterSchool() {
-  const { loadingUser, user } = useAdminAuth();
+  const { adminUserAuth } = useAdminAuth();
+  const { user } = useAuth();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const createSchool = (e: FormEvent) => {
     if (
       name.length > 0 &&
-      phone.length > 0 &&
+      isStringMaxSize(phone, 13) &&
       email.length > 0 &&
-      password.length > 0
+      password.length > 5
     ) {
       e.preventDefault();
 
@@ -49,10 +56,15 @@ export function RegisterSchool() {
             });
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
+          if (error instanceof FirebaseError) {
+            const convertedError = firebaseErrorConverter(error);
 
-          alert(errorMessage);
+            setError(convertedError);
+
+            setTimeout(() => {
+              setError("");
+            }, 3000);
+          }
         });
     }
   };
@@ -69,16 +81,12 @@ export function RegisterSchool() {
     });
   };
 
-  if (loadingUser) {
-    return <Loading />;
-  }
-
   return (
     <>
-      {user ? (
+      {user || adminUserAuth ? (
         <UserConected pathName="register-school" />
       ) : (
-        <div className="login-register register-school">
+        <section className="login-register register-school">
           <Link className="back-button" to="/">
             <ArrowLeft size={16} />
             Voltar
@@ -131,9 +139,9 @@ export function RegisterSchool() {
             <button
               disabled={
                 name.length === 0 ||
-                phone.length === 0 ||
+                !isStringMaxSize(phone, 13) ||
                 email.length === 0 ||
-                password.length === 0
+                password.length < 6
               }
               className="btn"
               type="submit"
@@ -141,7 +149,11 @@ export function RegisterSchool() {
               Cadastrar
             </button>
           </form>
-        </div>
+
+          {error && (
+            <Alert title="Erro" description={error} defaultOpen={true} />
+          )}
+        </section>
       )}
     </>
   );

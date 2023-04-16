@@ -3,15 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "phosphor-react";
 
 import { useAdminAuth } from "../../hooks/useAdminAuth";
-import { Loading } from "../../components/Loading";
+import { useAuth } from "../../hooks/useAuth";
 import { UserConected } from "../../routes/UserConected";
+import { Alert } from "../../components/Alert";
 
 export function LoginAdmin() {
-  const { loadingUser, user } = useAdminAuth();
+  const { adminUserAuth } = useAdminAuth();
+  const { user } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { logInWithEmailAndPassword } = useAdminAuth();
+  const { error, logInWithEmailAndPassword } = useAdminAuth();
 
   const navigate = useNavigate();
 
@@ -29,16 +31,12 @@ export function LoginAdmin() {
     }
   }
 
-  if (loadingUser) {
-    return <Loading />;
-  }
-
   return (
     <>
-      {user ? (
+      {adminUserAuth || user ? (
         <UserConected pathName="login-admin" />
       ) : (
-        <div className="login-register login-admin">
+        <section className="login-register login-admin">
           <Link className="back-button" to="/">
             <ArrowLeft size={16} />
             Voltar
@@ -68,14 +66,18 @@ export function LoginAdmin() {
             />
 
             <button
-              disabled={email.length === 0 || password.length === 0}
+              disabled={email.length === 0 || password.length < 6}
               className="btn"
               type="submit"
             >
               Logar
             </button>
           </form>
-        </div>
+
+          {error && (
+            <Alert title="Erro" description={error} defaultOpen={true} />
+          )}
+        </section>
       )}
     </>
   );

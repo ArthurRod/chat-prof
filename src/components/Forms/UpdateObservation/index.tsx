@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { db, doc, setDoc } from "../../../services/firebase";
+import { Alert } from "../../Alert";
 
 interface UpdateObservationProps {
   observationId: string;
@@ -14,6 +15,7 @@ export function UpdateObservation({
 }: UpdateObservationProps) {
   const [newSubject, setNewSubject] = useState("");
   const [newObservation, setNewObservation] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     setNewSubject(subject);
@@ -26,7 +28,11 @@ export function UpdateObservation({
     if (newSubject !== subject || newObservation !== observation) {
       updateObservationDoc(observationId)
         .then(() => {
-          alert("Observação alterada com sucesso!");
+          setAlertMessage("Observação alterada com sucesso.");
+
+          setTimeout(() => {
+            setAlertMessage("");
+          }, 3000);
         })
         .catch((error) => {
           console.log(error);
@@ -46,49 +52,55 @@ export function UpdateObservation({
   };
 
   return (
-    <form id="update-observation-form" onSubmit={updateObservation}>
-      <label htmlFor="subject-observation">Qual o assunto?</label>
-      <input
-        type="text"
-        id="subject-observation"
-        name="subject-observation"
-        onChange={(event) => setNewSubject(event.target.value)}
-        value={newSubject}
-        maxLength={50}
-        required
-      />
+    <>
+      <form id="update-observation-form" onSubmit={updateObservation}>
+        <label htmlFor="subject-observation">Qual o assunto?</label>
+        <input
+          type="text"
+          id="subject-observation"
+          name="subject-observation"
+          onChange={(event) => setNewSubject(event.target.value)}
+          value={newSubject}
+          maxLength={50}
+          required
+        />
 
-      {newSubject.length === 50 && (
-        <span className="warning">
-          Não é possível adicionar mais carácteres (Máximo 50 caractéres
-          atingido)
-        </span>
+        {newSubject.length === 50 && (
+          <span className="warning">
+            Não é possível adicionar mais carácteres (Máximo 50 caractéres
+            atingido)
+          </span>
+        )}
+
+        <textarea
+          id="observation-aluno"
+          name="observation-aluno"
+          placeholder="Digite uma observação sobre o aluno (máx. 300 caractéres)"
+          onChange={(event) => setNewObservation(event.target.value)}
+          value={newObservation}
+          maxLength={300}
+          required
+        />
+
+        {newObservation.length === 300 && (
+          <span className="warning">
+            Não é possível adicionar mais carácteres (Máximo 300 caractéres
+            atingido)
+          </span>
+        )}
+
+        <button
+          disabled={subject === newSubject && observation === newObservation}
+          type="submit"
+          className="btn"
+        >
+          Alterar
+        </button>
+      </form>
+
+      {alertMessage && (
+        <Alert title="Aviso" description={alertMessage} defaultOpen={true} />
       )}
-
-      <textarea
-        id="observation-aluno"
-        name="observation-aluno"
-        placeholder="Digite uma observação sobre o aluno (máx. 300 caractéres)"
-        onChange={(event) => setNewObservation(event.target.value)}
-        value={newObservation}
-        maxLength={300}
-        required
-      />
-
-      {newObservation.length === 300 && (
-        <span className="warning">
-          Não é possível adicionar mais carácteres (Máximo 300 caractéres
-          atingido)
-        </span>
-      )}
-
-      <button
-        disabled={subject === newSubject && observation === newObservation}
-        type="submit"
-        className="btn"
-      >
-        Alterar
-      </button>
-    </form>
+    </>
   );
 }

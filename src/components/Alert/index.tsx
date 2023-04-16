@@ -1,13 +1,13 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import { useState } from "react";
 
 import "../../styles/alert.scss";
 
 interface AlertProps {
   title?: string;
   description: string;
-  trigger: JSX.Element;
+  trigger?: JSX.Element;
   triggerName?: string;
+  defaultOpen?: boolean;
   action?: () => void;
 }
 
@@ -16,16 +16,19 @@ export function Alert({
   description,
   trigger,
   triggerName,
+  defaultOpen,
   action,
 }: AlertProps) {
   return (
-    <AlertDialog.Root>
-      <AlertDialog.Trigger
-        type="button"
-        className={triggerName ? triggerName : "trigger"}
-      >
-        {trigger}
-      </AlertDialog.Trigger>
+    <AlertDialog.Root defaultOpen={defaultOpen}>
+      {trigger && (
+        <AlertDialog.Trigger
+          type="button"
+          className={triggerName ? triggerName : "trigger"}
+        >
+          {trigger}
+        </AlertDialog.Trigger>
+      )}
 
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="overlay" />
@@ -41,7 +44,7 @@ export function Alert({
               {description}
             </AlertDialog.Description>
 
-            {action && (
+            {action ? (
               <div className="alert-controls">
                 <AlertDialog.Cancel asChild>
                   <button className="btn back alert-cancel">Cancelar</button>
@@ -50,6 +53,12 @@ export function Alert({
                   <button onClick={action} className="btn alert-success">
                     Sim
                   </button>
+                </AlertDialog.Action>
+              </div>
+            ) : (
+              <div className="alert-controls">
+                <AlertDialog.Action asChild>
+                  <button className="btn alert-success">Ok</button>
                 </AlertDialog.Action>
               </div>
             )}
