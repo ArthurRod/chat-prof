@@ -95,6 +95,10 @@ export function AuthProvider({ children }: AuthContextProvider) {
             const convertedError = firebaseErrorConverter(error);
 
             setError(convertedError);
+
+            setTimeout(() => {
+              setError("");
+            }, 3000);
           }
         })
         .finally(() => setLoadingUser(false));
