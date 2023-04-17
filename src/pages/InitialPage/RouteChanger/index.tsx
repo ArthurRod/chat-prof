@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 
+import schoolImg from "../../../assets/png/school.png";
+import teacherImg from "../../../assets/png/teacher.png";
+import fatherAndSonImg from "../../../assets/png/father-and-son.png";
 import "../../../styles/route-changer.scss";
 
 export function RouteChanger() {
@@ -10,7 +13,7 @@ export function RouteChanger() {
         <Link to="register-school">
           <img
             className="image"
-            src="/src/assets/png/school.png"
+            src={schoolImg}
             alt="Imagem de Escola"
             width={100}
           />
@@ -19,7 +22,7 @@ export function RouteChanger() {
         <Link to="login-admin">
           <img
             className="image"
-            src="/src/assets/png/teacher.png"
+            src={teacherImg}
             alt="Imagem de professor"
             width={100}
           />
@@ -31,7 +34,7 @@ export function RouteChanger() {
         <Link to="login">
           <img
             className="image"
-            src="/src/assets/png/father-and-son.png"
+            src={fatherAndSonImg}
             alt="Imagem de pai e filho"
             width={100}
           />
