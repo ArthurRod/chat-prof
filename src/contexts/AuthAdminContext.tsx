@@ -44,16 +44,13 @@ export function AuthAdminProvider({ children }: AuthAdminContextProvider) {
             setAdminUserAuth({
               uid: uid,
             });
-
-            setLoadingUser(false);
           }
-        } else {
-          setLoadingUser(false);
         }
       });
     } catch (error) {
-      setLoadingUser(false);
       console.log(error);
+    } finally {
+      setLoadingUser(false);
     }
   };
 

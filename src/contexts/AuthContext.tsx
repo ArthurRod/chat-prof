@@ -54,16 +54,13 @@ export function AuthProvider({ children }: AuthContextProvider) {
               phone: phoneNumber,
               name: displayName ? displayName : "",
             });
-
-            setLoadingUser(false);
           }
-        } else {
-          setLoadingUser(false);
         }
       });
     } catch (error) {
-      setLoadingUser(false);
       console.log(error);
+    } finally {
+      setLoadingUser(false);
     }
   };
 
