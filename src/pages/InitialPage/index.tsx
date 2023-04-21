@@ -6,7 +6,7 @@ import "../../styles/initial-page.scss";
 
 export function InitialPage({ children }: { children?: JSX.Element }) {
   return (
-    <div className="initial-page">
+    <section className="initial-page">
       <aside>
         <div className="content">
           <Logo />
@@ -17,6 +17,6 @@ export function InitialPage({ children }: { children?: JSX.Element }) {
         </div>
       </aside>
       <main>{children ? children : <Outlet />}</main>
-    </div>
+    </section>
   );
 }

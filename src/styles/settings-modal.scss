@@ -19,13 +19,21 @@
     height: 100%;
 
     form {
-      height: calc(100% - 135px);
+      height: calc(100% - 170px);
+
+      @media (min-width: 1025px) {
+        height: calc(100% - 135px);
+      }
     }
 
     .bottom {
       display: flex;
       justify-content: flex-end;
-      padding: 15px;
+      padding: 15px 15px 50px;
+
+      @media (min-width: 1025px) {
+        padding: 15px;
+      }
     }
   }
 }
